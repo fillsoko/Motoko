@@ -1,0 +1,98 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Nav from '../../components/Nav.astro';
+import Footer from '../../components/Footer.astro';
+import { bikes } from '../../data/bikes';
+import type { GetStaticPaths } from 'astro';
+
+export const getStaticPaths: GetStaticPaths = () => {
+  return bikes.map((bike) => ({
+    params: { slug: bike.slug },
+    props: { bike },
+  }));
+};
+
+const { bike } = Astro.props;
+---
+
+<BaseLayout title={`${bike.name} — motoko`} description={`${bike.name} mieten bei motoko. ${bike.engine}, ${bike.power}. Ab ${bike.pricePerDay} EUR pro Tag.`}>
+  <Nav />
+
+  <main class="pt-24 pb-20 px-6">
+    <div class="max-w-4xl mx-auto">
+      <!-- Back link -->
+      <a
+        href="/#fleet"
+        class="inline-flex items-center gap-2 text-sm font-body text-text-muted hover:text-text-secondary transition-colors duration-300 mb-8"
+      >
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 19l-7-7 7-7" />
+        </svg>
+        Alle Bikes
+      </a>
+
+      <!-- Image placeholder: 16:9 aspect ratio -->
+      <div class="aspect-[16/9] bg-bg-surface-alt rounded-lg mb-10"></div>
+
+      <!-- Header -->
+      <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-8">
+        <div>
+          <h1 class="font-display text-3xl md:text-5xl font-light text-text-primary">
+            {bike.name}
+          </h1>
+          {bike.nickname && (
+            <span class="text-lg font-body text-text-muted italic mt-1 block">
+              &ldquo;{bike.nickname}&rdquo;
+            </span>
+          )}
+        </div>
+        <div class="flex items-center gap-3">
+          <span class="inline-block px-3 py-1 text-xs font-mono uppercase tracking-wider text-text-muted border border-border rounded">
+            {bike.category}
+          </span>
+          <span class="text-sm font-mono text-text-secondary">{bike.year}</span>
+        </div>
+      </div>
+
+      <!-- Specs grid -->
+      <dl class="grid grid-cols-2 md:grid-cols-3 gap-6 mb-10 p-6 bg-bg-surface border border-border rounded-lg">
+        <div>
+          <dt class="font-mono text-xs uppercase tracking-wider text-text-muted mb-1">Motor</dt>
+          <dd class="font-body text-text-secondary">{bike.engine}</dd>
+        </div>
+        <div>
+          <dt class="font-mono text-xs uppercase tracking-wider text-text-muted mb-1">Leistung</dt>
+          <dd class="font-body text-text-secondary">{bike.power}</dd>
+        </div>
+        <div>
+          <dt class="font-mono text-xs uppercase tracking-wider text-text-muted mb-1">Gewicht</dt>
+          <dd class="font-body text-text-secondary">{bike.weight}</dd>
+        </div>
+        <div>
+          <dt class="font-mono text-xs uppercase tracking-wider text-text-muted mb-1">Sitzhoehe</dt>
+          <dd class="font-body text-text-secondary">{bike.seat}</dd>
+        </div>
+        <div>
+          <dt class="font-mono text-xs uppercase tracking-wider text-text-muted mb-1">Baujahr</dt>
+          <dd class="font-body text-text-secondary">{bike.year}</dd>
+        </div>
+        <div>
+          <dt class="font-mono text-xs uppercase tracking-wider text-text-muted mb-1">Preis</dt>
+          <dd class="font-body text-text-primary font-medium">ab {bike.pricePerDay} EUR / Tag</dd>
+        </div>
+      </dl>
+
+      <!-- CTA -->
+      <a
+        href={bike.ripeUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="inline-block px-8 py-4 bg-text-primary text-bg-primary text-sm font-body font-medium uppercase tracking-widest rounded hover:bg-text-secondary transition-colors duration-300"
+      >
+        Book via RIBE
+      </a>
+    </div>
+  </main>
+
+  <Footer />
+</BaseLayout>

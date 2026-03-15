@@ -1,0 +1,264 @@
+---
+---
+
+<section id="contact" class="py-24 px-6">
+  <div class="max-w-2xl mx-auto">
+    <div class="mb-12">
+      <h2 class="font-display text-4xl md:text-5xl font-normal mb-4">Anfrage</h2>
+      <p class="font-body text-text-secondary text-lg">
+        Beantworte ein paar Fragen und wir melden uns bei dir.
+      </p>
+    </div>
+
+    <div class="bg-bg-surface border border-border rounded-lg p-6 md:p-8">
+      <!-- Progress bar -->
+      <div class="flex items-center gap-2 mb-8">
+        <div id="step-dots" class="flex items-center gap-2">
+          {[1, 2, 3, 4, 5].map((n) => (
+            <div
+              data-dot={n}
+              class={`w-2 h-2 rounded-full transition-colors duration-300 ${n === 1 ? 'bg-text-primary' : 'bg-border'}`}
+            />
+          ))}
+        </div>
+        <span id="step-label" class="ml-3 text-xs font-mono text-text-muted uppercase tracking-wider">
+          Schritt 1 / 5
+        </span>
+      </div>
+
+      <!-- Step 1: What are you looking for? -->
+      <div data-step="1" class="wizard-step">
+        <h3 class="font-display text-xl mb-6">Was suchst du?</h3>
+        <div class="grid grid-cols-1 gap-3">
+          <button data-choice="interest" data-value="bike" class="wizard-option text-left px-5 py-4 border border-border rounded hover:border-text-muted transition-colors duration-300">
+            <span class="block font-body text-text-primary text-sm font-medium">Motorrad mieten</span>
+            <span class="block font-body text-text-muted text-xs mt-1">Ich will ein bestimmtes Bike ausleihen</span>
+          </button>
+          <button data-choice="interest" data-value="tour" class="wizard-option text-left px-5 py-4 border border-border rounded hover:border-text-muted transition-colors duration-300">
+            <span class="block font-body text-text-primary text-sm font-medium">Geführte Tour</span>
+            <span class="block font-body text-text-muted text-xs mt-1">Ich will an einer geführten Motorradtour teilnehmen</span>
+          </button>
+          <button data-choice="interest" data-value="both" class="wizard-option text-left px-5 py-4 border border-border rounded hover:border-text-muted transition-colors duration-300">
+            <span class="block font-body text-text-primary text-sm font-medium">Offen für beides</span>
+            <span class="block font-body text-text-muted text-xs mt-1">Zeig mir was ihr habt</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Step 2: Brand preference -->
+      <div data-step="2" class="wizard-step hidden">
+        <h3 class="font-display text-xl mb-6">Hast du eine Markenpräferenz?</h3>
+        <div class="grid grid-cols-2 gap-3">
+          <button data-choice="brand" data-value="bmw" class="wizard-option text-left px-5 py-4 border border-border rounded hover:border-text-muted transition-colors duration-300">
+            <span class="block font-body text-text-primary text-sm font-medium">BMW</span>
+          </button>
+          <button data-choice="brand" data-value="harley" class="wizard-option text-left px-5 py-4 border border-border rounded hover:border-text-muted transition-colors duration-300">
+            <span class="block font-body text-text-primary text-sm font-medium">Harley-Davidson</span>
+          </button>
+          <button data-choice="brand" data-value="triumph" class="wizard-option text-left px-5 py-4 border border-border rounded hover:border-text-muted transition-colors duration-300">
+            <span class="block font-body text-text-primary text-sm font-medium">Triumph</span>
+          </button>
+          <button data-choice="brand" data-value="ducati" class="wizard-option text-left px-5 py-4 border border-border rounded hover:border-text-muted transition-colors duration-300">
+            <span class="block font-body text-text-primary text-sm font-medium">Ducati</span>
+          </button>
+          <button data-choice="brand" data-value="other" class="wizard-option text-left px-5 py-4 border border-border rounded hover:border-text-muted transition-colors duration-300">
+            <span class="block font-body text-text-primary text-sm font-medium">Andere</span>
+          </button>
+          <button data-choice="brand" data-value="no-preference" class="wizard-option text-left px-5 py-4 border border-border rounded hover:border-text-muted transition-colors duration-300">
+            <span class="block font-body text-text-primary text-sm font-medium">Egal</span>
+            <span class="block font-body text-text-muted text-xs mt-1">Hauptsache Fahrspass</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Step 3: Booking preference -->
+      <div data-step="3" class="wizard-step hidden">
+        <h3 class="font-display text-xl mb-6">Wie möchtest du buchen?</h3>
+        <div class="grid grid-cols-1 gap-3">
+          <button data-choice="booking" data-value="ribe" class="wizard-option text-left px-5 py-4 border border-border rounded hover:border-text-muted transition-colors duration-300">
+            <span class="block font-body text-text-primary text-sm font-medium">Über RIBE</span>
+            <span class="block font-body text-text-muted text-xs mt-1">Online-Plattform mit europaweiter Vollkasko</span>
+          </button>
+          <button data-choice="booking" data-value="direct" class="wizard-option text-left px-5 py-4 border border-border rounded hover:border-text-muted transition-colors duration-300">
+            <span class="block font-body text-text-primary text-sm font-medium">Direkt bei motoko</span>
+            <span class="block font-body text-text-muted text-xs mt-1">Persönlicher Kontakt, individuelle Absprache</span>
+          </button>
+          <button data-choice="booking" data-value="unsure" class="wizard-option text-left px-5 py-4 border border-border rounded hover:border-text-muted transition-colors duration-300">
+            <span class="block font-body text-text-primary text-sm font-medium">Bin mir unsicher</span>
+            <span class="block font-body text-text-muted text-xs mt-1">Beratet mich</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Step 4: Insurance -->
+      <div data-step="4" class="wizard-step hidden">
+        <h3 class="font-display text-xl mb-6">Versicherung</h3>
+        <div class="grid grid-cols-1 gap-3">
+          <button data-choice="insurance" data-value="full" class="wizard-option text-left px-5 py-4 border border-border rounded hover:border-text-muted transition-colors duration-300">
+            <span class="block font-body text-text-primary text-sm font-medium">Europaweite Vollkasko</span>
+            <span class="block font-body text-text-muted text-xs mt-1">Maximaler Schutz, inklusive bei RIBE-Buchungen</span>
+          </button>
+          <button data-choice="insurance" data-value="basic" class="wizard-option text-left px-5 py-4 border border-border rounded hover:border-text-muted transition-colors duration-300">
+            <span class="block font-body text-text-primary text-sm font-medium">Haftpflicht</span>
+            <span class="block font-body text-text-muted text-xs mt-1">Gesetzlicher Mindestschutz</span>
+          </button>
+          <button data-choice="insurance" data-value="own" class="wizard-option text-left px-5 py-4 border border-border rounded hover:border-text-muted transition-colors duration-300">
+            <span class="block font-body text-text-primary text-sm font-medium">Eigene Versicherung</span>
+            <span class="block font-body text-text-muted text-xs mt-1">Ich bin bereits versichert</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Step 5: Contact details -->
+      <div data-step="5" class="wizard-step hidden">
+        <h3 class="font-display text-xl mb-6">Deine Kontaktdaten</h3>
+        <form id="wizard-form" class="space-y-4">
+          <div>
+            <label for="wiz-name" class="block text-xs font-mono text-text-muted uppercase tracking-wider mb-1">Name</label>
+            <input
+              type="text"
+              id="wiz-name"
+              name="name"
+              required
+              class="w-full px-4 py-3 bg-bg-surface-alt border border-border rounded text-text-primary font-body text-sm placeholder:text-text-muted focus:outline-none focus:border-text-muted transition-colors duration-300"
+              placeholder="Max Mustermann"
+            />
+          </div>
+          <div>
+            <label for="wiz-email" class="block text-xs font-mono text-text-muted uppercase tracking-wider mb-1">E-Mail</label>
+            <input
+              type="email"
+              id="wiz-email"
+              name="email"
+              required
+              class="w-full px-4 py-3 bg-bg-surface-alt border border-border rounded text-text-primary font-body text-sm placeholder:text-text-muted focus:outline-none focus:border-text-muted transition-colors duration-300"
+              placeholder="max@example.com"
+            />
+          </div>
+          <div>
+            <label for="wiz-message" class="block text-xs font-mono text-text-muted uppercase tracking-wider mb-1">Nachricht (optional)</label>
+            <textarea
+              id="wiz-message"
+              name="message"
+              rows="3"
+              class="w-full px-4 py-3 bg-bg-surface-alt border border-border rounded text-text-primary font-body text-sm placeholder:text-text-muted focus:outline-none focus:border-text-muted transition-colors duration-300 resize-none"
+              placeholder="Wunschtermin, Fragen, etc."
+            ></textarea>
+          </div>
+          <button
+            type="submit"
+            class="w-full px-6 py-3 bg-text-primary text-bg-primary text-sm font-body font-medium uppercase tracking-widest rounded hover:bg-text-secondary transition-colors duration-300"
+          >
+            Anfrage senden
+          </button>
+        </form>
+      </div>
+
+      <!-- Success state -->
+      <div id="wizard-success" class="hidden text-center py-8">
+        <h3 class="font-display text-2xl mb-3">Danke</h3>
+        <p class="font-body text-text-secondary">
+          Wir melden uns innerhalb von 24 Stunden bei dir.
+        </p>
+      </div>
+
+      <!-- Navigation -->
+      <div id="wizard-nav" class="flex items-center justify-between mt-8">
+        <button
+          id="wizard-back"
+          class="text-sm font-body text-text-muted hover:text-text-secondary transition-colors duration-300 invisible"
+        >
+          Zurück
+        </button>
+        <div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  const wizard = {
+    step: 1,
+    total: 5,
+    data: {} as Record<string, string>,
+
+    init() {
+      // Choice buttons
+      document.querySelectorAll('.wizard-option').forEach((btn) => {
+        btn.addEventListener('click', () => {
+          const choice = (btn as HTMLElement).dataset.choice!;
+          const value = (btn as HTMLElement).dataset.value!;
+          this.data[choice] = value;
+
+          // Highlight selected
+          const siblings = btn.parentElement!.querySelectorAll('.wizard-option');
+          siblings.forEach((s) => s.classList.remove('border-text-primary'));
+          btn.classList.add('border-text-primary');
+
+          // Auto-advance after short delay
+          setTimeout(() => this.next(), 200);
+        });
+      });
+
+      // Back button
+      document.getElementById('wizard-back')?.addEventListener('click', () => this.prev());
+
+      // Form submit
+      document.getElementById('wizard-form')?.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const form = e.target as HTMLFormElement;
+        const formData = new FormData(form);
+        this.data.name = formData.get('name') as string;
+        this.data.email = formData.get('email') as string;
+        this.data.message = formData.get('message') as string;
+
+        // Log data (replace with actual form submission)
+        console.log('Inquiry:', this.data);
+
+        // Show success
+        document.querySelectorAll('.wizard-step').forEach((s) => s.classList.add('hidden'));
+        document.getElementById('wizard-success')!.classList.remove('hidden');
+        document.getElementById('wizard-nav')!.classList.add('hidden');
+        document.getElementById('step-dots')!.classList.add('hidden');
+        document.getElementById('step-label')!.classList.add('hidden');
+      });
+    },
+
+    next() {
+      if (this.step >= this.total) return;
+      this.step++;
+      this.render();
+    },
+
+    prev() {
+      if (this.step <= 1) return;
+      this.step--;
+      this.render();
+    },
+
+    render() {
+      // Show/hide steps
+      document.querySelectorAll('.wizard-step').forEach((s) => s.classList.add('hidden'));
+      document.querySelector(`[data-step="${this.step}"]`)?.classList.remove('hidden');
+
+      // Update dots
+      document.querySelectorAll('[data-dot]').forEach((dot) => {
+        const n = parseInt((dot as HTMLElement).dataset.dot!);
+        dot.classList.toggle('bg-text-primary', n <= this.step);
+        dot.classList.toggle('bg-border', n > this.step);
+      });
+
+      // Update label
+      const label = document.getElementById('step-label');
+      if (label) label.textContent = `Schritt ${this.step} / ${this.total}`;
+
+      // Back button visibility
+      const back = document.getElementById('wizard-back');
+      if (back) {
+        back.classList.toggle('invisible', this.step === 1);
+      }
+    },
+  };
+
+  wizard.init();
+</script>

@@ -1,0 +1,45 @@
+---
+---
+
+<div
+  id="cookie-banner"
+  class="fixed bottom-0 left-0 right-0 z-50 bg-bg-surface border-t border-border px-6 py-4 hidden"
+>
+  <div class="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
+    <p class="font-body text-sm text-text-secondary">
+      Diese Website verwendet Cookies.
+    </p>
+    <div class="flex items-center gap-3">
+      <button
+        id="cookie-reject"
+        class="px-4 py-2 text-xs font-body font-medium uppercase tracking-widest text-text-muted border border-border rounded hover:text-text-secondary hover:border-text-muted transition-colors duration-300"
+      >
+        Ablehnen
+      </button>
+      <button
+        id="cookie-accept"
+        class="px-4 py-2 text-xs font-body font-medium uppercase tracking-widest bg-text-primary text-bg-primary rounded hover:bg-text-secondary transition-colors duration-300"
+      >
+        Akzeptieren
+      </button>
+    </div>
+  </div>
+</div>
+
+<script>
+  const banner = document.getElementById('cookie-banner');
+  const acceptBtn = document.getElementById('cookie-accept');
+  const rejectBtn = document.getElementById('cookie-reject');
+
+  if (!localStorage.getItem('cookie-consent')) {
+    banner?.classList.remove('hidden');
+  }
+
+  function hideBanner(choice: string) {
+    localStorage.setItem('cookie-consent', choice);
+    banner?.classList.add('hidden');
+  }
+
+  acceptBtn?.addEventListener('click', () => hideBanner('accepted'));
+  rejectBtn?.addEventListener('click', () => hideBanner('rejected'));
+</script>

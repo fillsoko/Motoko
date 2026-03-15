@@ -10,12 +10,18 @@ const { bike } = Astro.props;
 
 <article class="group bg-bg-surface border border-border rounded-lg overflow-hidden hover:border-text-muted transition-colors duration-300">
   <!-- Image placeholder: 3:2 aspect ratio -->
-  <div class="aspect-[3/2] bg-bg-surface-alt"></div>
+  <a href={`/bikes/${bike.slug}`} class="block">
+    <div class="aspect-[3/2] bg-bg-surface-alt"></div>
+  </a>
 
   <div class="p-6">
     <div class="flex items-start justify-between mb-2">
       <div>
-        <h3 class="font-display text-xl font-semibold text-text-primary">{bike.name}</h3>
+        <h3 class="font-display text-xl font-semibold text-text-primary">
+          <a href={`/bikes/${bike.slug}`} class="hover:text-text-secondary transition-colors duration-300">
+            {bike.name}
+          </a>
+        </h3>
         {bike.nickname && (
           <span class="text-sm font-body text-text-muted italic">&ldquo;{bike.nickname}&rdquo;</span>
         )}

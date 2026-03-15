@@ -9,6 +9,11 @@ export interface Bike {
   year: number;
   pricePerDay: number;
   ripeUrl: string;
+  slug: string;
+}
+
+export function generateSlug(name: string): string {
+  return name.toLowerCase().replace(/\s+/g, '-');
 }
 
 export const bikes: Bike[] = [
@@ -23,6 +28,7 @@ export const bikes: Bike[] = [
     year: 2001,
     pricePerDay: 100,
     ripeUrl: 'https://www.ribeme.com/de/motorrad/mieten/8250-harley-davidson-flh-2001',
+    slug: 'harley-davidson-flh',
   },
   {
     name: 'Honda GL Goldwing Valkyrie',
@@ -35,6 +41,7 @@ export const bikes: Bike[] = [
     year: 2014,
     pricePerDay: 200,
     ripeUrl: 'https://www.ribeme.com/de/motorrad/mieten/8242-honda-gl-goldwing-gl-custom-2015',
+    slug: 'honda-gl-goldwing-valkyrie',
   },
   {
     name: 'BMW R 1200 GS',
@@ -47,6 +54,7 @@ export const bikes: Bike[] = [
     year: 2010,
     pricePerDay: 100,
     ripeUrl: 'https://www.ribeme.com/de/motorrad/mieten/6110-bmw-r-1200-2010',
+    slug: 'bmw-r-1200-gs',
   },
   {
     name: 'BMW K 1300 R',
@@ -58,6 +66,7 @@ export const bikes: Bike[] = [
     year: 2009,
     pricePerDay: 130,
     ripeUrl: 'https://www.ribeme.com/de/motorrad/mieten/6111-bmw-k-1300-2009',
+    slug: 'bmw-k-1300-r',
   },
   {
     name: 'Buell XB12 SCG',
@@ -70,6 +79,7 @@ export const bikes: Bike[] = [
     year: 2006,
     pricePerDay: 130,
     ripeUrl: 'https://www.ribeme.com/de/motorrad/mieten/6112-buell-xb12-2009',
+    slug: 'buell-xb12-scg',
   },
   {
     name: 'Kawasaki Zephyr 1100',
@@ -81,6 +91,7 @@ export const bikes: Bike[] = [
     year: 1993,
     pricePerDay: 70,
     ripeUrl: 'https://www.ribeme.com/de/motorrad/mieten/6113-kawasaki-zephyr-1100-1993',
+    slug: 'kawasaki-zephyr-1100',
   },
   {
     name: 'Ducati 900 SS',
@@ -93,6 +104,7 @@ export const bikes: Bike[] = [
     year: 1997,
     pricePerDay: 130,
     ripeUrl: 'https://www.ribeme.com/de/motorrad/mieten/6114-ducati-900-1997',
+    slug: 'ducati-900-ss',
   },
   {
     name: 'Husqvarna Vitpilen 701',
@@ -105,6 +117,7 @@ export const bikes: Bike[] = [
     year: 2020,
     pricePerDay: 100,
     ripeUrl: 'https://www.ribeme.com/de/motorrad/mieten/6115-husqvarna-vitpilen-2020',
+    slug: 'husqvarna-vitpilen-701',
   },
   {
     name: 'Triumph Speed Triple',
@@ -117,6 +130,7 @@ export const bikes: Bike[] = [
     year: 2006,
     pricePerDay: 100,
     ripeUrl: 'https://www.ribeme.com/de/motorrad/mieten/6116-triumph-speed-triple-2006',
+    slug: 'triumph-speed-triple',
   },
   {
     name: 'Triumph Rocket 3R',
@@ -128,5 +142,6 @@ export const bikes: Bike[] = [
     year: 2020,
     pricePerDay: 220,
     ripeUrl: 'https://www.ribeme.com/de/motorrad/mieten/6117-triumph-rocket-iii-2020',
+    slug: 'triumph-rocket-3r',
   },
 ];

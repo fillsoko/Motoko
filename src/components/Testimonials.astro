@@ -1,0 +1,22 @@
+---
+import { testimonials } from '../data/testimonials';
+---
+
+<section id="testimonials" class="bg-bg-primary py-20 px-6">
+  <div class="max-w-6xl mx-auto">
+    <h2 class="font-display text-3xl md:text-4xl font-light text-text-primary mb-12 text-center">
+      Stimmen unserer Fahrer
+    </h2>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      {testimonials.map((t) => (
+        <article class="bg-bg-surface border border-border rounded-lg p-6 flex flex-col justify-between">
+          <p class="font-body text-sm text-text-secondary leading-relaxed mb-4">
+            &ldquo;{t.text}&rdquo;
+          </p>
+          <span class="font-body text-xs text-text-muted">{t.name}</span>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
