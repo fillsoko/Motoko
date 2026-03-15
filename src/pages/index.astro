@@ -3,9 +3,15 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import Nav from '../components/Nav.astro';
 import Hero from '../components/Hero.astro';
 import ValueProps from '../components/ValueProps.astro';
+import HowItWorks from '../components/HowItWorks.astro';
+import WhyFrankfurt from '../components/WhyFrankfurt.astro';
 import Fleet from '../components/Fleet.astro';
 import Faq from '../components/Faq.astro';
+import Requirements from '../components/Requirements.astro';
 import InquiryWizard from '../components/InquiryWizard.astro';
+import LocationMap from '../components/LocationMap.astro';
+import InstagramFeed from '../components/InstagramFeed.astro';
+import Partners from '../components/Partners.astro';
 import CtaSection from '../components/CtaSection.astro';
 import Footer from '../components/Footer.astro';
 import CookieBanner from '../components/CookieBanner.astro';
@@ -18,12 +24,24 @@ import SectionDivider from '../components/SectionDivider.astro';
     <Hero />
     <SectionDivider />
     <ValueProps />
+    <SectionDivider label="So funktioniert's" />
+    <HowItWorks />
+    <SectionDivider label="Standort" />
+    <WhyFrankfurt />
     <SectionDivider label="Fleet" />
     <Fleet preview={true} />
     <SectionDivider label="FAQ" />
     <Faq />
+    <SectionDivider label="Voraussetzungen" />
+    <Requirements />
     <SectionDivider label="Kontakt" />
     <InquiryWizard />
+    <SectionDivider label="Abholort" />
+    <LocationMap />
+    <SectionDivider />
+    <InstagramFeed />
+    <SectionDivider label="Partner" />
+    <Partners />
     <SectionDivider />
     <CtaSection />
   </main>

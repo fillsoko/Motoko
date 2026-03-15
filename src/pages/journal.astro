@@ -1,0 +1,36 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Nav from '../components/Nav.astro';
+import PageHero from '../components/PageHero.astro';
+import PostCard from '../components/PostCard.astro';
+import Footer from '../components/Footer.astro';
+import CookieBanner from '../components/CookieBanner.astro';
+import SectionDivider from '../components/SectionDivider.astro';
+import { posts } from '../data/posts';
+import heroImage from '../assets/images/bikes/bmw-k-1300-r/689295d5a5c54.jpg';
+---
+
+<BaseLayout title="Journal — motoko" description="Tourenberichte, Bike-Portraits und Neuigkeiten rund um motoko.">
+  <Nav />
+  <main>
+    <PageHero
+      title="Journal"
+      titleEn="Journal"
+      subtitle="Tourenberichte, Bike-Portraits und Neuigkeiten aus der motoko-Garage."
+      subtitleEn="Ride reports, bike portraits and news from the motoko garage."
+      image={heroImage}
+    />
+    <SectionDivider />
+    <section class="py-24 px-6">
+      <div class="max-w-6xl mx-auto">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 reveal">
+          {posts.map((post) => (
+            <PostCard post={post} />
+          ))}
+        </div>
+      </div>
+    </section>
+  </main>
+  <Footer />
+  <CookieBanner />
+</BaseLayout>

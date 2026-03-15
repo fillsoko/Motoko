@@ -1,6 +1,7 @@
 ---
 import '../styles/global.css';
 import ScrollReveal from '../components/ScrollReveal.astro';
+import WhatsAppButton from '../components/WhatsAppButton.astro';
 
 interface Props {
   title: string;
@@ -22,6 +23,7 @@ const { title, description = 'Motorcycle rental, guided tours, and custom parts 
   </head>
   <body class="min-h-screen bg-bg-primary text-text-primary">
     <slot />
+    <WhatsAppButton />
     <ScrollReveal />
   </body>
 </html>

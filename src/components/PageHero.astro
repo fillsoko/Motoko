@@ -1,23 +1,48 @@
 ---
+import { Image } from 'astro:assets';
+
 interface Props {
   title: string;
+  titleEn?: string;
   subtitle?: string;
+  subtitleEn?: string;
+  image?: ImageMetadata;
 }
 
-const { title, subtitle } = Astro.props;
+const { title, titleEn, subtitle, subtitleEn, image } = Astro.props;
 ---
 
 <section class="relative min-h-[50vh] flex items-end overflow-hidden">
-  <div class="absolute inset-0 bg-bg-surface" aria-hidden="true">
-    <div class="absolute inset-0 bg-gradient-to-t from-bg-primary via-bg-primary/60 to-transparent"></div>
+  <div class="absolute inset-0" aria-hidden="true">
+    {image ? (
+      <Image
+        src={image}
+        alt=""
+        class="w-full h-full object-cover grayscale"
+        widths={[800, 1200, 1920]}
+        sizes="100vw"
+        loading="eager"
+      />
+    ) : (
+      <div class="w-full h-full bg-bg-surface"></div>
+    )}
+    <div class="absolute inset-0 bg-gradient-to-t from-bg-primary via-bg-primary/70 to-bg-primary/20"></div>
   </div>
 
   <div class="relative z-10 w-full max-w-6xl mx-auto px-6 pb-16 pt-32">
-    <h1 class="font-display font-light text-3xl sm:text-4xl md:text-6xl lg:text-7xl tracking-wide mb-4">
+    <h1
+      class="font-display font-light text-3xl sm:text-4xl md:text-6xl lg:text-7xl tracking-wide mb-4"
+      data-i18n-de={title}
+      data-i18n-en={titleEn || title}
+    >
       {title}
     </h1>
     {subtitle && (
-      <p class="font-body text-text-secondary text-lg md:text-xl max-w-2xl leading-relaxed">
+      <p
+        class="font-body text-text-secondary text-lg md:text-xl max-w-2xl leading-relaxed"
+        data-i18n-de={subtitle}
+        data-i18n-en={subtitleEn || subtitle}
+      >
         {subtitle}
       </p>
     )}

@@ -6,9 +6,18 @@ import TourCard from './TourCard.astro';
 <section id="tours" class="py-24 px-6">
   <div class="max-w-6xl mx-auto">
     <div class="mb-16 reveal">
-      <span class="text-xs font-mono uppercase tracking-widest text-accent">Erlebnisse</span>
-      <h2 class="font-display text-4xl md:text-5xl font-normal mb-4 mt-2">Touren</h2>
-      <p class="font-body text-text-secondary text-lg max-w-2xl">
+      <span class="text-xs font-mono uppercase tracking-widest text-accent"
+        data-i18n-de="Erlebnisse"
+        data-i18n-en="Experiences"
+      >Erlebnisse</span>
+      <h2 class="font-display text-4xl md:text-5xl font-normal mb-4 mt-2"
+        data-i18n-de="Touren"
+        data-i18n-en="Tours"
+      >Touren</h2>
+      <p class="font-body text-text-secondary text-lg max-w-2xl"
+        data-i18n-de="Geführte und selbstgeführte Touren ab Frankfurt. Von Tagesausflügen durch den Taunus bis zur einwöchigen Alpenüberquerung."
+        data-i18n-en="Guided and self-guided tours from Frankfurt. From day trips through the Taunus to a week-long Alpine crossing."
+      >
         Geführte und selbstgeführte Touren ab Frankfurt. Von Tagesausflügen durch
         den Taunus bis zur einwöchigen Alpenüberquerung.
       </p>
@@ -21,3 +30,28 @@ import TourCard from './TourCard.astro';
     </div>
   </div>
 </section>
+
+<script>
+  document.querySelectorAll('.komoot-map-placeholder').forEach((placeholder) => {
+    function loadEmbed() {
+      const tourId = (placeholder as HTMLElement).dataset.tourId;
+      if (!tourId) return;
+
+      const wrapper = placeholder.closest('.komoot-map-wrapper');
+      if (!wrapper) return;
+
+      const iframe = document.createElement('iframe');
+      iframe.src = `https://www.komoot.com/tour/${tourId}/embed?profile=1`;
+      iframe.setAttribute('loading', 'lazy');
+      iframe.setAttribute('scrolling', 'no');
+
+      wrapper.appendChild(iframe);
+      placeholder.classList.add('hidden');
+    }
+
+    placeholder.addEventListener('click', loadEmbed);
+    placeholder.addEventListener('keydown', (e) => {
+      if ((e as KeyboardEvent).key === 'Enter') loadEmbed();
+    });
+  });
+</script>

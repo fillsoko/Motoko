@@ -6,6 +6,7 @@ import Testimonials from '../components/Testimonials.astro';
 import Footer from '../components/Footer.astro';
 import CookieBanner from '../components/CookieBanner.astro';
 import SectionDivider from '../components/SectionDivider.astro';
+import heroImage from '../assets/images/bikes/ducati-900-ss/6893e15cd74bd.jpg';
 ---
 
 <BaseLayout title="Stimmen unserer Fahrer — motoko" description="Was unsere Fahrer über motoko sagen. Erfahrungsberichte von Motorradmietern.">
@@ -13,7 +14,10 @@ import SectionDivider from '../components/SectionDivider.astro';
   <main>
     <PageHero
       title="Stimmen unserer Fahrer"
+      titleEn="What Our Riders Say"
       subtitle="Was unsere Mieter über ihre Erfahrung mit motoko sagen."
+      subtitleEn="What our renters say about their experience with motoko."
+      image={heroImage}
     />
     <SectionDivider />
     <Testimonials />

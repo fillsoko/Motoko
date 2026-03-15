@@ -1,11 +1,20 @@
 ---
+import { Image } from 'astro:assets';
 import BrandBar from './BrandBar.astro';
+import heroImage from '../assets/images/bikes/triumph-rocket-3r/6893d1e197e19.jpg';
 ---
 
 <section id="hero" class="relative min-h-screen flex items-center justify-center overflow-hidden">
-  <!-- Placeholder image: dark grey box at 16:9 -->
-  <div class="absolute inset-0 bg-bg-surface" aria-hidden="true">
-    <div class="absolute inset-0 bg-gradient-to-t from-bg-primary via-bg-primary/40 to-transparent"></div>
+  <div class="absolute inset-0" aria-hidden="true">
+    <Image
+      src={heroImage}
+      alt=""
+      class="w-full h-full object-cover grayscale"
+      widths={[800, 1200, 1920]}
+      sizes="100vw"
+      loading="eager"
+    />
+    <div class="absolute inset-0 bg-gradient-to-t from-bg-primary via-bg-primary/60 to-bg-primary/30"></div>
   </div>
 
   <div class="relative z-10 text-center px-6 max-w-4xl mx-auto">

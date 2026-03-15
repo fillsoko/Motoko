@@ -1,0 +1,84 @@
+---
+---
+
+<section class="py-24 px-6">
+  <div class="max-w-6xl mx-auto">
+    <div class="mb-12 reveal">
+      <span class="text-xs font-mono uppercase tracking-widest text-accent"
+        data-i18n-de="Abholort"
+        data-i18n-en="Pickup Location"
+      >Abholort</span>
+      <h2 class="font-display text-4xl md:text-5xl font-normal mb-4 mt-2"
+        data-i18n-de="Frankfurt am Main"
+        data-i18n-en="Frankfurt am Main"
+      >Frankfurt am Main</h2>
+      <p class="font-body text-text-secondary text-lg max-w-2xl"
+        data-i18n-de="Übergabe und Rückgabe direkt in Frankfurt. Gerne holen wir dich auch vom Flughafen oder Hauptbahnhof ab."
+        data-i18n-en="Pickup and return directly in Frankfurt. We are happy to pick you up from the airport or main station."
+      >Übergabe und Rückgabe direkt in Frankfurt. Gerne holen wir dich auch vom Flughafen oder Hauptbahnhof ab.</p>
+    </div>
+
+    <!-- GDPR-safe: show placeholder until user clicks to load -->
+    <div class="reveal">
+      <div id="map-container" class="relative aspect-[16/9] md:aspect-[21/9] rounded-lg overflow-hidden border border-border bg-bg-surface">
+        <div id="map-placeholder" class="absolute inset-0 flex flex-col items-center justify-center gap-4 cursor-pointer" role="button" tabindex="0">
+          <svg class="w-12 h-12 text-text-muted" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+          </svg>
+          <span class="text-sm font-body text-text-muted"
+            data-i18n-de="Karte laden (Google Maps)"
+            data-i18n-en="Load map (Google Maps)"
+          >Karte laden (Google Maps)</span>
+        </div>
+        <iframe
+          id="map-iframe"
+          class="hidden w-full h-full grayscale invert opacity-80"
+          src=""
+          data-src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d40958.07412654267!2d8.6295!3d50.1109!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47bd096f477096c5%3A0x422435029b0c600!2sFrankfurt%20am%20Main!5e0!3m2!1sde!2sde!4v1"
+          allowfullscreen=""
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          title="motoko — Frankfurt am Main"
+        ></iframe>
+      </div>
+    </div>
+
+    <div class="mt-8 flex flex-col sm:flex-row items-start sm:items-center gap-6 reveal">
+      <div class="flex items-center gap-3">
+        <svg class="w-5 h-5 text-accent shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+        </svg>
+        <span class="font-body text-text-secondary text-sm">Frankfurt am Main, Deutschland</span>
+      </div>
+      <div class="flex items-center gap-3">
+        <svg class="w-5 h-5 text-accent shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+        <span class="font-body text-text-secondary text-sm"
+          data-i18n-de="10 Min. vom Hauptbahnhof · 25 Min. vom Flughafen"
+          data-i18n-en="10 min from main station · 25 min from airport"
+        >10 Min. vom Hauptbahnhof · 25 Min. vom Flughafen</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  const placeholder = document.getElementById('map-placeholder');
+  const iframe = document.getElementById('map-iframe') as HTMLIFrameElement;
+
+  function loadMap() {
+    if (iframe && placeholder) {
+      iframe.src = iframe.dataset.src || '';
+      iframe.classList.remove('hidden');
+      placeholder.classList.add('hidden');
+    }
+  }
+
+  placeholder?.addEventListener('click', loadMap);
+  placeholder?.addEventListener('keydown', (e) => {
+    if ((e as KeyboardEvent).key === 'Enter') loadMap();
+  });
+</script>

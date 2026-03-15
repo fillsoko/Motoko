@@ -14,41 +14,83 @@ const difficultyBorder = {
 };
 ---
 
-<article class="bg-bg-surface border border-border rounded-lg p-6 hover:border-text-muted transition-colors duration-300">
-  <div class="flex items-start justify-between mb-4">
-    <div>
-      <h3 class="font-display text-xl font-semibold text-text-primary">{tour.name}</h3>
-      <div class="flex items-center gap-3 mt-1">
-        <span class="text-sm font-mono text-text-secondary">{tour.duration}</span>
-        <span class="text-sm font-mono text-text-muted">{tour.distance}</span>
+<article class="bg-bg-surface border border-border rounded-lg overflow-hidden hover:border-text-muted transition-colors duration-300">
+  <!-- Komoot Map Embed -->
+  <div class="komoot-map-wrapper relative aspect-[16/9] overflow-hidden">
+    <div class="komoot-map-placeholder absolute inset-0 flex items-center justify-center bg-bg-surface-alt cursor-pointer" data-tour-id={tour.komootTourId} role="button" tabindex="0">
+      <div class="flex flex-col items-center gap-3">
+        <svg class="w-10 h-10 text-accent opacity-60" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" />
+        </svg>
+        <span class="text-xs font-mono uppercase tracking-wider text-text-muted"
+          data-i18n-de="Route laden"
+          data-i18n-en="Load Route"
+        >Route laden</span>
       </div>
     </div>
-    <span class={`inline-block px-2 py-0.5 text-xs font-mono uppercase tracking-wider text-text-muted border ${difficultyBorder[tour.difficulty]} rounded`}>
-      {tour.difficulty}
-    </span>
   </div>
 
-  <p class="font-body text-text-secondary text-sm mb-4 leading-relaxed">
-    {tour.description}
-  </p>
+  <div class="p-6">
+    <div class="flex items-start justify-between mb-4">
+      <div>
+        <h3 class="font-display text-xl font-semibold text-text-primary"
+          data-i18n-de={tour.name}
+          data-i18n-en={tour.nameEn || tour.name}
+        >{tour.name}</h3>
+        <div class="flex items-center gap-3 mt-1">
+          <span class="text-sm font-mono text-text-secondary">{tour.duration}</span>
+          <span class="text-sm font-mono text-text-muted">{tour.distance}</span>
+        </div>
+      </div>
+      <span class={`inline-block px-2 py-0.5 text-xs font-mono uppercase tracking-wider text-text-muted border ${difficultyBorder[tour.difficulty]} rounded`}>
+        {tour.difficulty}
+      </span>
+    </div>
 
-  <div class="mb-6">
-    <h4 class="font-mono text-text-muted text-xs uppercase tracking-wider mb-2">Itinerary</h4>
-    <ol class="space-y-1">
-      {tour.itinerary.map((step) => (
-        <li class="text-sm font-body text-text-secondary pl-4 border-l border-border-subtle">
-          {step}
-        </li>
-      ))}
-    </ol>
+    <p class="font-body text-text-secondary text-sm mb-4 leading-relaxed"
+      data-i18n-de={tour.description}
+      data-i18n-en={tour.descriptionEn || tour.description}
+    >
+      {tour.description}
+    </p>
+
+    <div class="mb-6">
+      <h4 class="font-mono text-text-muted text-xs uppercase tracking-wider mb-2">Itinerary</h4>
+      <ol class="space-y-1">
+        {tour.itinerary.map((step) => (
+          <li class="text-sm font-body text-text-secondary pl-4 border-l border-border-subtle">
+            {step}
+          </li>
+        ))}
+      </ol>
+    </div>
+
+    {tour.highlights && tour.highlights.length > 0 && (
+      <div class="mb-6">
+        <h4 class="font-mono text-text-muted text-xs uppercase tracking-wider mb-3"
+          data-i18n-de="Highlights"
+          data-i18n-en="Highlights"
+        >Highlights</h4>
+        <div class="flex flex-wrap gap-2">
+          {tour.highlights.map((h) => (
+            <span class="inline-flex items-center gap-1.5 bg-bg-surface-alt rounded px-3 py-1.5 text-xs font-body text-text-secondary">
+              <span class="w-1.5 h-1.5 rounded-full bg-accent shrink-0"></span>
+              {h}
+            </span>
+          ))}
+        </div>
+      </div>
+    )}
+
+    <a
+      href={tour.komootUrl}
+      target="_blank"
+      rel="noopener noreferrer"
+      class="inline-block px-6 py-3 border border-border text-text-primary text-sm font-body font-medium uppercase tracking-widest rounded hover:bg-bg-surface-alt transition-colors duration-300"
+      data-i18n-de="Auf Komoot ansehen"
+      data-i18n-en="View on Komoot"
+    >
+      Auf Komoot ansehen
+    </a>
   </div>
-
-  <a
-    href={tour.komootUrl}
-    target="_blank"
-    rel="noopener noreferrer"
-    class="inline-block px-6 py-3 border border-border text-text-primary text-sm font-body font-medium uppercase tracking-widest rounded hover:bg-bg-surface-alt transition-colors duration-300"
-  >
-    View on Komoot
-  </a>
 </article>
