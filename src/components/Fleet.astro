@@ -1,16 +1,31 @@
 ---
 import { bikes } from '../data/bikes';
 import BikeCard from './BikeCard.astro';
+import BrandBar from './BrandBar.astro';
 ---
 
 <section id="fleet" class="py-24 px-6">
   <div class="max-w-6xl mx-auto">
-    <div class="mb-16">
-      <h2 class="font-display text-4xl md:text-5xl font-normal mb-4">Fleet</h2>
-      <p class="font-body text-text-secondary text-lg max-w-2xl">
-        Ten motorcycles, maintained to touring standard. Each rental includes daily
-        comprehensive insurance — ride without worry.
+    <div class="mb-12">
+      <h2 class="font-display text-4xl md:text-5xl font-normal mb-4"
+          data-i18n-de="Fleet"
+          data-i18n-en="Fleet"
+      >Fleet</h2>
+      <p class="font-body text-text-secondary text-lg max-w-2xl"
+         data-i18n-de="Zehn Motorräder, gewartet auf Touring-Standard. Jede Miete beinhaltet eine tägliche Vollkaskoversicherung."
+         data-i18n-en="Ten motorcycles, maintained to touring standard. Each rental includes daily comprehensive insurance — ride without worry."
+      >
+        Zehn Motorräder, gewartet auf Touring-Standard. Jede Miete beinhaltet eine tägliche Vollkaskoversicherung.
       </p>
+    </div>
+
+    <!-- Brand logos -->
+    <div class="mb-16 py-8 border-y border-border-subtle">
+      <p class="text-center text-xs font-mono text-text-muted uppercase tracking-widest mb-6"
+         data-i18n-de="Marken in unserer Fleet"
+         data-i18n-en="Brands in our fleet"
+      >Marken in unserer Fleet</p>
+      <BrandBar />
     </div>
 
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
