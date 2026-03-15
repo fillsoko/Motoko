@@ -21,7 +21,7 @@
             />
           ))}
         </div>
-        <span id="step-label" class="ml-3 text-xs font-mono text-text-muted uppercase tracking-wider">
+        <span id="step-label" class="ml-3 text-xs font-mono text-text-muted uppercase tracking-wider hidden sm:inline">
           Schritt 1 / 5
         </span>
       </div>
@@ -64,7 +64,7 @@
       <!-- Step 2: Brand preference -->
       <div data-step="2" class="wizard-step hidden">
         <h3 class="font-display text-xl mb-6">Hast du eine Markenpräferenz?</h3>
-        <div class="grid grid-cols-2 md:grid-cols-3 gap-3">
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
           <button data-choice="brand" data-value="bmw" class="wizard-option flex items-center gap-3 text-left px-5 py-4 border border-border rounded hover:border-text-muted transition-colors duration-300">
             <img src="/images/logos/bmw.svg" alt="BMW" class="w-6 h-6 object-contain" />
             <span class="font-body text-text-primary text-sm font-medium">BMW</span>

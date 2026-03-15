@@ -10,14 +10,14 @@ const brands = [
 ];
 ---
 
-<div class="flex flex-wrap items-center justify-center gap-8 md:gap-12">
+<div class="flex flex-wrap items-center justify-center gap-4 sm:gap-6 md:gap-8 lg:gap-12">
   {brands.map((brand) => (
     <div class="flex items-center justify-center h-8 opacity-50 hover:opacity-80 transition-opacity duration-300" title={brand.name}>
       <img
         src={brand.logo}
         alt={brand.name}
         class:list={[
-          'h-full w-auto max-w-[120px] object-contain',
+          'h-full w-auto max-w-[80px] sm:max-w-[100px] md:max-w-[120px] object-contain',
           !brand.preserveColor && 'brightness-0 invert',
         ]}
         loading="lazy"
