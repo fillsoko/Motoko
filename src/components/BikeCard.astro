@@ -13,11 +13,23 @@ const { bike } = Astro.props;
   <div class="aspect-[3/2] bg-bg-surface-alt"></div>
 
   <div class="p-6">
-    <div class="flex items-start justify-between mb-4">
+    <div class="flex items-start justify-between mb-2">
       <div>
         <h3 class="font-display text-xl font-semibold text-text-primary">{bike.name}</h3>
-        <span class="text-sm font-body text-text-secondary">{bike.category}</span>
+        {bike.nickname && (
+          <span class="text-sm font-body text-text-muted italic">&ldquo;{bike.nickname}&rdquo;</span>
+        )}
       </div>
+      <span class="text-sm font-mono text-text-secondary whitespace-nowrap ml-2">{bike.year}</span>
+    </div>
+
+    <div class="flex items-center gap-2 mb-4">
+      <span class="inline-block px-2 py-0.5 text-xs font-mono uppercase tracking-wider text-text-muted border border-border rounded">
+        {bike.category}
+      </span>
+      <span class="text-sm font-body font-medium text-text-primary">
+        ab {bike.pricePerDay} EUR / Tag
+      </span>
     </div>
 
     <dl class="grid grid-cols-2 gap-x-4 gap-y-2 mb-6 text-sm">
@@ -34,16 +46,18 @@ const { bike } = Astro.props;
         <dd class="font-body text-text-secondary">{bike.weight}</dd>
       </div>
       <div>
-        <dt class="font-mono text-text-muted text-xs uppercase tracking-wider">Seat</dt>
+        <dt class="font-mono text-text-muted text-xs uppercase tracking-wider">Height</dt>
         <dd class="font-body text-text-secondary">{bike.seat}</dd>
       </div>
     </dl>
 
     <a
       href={bike.ripeUrl}
+      target="_blank"
+      rel="noopener noreferrer"
       class="block w-full text-center px-6 py-3 bg-text-primary text-bg-primary text-sm font-body font-medium uppercase tracking-widest rounded hover:bg-text-secondary transition-colors duration-300"
     >
-      Book via RIPE
+      Book via RIBE
     </a>
   </div>
 </article>

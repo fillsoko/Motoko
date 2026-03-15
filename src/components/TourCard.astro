@@ -1,0 +1,54 @@
+---
+import type { Tour } from '../data/tours';
+
+interface Props {
+  tour: Tour;
+}
+
+const { tour } = Astro.props;
+
+const difficultyBorder = {
+  Easy: 'border-text-muted',
+  Moderate: 'border-text-secondary',
+  Challenging: 'border-text-primary',
+};
+---
+
+<article class="bg-bg-surface border border-border rounded-lg p-6 hover:border-text-muted transition-colors duration-300">
+  <div class="flex items-start justify-between mb-4">
+    <div>
+      <h3 class="font-display text-xl font-semibold text-text-primary">{tour.name}</h3>
+      <div class="flex items-center gap-3 mt-1">
+        <span class="text-sm font-mono text-text-secondary">{tour.duration}</span>
+        <span class="text-sm font-mono text-text-muted">{tour.distance}</span>
+      </div>
+    </div>
+    <span class={`inline-block px-2 py-0.5 text-xs font-mono uppercase tracking-wider text-text-muted border ${difficultyBorder[tour.difficulty]} rounded`}>
+      {tour.difficulty}
+    </span>
+  </div>
+
+  <p class="font-body text-text-secondary text-sm mb-4 leading-relaxed">
+    {tour.description}
+  </p>
+
+  <div class="mb-6">
+    <h4 class="font-mono text-text-muted text-xs uppercase tracking-wider mb-2">Itinerary</h4>
+    <ol class="space-y-1">
+      {tour.itinerary.map((step) => (
+        <li class="text-sm font-body text-text-secondary pl-4 border-l border-border-subtle">
+          {step}
+        </li>
+      ))}
+    </ol>
+  </div>
+
+  <a
+    href={tour.komootUrl}
+    target="_blank"
+    rel="noopener noreferrer"
+    class="inline-block px-6 py-3 border border-border text-text-primary text-sm font-body font-medium uppercase tracking-widest rounded hover:bg-bg-surface-alt transition-colors duration-300"
+  >
+    View on Komoot
+  </a>
+</article>
