@@ -51,10 +51,11 @@ Base unit: `0.25rem` (4px). Use Tailwind default spacing scale.
 
 ## Motion
 
-- **Allowed**: `opacity` fade-in, `translateY` scroll-reveals (max 12px travel)
-- **Duration**: 300–600ms, ease-out only
-- **Not allowed**: scale transforms, bouncy easing, parallax, animation libraries
-- **Prefers-reduced-motion**: respect it — disable all motion
+- **Library**: Framer Motion via React islands (`client:visible`)
+- **Allowed**: `opacity` fade-in, `translateY`/`translateX` scroll-reveals (max 24px travel), staggered children, animated text reveals, smooth accordion expand/collapse
+- **Duration**: 300–600ms, ease-out `[0.25, 0.1, 0.25, 1]` only
+- **Not allowed**: scale transforms, bouncy/spring easing, parallax on mobile
+- **Prefers-reduced-motion**: respected — all motion disabled via `useReducedMotion()`
 
 ## Borders & radii
 

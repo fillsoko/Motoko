@@ -8,7 +8,7 @@
 
 - Never use colour outside the approved token set (see docs/DESIGN_SYSTEM.md)
 - Never deviate from lowercase `motoko` wordmark — always Cormorant Garamond Light
-- Never add animation libraries (GSAP, Framer Motion, etc.) without explicit approval
+- Framer Motion is approved for subtle scroll-reveal and entrance animations (no bouncy/spring easing)
 - All placeholder images must be aspect-ratio-correct dark grey boxes — never use Lorem Picsum or random stock
 - If uncertain about a design decision, stop and ask rather than improvise
 - No external font CDNs — self-host all fonts via fontsource
@@ -18,8 +18,10 @@
 
 ## Tech stack
 
-- Astro 4.x, TypeScript, Tailwind CSS v3, pnpm
-- shadcn/ui components permitted but must be restyled to monochrome (see docs/SHADCN.md)
+- Astro 6.x, TypeScript, Tailwind CSS v4, npm
+- React via @astrojs/react (Astro islands for interactive components)
+- Framer Motion for scroll-reveal animations
+- shadcn/ui components restyled to motoko palette (see docs/SHADCN.md)
 - Deploy target: Vercel (static)
 - Images: `<Image />` from `astro:assets`, lazy-loaded, proper alt text
 - Responsive: mobile-first, landscape + portrait hero layout

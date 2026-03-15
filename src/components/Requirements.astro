@@ -1,4 +1,10 @@
 ---
+import { Image } from 'astro:assets';
+import FadeIn from './motion/FadeIn';
+import StaggerContainer from './motion/StaggerContainer';
+import StaggerItem from './motion/StaggerItem';
+import bgImage from '../assets/images/sections/requirements-bg.webp';
+
 const items = [
   {
     titleDe: 'Führerschein',
@@ -31,58 +37,74 @@ const items = [
 ];
 ---
 
-<section id="requirements" class="py-24 px-6">
-  <div class="max-w-6xl mx-auto">
-    <div class="mb-16 reveal">
-      <span class="text-xs font-mono uppercase tracking-widest text-accent"
-        data-i18n-de="Gut zu wissen"
-        data-i18n-en="Good to Know"
-      >Gut zu wissen</span>
-      <h2 class="font-display text-4xl md:text-5xl font-normal mb-4 mt-2"
-        data-i18n-de="Voraussetzungen"
-        data-i18n-en="Requirements"
-      >Voraussetzungen</h2>
-    </div>
+<section id="requirements" class="relative py-24 px-6 overflow-hidden">
+  <div class="absolute inset-0" aria-hidden="true">
+    <Image
+      src={bgImage}
+      alt=""
+      class="w-full h-full object-cover grayscale opacity-12"
+      widths={[800, 1200, 1920]}
+      sizes="100vw"
+      loading="lazy"
+    />
+    <div class="absolute inset-0 bg-gradient-to-b from-bg-primary via-bg-primary/85 to-bg-primary"></div>
+  </div>
 
-    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
-      {items.map((item, i) => (
-        <div class={`bg-bg-surface border border-border rounded-lg p-6 hover:border-text-muted transition-colors duration-300 reveal reveal-delay-${(i % 3) + 1}`}>
-          <div class="flex items-start gap-4">
-            <div class="flex items-center justify-center w-10 h-10 shrink-0 rounded-lg bg-accent-muted">
-              {item.icon === 'license' && (
-                <svg class="w-5 h-5 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M10 6H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V8a2 2 0 00-2-2h-5m-4 0V5a2 2 0 114 0v1m-4 0a2 2 0 104 0" />
-                </svg>
-              )}
-              {item.icon === 'age' && (
-                <svg class="w-5 h-5 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                </svg>
-              )}
-              {item.icon === 'deposit' && (
-                <svg class="w-5 h-5 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
-              )}
-              {item.icon === 'cancel' && (
-                <svg class="w-5 h-5 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
-              )}
-            </div>
-            <div>
-              <h3 class="font-display text-lg font-normal mb-2"
-                data-i18n-de={item.titleDe}
-                data-i18n-en={item.titleEn}
-              >{item.titleDe}</h3>
-              <p class="font-body text-text-secondary text-sm leading-relaxed"
-                data-i18n-de={item.descDe}
-                data-i18n-en={item.descEn}
-              >{item.descDe}</p>
+  <div class="relative z-10 max-w-6xl mx-auto">
+    <FadeIn client:visible direction="up">
+      <div class="mb-16">
+        <span class="text-xs font-mono uppercase tracking-widest text-accent"
+          data-i18n-de="Gut zu wissen"
+          data-i18n-en="Good to Know"
+        >Gut zu wissen</span>
+        <h2 class="font-display text-4xl md:text-5xl font-normal mb-4 mt-2"
+          data-i18n-de="Voraussetzungen"
+          data-i18n-en="Requirements"
+        >Voraussetzungen</h2>
+      </div>
+    </FadeIn>
+
+    <StaggerContainer client:visible className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+      {items.map((item) => (
+        <StaggerItem client:visible>
+          <div class="bg-bg-surface/80 backdrop-blur-sm border border-border rounded-lg p-6 hover:border-text-muted transition-colors duration-300">
+            <div class="flex items-start gap-4">
+              <div class="flex items-center justify-center w-10 h-10 shrink-0 rounded-lg bg-accent-muted">
+                {item.icon === 'license' && (
+                  <svg class="w-5 h-5 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M10 6H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V8a2 2 0 00-2-2h-5m-4 0V5a2 2 0 114 0v1m-4 0a2 2 0 104 0" />
+                  </svg>
+                )}
+                {item.icon === 'age' && (
+                  <svg class="w-5 h-5 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                  </svg>
+                )}
+                {item.icon === 'deposit' && (
+                  <svg class="w-5 h-5 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                )}
+                {item.icon === 'cancel' && (
+                  <svg class="w-5 h-5 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                )}
+              </div>
+              <div>
+                <h3 class="font-display text-lg font-normal mb-2"
+                  data-i18n-de={item.titleDe}
+                  data-i18n-en={item.titleEn}
+                >{item.titleDe}</h3>
+                <p class="font-body text-text-secondary text-sm leading-relaxed"
+                  data-i18n-de={item.descDe}
+                  data-i18n-en={item.descEn}
+                >{item.descDe}</p>
+              </div>
             </div>
           </div>
-        </div>
+        </StaggerItem>
       ))}
-    </div>
+    </StaggerContainer>
   </div>
 </section>

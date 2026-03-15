@@ -1,8 +1,22 @@
 ---
+import { Image } from 'astro:assets';
+import bgImage from '../assets/images/sections/contact-bg.webp';
 ---
 
-<section id="contact" class="py-24 px-6">
-  <div class="max-w-6xl mx-auto">
+<section id="contact" class="relative py-24 px-6 overflow-hidden">
+  <div class="absolute inset-0" aria-hidden="true">
+    <Image
+      src={bgImage}
+      alt=""
+      class="w-full h-full object-cover grayscale opacity-10"
+      widths={[800, 1200, 1920]}
+      sizes="100vw"
+      loading="lazy"
+    />
+    <div class="absolute inset-0 bg-gradient-to-b from-bg-primary via-bg-primary/85 to-bg-primary"></div>
+  </div>
+  <div class="hidden"><!-- spacer --></div>
+  <div class="relative z-10 max-w-6xl mx-auto">
     <div class="mb-12 reveal">
       <span class="text-xs font-mono uppercase tracking-widest text-accent">Starte hier</span>
       <h2 class="font-display text-4xl md:text-5xl font-normal mb-4 mt-2">Anfrage</h2>
@@ -77,6 +91,10 @@
           <button data-choice="brand" data-value="ducati" class="wizard-option flex items-center gap-3 text-left px-5 py-4 border border-border rounded hover:border-text-muted transition-colors duration-300">
             <img src="/images/logos/ducati.svg" alt="Ducati" class="w-6 h-6 object-contain brightness-0 invert" />
             <span class="font-body text-text-primary text-sm font-medium">Ducati</span>
+          </button>
+          <button data-choice="brand" data-value="harley" class="wizard-option flex items-center gap-3 text-left px-5 py-4 border border-border rounded hover:border-text-muted transition-colors duration-300">
+            <img src="/images/logos/harley-davidson.svg" alt="Harley-Davidson" class="w-6 h-6 object-contain brightness-0 invert" />
+            <span class="font-body text-text-primary text-sm font-medium">Harley-Davidson</span>
           </button>
           <button data-choice="brand" data-value="honda" class="wizard-option flex items-center gap-3 text-left px-5 py-4 border border-border rounded hover:border-text-muted transition-colors duration-300">
             <img src="/images/logos/honda.svg" alt="Honda" class="w-6 h-6 object-contain brightness-0 invert" />

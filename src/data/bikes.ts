@@ -131,4 +131,17 @@ export const bikes: Bike[] = [
     ripeUrl: 'https://www.ribeme.com/de/motorrad/mieten/6117-triumph-rocket-iii-2020',
     slug: 'triumph-rocket-3r',
   },
+  {
+    name: 'Harley-Davidson FLH',
+    nickname: 'Electra Glide',
+    category: 'Touring',
+    engine: '1449 cc V-Twin',
+    power: '63 PS',
+    weight: '340 kg',
+    seat: '160 cm+',
+    year: 2001,
+    pricePerDay: 150,
+    ripeUrl: 'https://www.ribeme.com/de/motorrad/mieten/8250-harley-davidson-flh-2001',
+    slug: 'harley-davidson-flh',
+  },
 ];

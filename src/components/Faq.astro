@@ -1,4 +1,9 @@
 ---
+import { Image } from 'astro:assets';
+import FadeIn from './motion/FadeIn';
+import SmoothAccordion from './motion/SmoothAccordion';
+import bgImage from '../assets/images/sections/faq-bg.webp';
+
 const faqs = [
   {
     questionDe: 'Brauche ich einen bestimmten Führerschein?',
@@ -45,74 +50,40 @@ const faqs = [
 ];
 ---
 
-<section class="py-24 px-6">
-  <div class="max-w-6xl mx-auto">
-    <div class="reveal">
-      <span class="text-xs font-mono uppercase tracking-widest text-accent">Häufige Fragen</span>
-      <h2 class="font-display text-4xl md:text-5xl font-normal mb-4 mt-2"
-          data-i18n-de="Häufige Fragen"
-          data-i18n-en="FAQ"
-      >
-        Häufige Fragen
-      </h2>
-    </div>
-    <p class="font-body text-text-secondary text-lg mb-12"
-       data-i18n-de="Alles was du vor deiner ersten Miete wissen musst."
-       data-i18n-en="Everything you need to know before your first rental."
-    >
-      Alles was du vor deiner ersten Miete wissen musst.
-    </p>
+<section class="relative py-24 px-6 overflow-hidden">
+  <div class="absolute inset-0" aria-hidden="true">
+    <Image
+      src={bgImage}
+      alt=""
+      class="w-full h-full object-cover grayscale opacity-10"
+      widths={[800, 1200, 1920]}
+      sizes="100vw"
+      loading="lazy"
+    />
+    <div class="absolute inset-0 bg-gradient-to-b from-bg-primary via-bg-primary/85 to-bg-primary"></div>
+  </div>
 
-    <div class="divide-y divide-border">
-      {faqs.map((faq, i) => (
-        <div class="faq-item" data-faq={i}>
-          <button
-            class="faq-toggle w-full flex items-center justify-between py-6 text-left group"
-            aria-expanded="false"
-          >
-            <span
-              class="font-body text-text-primary font-medium pr-4"
-              data-i18n-de={faq.questionDe}
-              data-i18n-en={faq.questionEn}
-            >
-              {faq.questionDe}
-            </span>
-            <svg class="faq-icon w-5 h-5 text-text-muted shrink-0 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 6v12M6 12h12" />
-            </svg>
-          </button>
-          <div class="faq-answer hidden pb-6">
-            <p
-              class="font-body text-text-secondary text-sm leading-relaxed"
-              data-i18n-de={faq.answerDe}
-              data-i18n-en={faq.answerEn}
-            >
-              {faq.answerDe}
-            </p>
-          </div>
-        </div>
-      ))}
-    </div>
+  <div class="relative z-10 max-w-6xl mx-auto">
+    <FadeIn client:visible direction="up">
+      <div>
+        <span class="text-xs font-mono uppercase tracking-widest text-accent">Häufige Fragen</span>
+        <h2 class="font-display text-4xl md:text-5xl font-normal mb-4 mt-2"
+            data-i18n-de="Häufige Fragen"
+            data-i18n-en="FAQ"
+        >
+          Häufige Fragen
+        </h2>
+      </div>
+      <p class="font-body text-text-secondary text-lg mb-12"
+         data-i18n-de="Alles was du vor deiner ersten Miete wissen musst."
+         data-i18n-en="Everything you need to know before your first rental."
+      >
+        Alles was du vor deiner ersten Miete wissen musst.
+      </p>
+    </FadeIn>
+
+    <FadeIn client:visible direction="up" delay={0.2}>
+      <SmoothAccordion client:visible items={faqs} />
+    </FadeIn>
   </div>
 </section>
-
-<script>
-  document.querySelectorAll('.faq-toggle').forEach((btn) => {
-    btn.addEventListener('click', () => {
-      const item = btn.closest('.faq-item')!;
-      const answer = item.querySelector('.faq-answer')!;
-      const icon = item.querySelector('.faq-icon')!;
-      const isOpen = !answer.classList.contains('hidden');
-
-      if (isOpen) {
-        answer.classList.add('hidden');
-        icon.classList.remove('rotate-45');
-        btn.setAttribute('aria-expanded', 'false');
-      } else {
-        answer.classList.remove('hidden');
-        icon.classList.add('rotate-45');
-        btn.setAttribute('aria-expanded', 'true');
-      }
-    });
-  });
-</script>

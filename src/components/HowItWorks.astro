@@ -1,4 +1,10 @@
 ---
+import { Image } from 'astro:assets';
+import FadeIn from './motion/FadeIn';
+import StaggerContainer from './motion/StaggerContainer';
+import StaggerItem from './motion/StaggerItem';
+import bgImage from '../assets/images/sections/how-it-works-bg.webp';
+
 const steps = [
   {
     num: '01',
@@ -6,7 +12,6 @@ const steps = [
     titleEn: 'Choose a Bike',
     descDe: 'Stöbere durch unsere Fleet und finde das Motorrad, das zu deiner Tour passt.',
     descEn: 'Browse our fleet and find the motorcycle that fits your ride.',
-    icon: 'search',
   },
   {
     num: '02',
@@ -14,7 +19,6 @@ const steps = [
     titleEn: 'Book Online',
     descDe: 'Reserviere über RIBE oder kontaktiere uns direkt. Vollkasko inklusive.',
     descEn: 'Reserve via RIBE or contact us directly. Comprehensive insurance included.',
-    icon: 'calendar',
   },
   {
     num: '03',
@@ -22,7 +26,6 @@ const steps = [
     titleEn: 'Pick Up in Frankfurt',
     descDe: 'Persönliche Übergabe mit Einweisung und individuellen Routentipps.',
     descEn: 'Personal handover with briefing and individual route tips.',
-    icon: 'location',
   },
   {
     num: '04',
@@ -30,46 +33,60 @@ const steps = [
     titleEn: 'Hit the Road',
     descDe: 'Genieße die Fahrt — wir sind jederzeit telefonisch erreichbar.',
     descEn: 'Enjoy the ride — we are available by phone at any time.',
-    icon: 'road',
   },
 ];
 ---
 
-<section class="py-24 px-6">
-  <div class="max-w-6xl mx-auto">
-    <div class="mb-16 reveal">
-      <span class="text-xs font-mono uppercase tracking-widest text-accent"
-        data-i18n-de="So funktioniert's"
-        data-i18n-en="How It Works"
-      >So funktioniert's</span>
-      <h2 class="font-display text-4xl md:text-5xl font-normal mb-4 mt-2"
-        data-i18n-de="In vier Schritten auf der Straße"
-        data-i18n-en="On the Road in Four Steps"
-      >In vier Schritten auf der Straße</h2>
-    </div>
+<section class="relative py-24 px-6 overflow-hidden">
+  <div class="absolute inset-0" aria-hidden="true">
+    <Image
+      src={bgImage}
+      alt=""
+      class="w-full h-full object-cover grayscale opacity-10"
+      widths={[800, 1200, 1920]}
+      sizes="100vw"
+      loading="lazy"
+    />
+    <div class="absolute inset-0 bg-gradient-to-b from-bg-primary via-bg-primary/85 to-bg-primary"></div>
+  </div>
 
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-6">
+  <div class="relative z-10 max-w-6xl mx-auto">
+    <FadeIn client:visible direction="up">
+      <div class="mb-16">
+        <span class="text-xs font-mono uppercase tracking-widest text-accent"
+          data-i18n-de="So funktioniert's"
+          data-i18n-en="How It Works"
+        >So funktioniert's</span>
+        <h2 class="font-display text-4xl md:text-5xl font-normal mb-4 mt-2"
+          data-i18n-de="In vier Schritten auf der Straße"
+          data-i18n-en="On the Road in Four Steps"
+        >In vier Schritten auf der Straße</h2>
+      </div>
+    </FadeIn>
+
+    <StaggerContainer client:visible className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-6" staggerDelay={0.15}>
       {steps.map((step, i) => (
-        <div class={`relative reveal reveal-delay-${i + 1}`}>
-          {/* Connector line on desktop */}
-          {i < steps.length - 1 && (
-            <div class="hidden lg:block absolute top-6 left-full w-full h-px bg-border -translate-x-1/2 z-0" aria-hidden="true"></div>
-          )}
-          <div class="relative z-10">
-            <div class="flex items-center justify-center w-12 h-12 rounded-full border border-accent text-accent font-mono text-sm mb-6">
-              {step.num}
+        <StaggerItem client:visible>
+          <div class="relative">
+            {i < steps.length - 1 && (
+              <div class="hidden lg:block absolute top-6 left-full w-full h-px bg-border -translate-x-1/2 z-0" aria-hidden="true"></div>
+            )}
+            <div class="relative z-10">
+              <div class="flex items-center justify-center w-12 h-12 rounded-full border border-accent text-accent font-mono text-sm mb-6">
+                {step.num}
+              </div>
+              <h3 class="font-display text-xl font-normal mb-3"
+                data-i18n-de={step.titleDe}
+                data-i18n-en={step.titleEn}
+              >{step.titleDe}</h3>
+              <p class="font-body text-text-secondary text-sm leading-relaxed"
+                data-i18n-de={step.descDe}
+                data-i18n-en={step.descEn}
+              >{step.descDe}</p>
             </div>
-            <h3 class="font-display text-xl font-normal mb-3"
-              data-i18n-de={step.titleDe}
-              data-i18n-en={step.titleEn}
-            >{step.titleDe}</h3>
-            <p class="font-body text-text-secondary text-sm leading-relaxed"
-              data-i18n-de={step.descDe}
-              data-i18n-en={step.descEn}
-            >{step.descDe}</p>
           </div>
-        </div>
+        </StaggerItem>
       ))}
-    </div>
+    </StaggerContainer>
   </div>
 </section>
