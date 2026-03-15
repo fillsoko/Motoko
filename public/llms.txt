@@ -1,0 +1,56 @@
+# motoko.de
+
+> Motorcycle rental, guided tours, and custom parts — based in Frankfurt am Main, Germany.
+
+## About
+
+Motoko GmbH is a premium motorcycle rental company based in Frankfurt am Main, Germany. We offer a curated fleet of nine motorcycles from seven manufacturers, guided and self-guided tours through Germany's most scenic riding regions, and comprehensive insurance on every rental.
+
+## Fleet
+
+We rent the following motorcycles (all prices per day, insurance included):
+
+- Honda GL Goldwing Valkyrie (2014) — Touring, 1832cc Flat-6, 115 PS — €200/day
+- BMW R 1200 GS (2010) — Adventure, 1170cc Boxer Twin, 109 PS — €100/day
+- BMW K 1300 R (2009) — Naked, 1293cc Inline-4, 170 PS — €130/day
+- Buell XB12 SCG (2006) — Naked, 1202cc V-Twin, 101 PS — €130/day
+- Kawasaki Zephyr 1100 (1993) — Classic, 1062cc Inline-4, 91 PS — €70/day
+- Ducati 900 SS (1997) — Supersport, 904cc L-Twin, 76 PS — €130/day
+- Husqvarna Vitpilen 701 (2020) — Naked, 693cc Single, 74 PS — €100/day
+- Triumph Speed Triple (2006) — Naked, 1050cc Triple, 129 PS — €100/day
+- Triumph Rocket 3R (2020) — Cruiser, 2458cc Triple, 165 PS — €220/day
+
+Discounts: 10% off for 3-day rentals, 20% off for 7+ day rentals.
+
+## Tours
+
+We offer tours from Frankfurt through:
+
+- Taunus (1 day, 180 km, easy)
+- Odenwald (1 day, 220 km, moderate)
+- Rhine & Moselle (2 days, 420 km, moderate)
+- Eifel & Nürburgring (2 days, 480 km, challenging)
+- Black Forest (3 days, 750 km, moderate)
+- Alpine Border Tour (7 days, 2200 km, challenging)
+
+## Requirements
+
+- Valid Class A motorcycle license (A2 for some bikes)
+- Minimum age: 21 (25 for bikes over 100 PS)
+- Security deposit: €500–€1,500
+- Free cancellation up to 48 hours before rental start
+
+## Booking
+
+Book via RIBE (ribeme.com) or contact us directly via WhatsApp.
+
+## Location
+
+Pickup and return in Frankfurt am Main, Germany.
+10 minutes from Frankfurt Hauptbahnhof, 25 minutes from Frankfurt Airport.
+
+## Contact
+
+- Website: https://www.motoko.de
+- Booking: https://www.ribeme.com
+- Instagram: @motoko.ffm

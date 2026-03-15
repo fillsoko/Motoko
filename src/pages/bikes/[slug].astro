@@ -17,12 +17,18 @@ const { bike } = Astro.props;
 
 // Dynamically load bike images
 const allImages = import.meta.glob<{ default: ImageMetadata }>(
-  '../../assets/images/bikes/**/*.{jpg,jpeg,png,webp}',
+  '../../assets/images/bikes/**/*.webp',
   { eager: true }
 );
 
 const bikeImages = Object.entries(allImages)
   .filter(([path]) => path.includes(`/${bike.slug}/`))
+  .sort(([a], [b]) => {
+    // Put hero image first
+    if (a.includes('hero.')) return -1;
+    if (b.includes('hero.')) return 1;
+    return a.localeCompare(b);
+  })
   .map(([, mod]) => mod.default);
 
 const heroImage = bikeImages[0];

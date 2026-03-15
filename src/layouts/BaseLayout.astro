@@ -6,9 +6,75 @@ import WhatsAppButton from '../components/WhatsAppButton.astro';
 interface Props {
   title: string;
   description?: string;
+  ogImage?: string;
+  canonical?: string;
+  type?: 'website' | 'article';
 }
 
-const { title, description = 'Motorcycle rental, guided tours, and custom parts — based in Germany.' } = Astro.props;
+const {
+  title,
+  description = 'Motorradverleih, geführte Touren und Custom Parts — mit Sitz in Frankfurt am Main. Jede Miete beinhaltet eine tägliche Vollkaskoversicherung.',
+  ogImage = '/og-default.jpg',
+  type = 'website',
+} = Astro.props;
+
+const canonical = Astro.props.canonical || new URL(Astro.url.pathname, 'https://www.motoko.de').href;
+const siteName = 'motoko — Motorcycle Rental & Tours';
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'LocalBusiness',
+  name: 'Motoko GmbH',
+  alternateName: 'motoko',
+  description: 'Premium motorcycle rental, guided tours and custom parts in Frankfurt am Main, Germany.',
+  url: 'https://www.motoko.de',
+  telephone: '+4917612345678',
+  address: {
+    '@type': 'PostalAddress',
+    addressLocality: 'Frankfurt am Main',
+    addressRegion: 'Hessen',
+    addressCountry: 'DE',
+  },
+  geo: {
+    '@type': 'GeoCoordinates',
+    latitude: 50.1109,
+    longitude: 8.6821,
+  },
+  openingHoursSpecification: {
+    '@type': 'OpeningHoursSpecification',
+    dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
+    opens: '09:00',
+    closes: '18:00',
+  },
+  priceRange: '€€',
+  image: 'https://www.motoko.de/og-default.jpg',
+  sameAs: [
+    'https://instagram.com/motoko',
+    'https://www.ribeme.com',
+  ],
+  hasOfferCatalog: {
+    '@type': 'OfferCatalog',
+    name: 'Motorcycle Fleet',
+    itemListElement: [
+      {
+        '@type': 'Offer',
+        itemOffered: {
+          '@type': 'Product',
+          name: 'Motorcycle Rental',
+          description: 'Daily motorcycle rental with comprehensive insurance included',
+        },
+        priceCurrency: 'EUR',
+        price: '70',
+        priceSpecification: {
+          '@type': 'UnitPriceSpecification',
+          price: '70',
+          priceCurrency: 'EUR',
+          unitText: 'DAY',
+        },
+      },
+    ],
+  },
+};
 ---
 
 <!doctype html>
@@ -16,10 +82,48 @@ const { title, description = 'Motorcycle rental, guided tours, and custom parts 
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="description" content={description} />
-    <meta name="generator" content={Astro.generator} />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <!-- SEO -->
     <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+    <meta name="generator" content={Astro.generator} />
+
+    <!-- Geo -->
+    <meta name="geo.region" content="DE-HE" />
+    <meta name="geo.placename" content="Frankfurt am Main" />
+    <meta name="geo.position" content="50.1109;8.6821" />
+    <meta name="ICBM" content="50.1109, 8.6821" />
+
+    <!-- Language alternates -->
+    <link rel="alternate" hreflang="de" href={canonical} />
+    <link rel="alternate" hreflang="en" href={canonical} />
+    <link rel="alternate" hreflang="x-default" href={canonical} />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content={type} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:site_name" content={siteName} />
+    <meta property="og:image" content={new URL(ogImage, 'https://www.motoko.de').href} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:locale" content="de_DE" />
+    <meta property="og:locale:alternate" content="en_US" />
+
+    <!-- Twitter / X -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={new URL(ogImage, 'https://www.motoko.de').href} />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
   </head>
   <body class="min-h-screen bg-bg-primary text-text-primary">
     <slot />

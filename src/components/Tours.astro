@@ -1,11 +1,16 @@
 ---
 import { tours } from '../data/tours';
-import TourCard from './TourCard.astro';
+
+const difficultyColor = {
+  Easy: 'text-text-muted border-text-muted',
+  Moderate: 'text-text-secondary border-text-secondary',
+  Challenging: 'text-accent border-accent',
+};
 ---
 
 <section id="tours" class="py-24 px-6">
   <div class="max-w-6xl mx-auto">
-    <div class="mb-16 reveal">
+    <div class="mb-20 reveal">
       <span class="text-xs font-mono uppercase tracking-widest text-accent"
         data-i18n-de="Erlebnisse"
         data-i18n-en="Experiences"
@@ -23,35 +28,101 @@ import TourCard from './TourCard.astro';
       </p>
     </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 reveal">
-      {tours.map((tour) => (
-        <TourCard tour={tour} />
+    <div class="space-y-32">
+      {tours.map((tour, i) => (
+        <div class="reveal">
+          {/* Section label */}
+          <div class="flex items-center gap-4 mb-8">
+            <span class="font-mono text-accent text-sm">{String(i + 1).padStart(2, '0')}</span>
+            <div class="flex-1 h-px bg-border"></div>
+            <span class={`inline-block px-2 py-0.5 text-xs font-mono uppercase tracking-wider border rounded ${difficultyColor[tour.difficulty]}`}>
+              {tour.difficulty}
+            </span>
+          </div>
+
+          {/* Two-column layout: alternating sides */}
+          <div class={`grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 ${i % 2 === 1 ? 'lg:direction-rtl' : ''}`}>
+            {/* Map */}
+            <div class={`${i % 2 === 1 ? 'lg:order-2' : 'lg:order-1'}`}>
+              <div class="komoot-map-wrapper relative aspect-[4/3] rounded-lg overflow-hidden border border-border bg-bg-surface-alt">
+                <iframe
+                  src={`https://www.komoot.com/tour/${tour.komootTourId}/embed?profile=0`}
+                  loading="lazy"
+                  scrolling="no"
+                  class="w-full h-full"
+                  title={`Route: ${tour.name}`}
+                ></iframe>
+              </div>
+            </div>
+
+            {/* Description */}
+            <div class={`flex flex-col justify-center ${i % 2 === 1 ? 'lg:order-1' : 'lg:order-2'}`}>
+              <h3 class="font-display text-3xl md:text-4xl font-normal mb-2"
+                data-i18n-de={tour.name}
+                data-i18n-en={tour.nameEn || tour.name}
+              >{tour.name}</h3>
+
+              <div class="flex items-center gap-4 mb-6">
+                <span class="text-sm font-mono text-accent">{tour.duration}</span>
+                <span class="text-sm font-mono text-text-muted">{tour.distance}</span>
+              </div>
+
+              <p class="font-body text-text-secondary leading-relaxed mb-8"
+                data-i18n-de={tour.description}
+                data-i18n-en={tour.descriptionEn || tour.description}
+              >
+                {tour.description}
+              </p>
+
+              {/* Itinerary */}
+              <div class="mb-8">
+                <h4 class="font-mono text-text-muted text-xs uppercase tracking-wider mb-3"
+                  data-i18n-de="Route"
+                  data-i18n-en="Route"
+                >Route</h4>
+                <ol class="space-y-2">
+                  {tour.itinerary.map((step, stepIdx) => (
+                    <li class="flex items-start gap-3 text-sm font-body text-text-secondary">
+                      <span class="font-mono text-accent text-xs mt-0.5 shrink-0">{String(stepIdx + 1).padStart(2, '0')}</span>
+                      <span>{step}</span>
+                    </li>
+                  ))}
+                </ol>
+              </div>
+
+              {/* Highlights */}
+              {tour.highlights && tour.highlights.length > 0 && (
+                <div class="mb-8">
+                  <h4 class="font-mono text-text-muted text-xs uppercase tracking-wider mb-3">Highlights</h4>
+                  <div class="flex flex-wrap gap-2">
+                    {tour.highlights.map((h) => (
+                      <span class="inline-flex items-center gap-1.5 bg-bg-surface rounded-full px-3 py-1.5 text-xs font-body text-text-secondary border border-border-subtle">
+                        <span class="w-1.5 h-1.5 rounded-full bg-accent shrink-0"></span>
+                        {h}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* CTA */}
+              <a
+                href={tour.komootUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="inline-flex items-center gap-2 px-6 py-3 border border-border text-text-primary text-sm font-body font-medium uppercase tracking-widest rounded hover:border-accent hover:text-accent transition-colors duration-300 self-start"
+                data-i18n-de="Auf Komoot ansehen"
+                data-i18n-en="View on Komoot"
+              >
+                <span data-i18n-de="Auf Komoot ansehen" data-i18n-en="View on Komoot">Auf Komoot ansehen</span>
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                </svg>
+              </a>
+            </div>
+          </div>
+        </div>
       ))}
     </div>
   </div>
 </section>
-
-<script>
-  document.querySelectorAll('.komoot-map-placeholder').forEach((placeholder) => {
-    function loadEmbed() {
-      const tourId = (placeholder as HTMLElement).dataset.tourId;
-      if (!tourId) return;
-
-      const wrapper = placeholder.closest('.komoot-map-wrapper');
-      if (!wrapper) return;
-
-      const iframe = document.createElement('iframe');
-      iframe.src = `https://www.komoot.com/tour/${tourId}/embed?profile=1`;
-      iframe.setAttribute('loading', 'lazy');
-      iframe.setAttribute('scrolling', 'no');
-
-      wrapper.appendChild(iframe);
-      placeholder.classList.add('hidden');
-    }
-
-    placeholder.addEventListener('click', loadEmbed);
-    placeholder.addEventListener('keydown', (e) => {
-      if ((e as KeyboardEvent).key === 'Enter') loadEmbed();
-    });
-  });
-</script>

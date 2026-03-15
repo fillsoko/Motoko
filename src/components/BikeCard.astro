@@ -10,19 +10,24 @@ const { bike } = Astro.props;
 
 // Dynamically load bike images
 const allImages = import.meta.glob<{ default: ImageMetadata }>(
-  '../assets/images/bikes/**/*.{jpg,jpeg,png,webp}',
+  '../assets/images/bikes/**/*.webp',
   { eager: true }
 );
 
 // Find first image matching this bike's slug
 const bikeImages = Object.entries(allImages)
   .filter(([path]) => path.includes(`/${bike.slug}/`))
+  .sort(([a], [b]) => {
+    if (a.includes('hero.')) return -1;
+    if (b.includes('hero.')) return 1;
+    return a.localeCompare(b);
+  })
   .map(([, mod]) => mod.default);
 
 const heroImage = bikeImages[0];
 ---
 
-<article class="group bg-bg-surface border border-border rounded-lg overflow-hidden hover:border-text-muted transition-colors duration-300">
+<article class="group flex flex-col h-full bg-bg-surface border border-border rounded-lg overflow-hidden hover:border-text-muted transition-colors duration-300">
   <a href={`/bikes/${bike.slug}`} class="block">
     {heroImage ? (
       <Image
@@ -38,7 +43,7 @@ const heroImage = bikeImages[0];
     )}
   </a>
 
-  <div class="p-6">
+  <div class="flex flex-col flex-1 p-6">
     <div class="flex items-start justify-between mb-2">
       <div>
         <h3 class="font-display text-xl font-semibold text-text-primary">
@@ -46,9 +51,9 @@ const heroImage = bikeImages[0];
             {bike.name}
           </a>
         </h3>
-        {bike.nickname && (
-          <span class="text-sm font-body text-text-muted italic">&ldquo;{bike.nickname}&rdquo;</span>
-        )}
+        <span class="text-sm font-body text-text-muted italic min-h-[1.25rem] block">
+          {bike.nickname ? <>&ldquo;{bike.nickname}&rdquo;</> : <>&nbsp;</>}
+        </span>
       </div>
       <span class="text-sm font-mono text-text-secondary whitespace-nowrap ml-2">{bike.year}</span>
     </div>
@@ -85,7 +90,7 @@ const heroImage = bikeImages[0];
       href={bike.ripeUrl}
       target="_blank"
       rel="noopener noreferrer"
-      class="block w-full text-center px-6 py-3 bg-text-primary text-bg-primary text-sm font-body font-medium uppercase tracking-widest rounded hover:bg-text-secondary transition-colors duration-300"
+      class="block w-full text-center px-6 py-3 mt-auto bg-text-primary text-bg-primary text-sm font-body font-medium uppercase tracking-widest rounded hover:bg-text-secondary transition-colors duration-300"
     >
       Book via RIBE
     </a>
