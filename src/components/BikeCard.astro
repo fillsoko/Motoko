@@ -1,0 +1,49 @@
+---
+import type { Bike } from '../data/bikes';
+
+interface Props {
+  bike: Bike;
+}
+
+const { bike } = Astro.props;
+---
+
+<article class="group bg-bg-surface border border-border rounded-lg overflow-hidden hover:border-text-muted transition-colors duration-300">
+  <!-- Image placeholder: 3:2 aspect ratio -->
+  <div class="aspect-[3/2] bg-bg-surface-alt"></div>
+
+  <div class="p-6">
+    <div class="flex items-start justify-between mb-4">
+      <div>
+        <h3 class="font-display text-xl font-semibold text-text-primary">{bike.name}</h3>
+        <span class="text-sm font-body text-text-secondary">{bike.category}</span>
+      </div>
+    </div>
+
+    <dl class="grid grid-cols-2 gap-x-4 gap-y-2 mb-6 text-sm">
+      <div>
+        <dt class="font-mono text-text-muted text-xs uppercase tracking-wider">Engine</dt>
+        <dd class="font-body text-text-secondary">{bike.engine}</dd>
+      </div>
+      <div>
+        <dt class="font-mono text-text-muted text-xs uppercase tracking-wider">Power</dt>
+        <dd class="font-body text-text-secondary">{bike.power}</dd>
+      </div>
+      <div>
+        <dt class="font-mono text-text-muted text-xs uppercase tracking-wider">Weight</dt>
+        <dd class="font-body text-text-secondary">{bike.weight}</dd>
+      </div>
+      <div>
+        <dt class="font-mono text-text-muted text-xs uppercase tracking-wider">Seat</dt>
+        <dd class="font-body text-text-secondary">{bike.seat}</dd>
+      </div>
+    </dl>
+
+    <a
+      href={bike.ripeUrl}
+      class="block w-full text-center px-6 py-3 bg-text-primary text-bg-primary text-sm font-body font-medium uppercase tracking-widest rounded hover:bg-text-secondary transition-colors duration-300"
+    >
+      Book via RIPE
+    </a>
+  </div>
+</article>

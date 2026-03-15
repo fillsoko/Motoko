@@ -1,0 +1,22 @@
+---
+import { bikes } from '../data/bikes';
+import BikeCard from './BikeCard.astro';
+---
+
+<section id="fleet" class="py-24 px-6">
+  <div class="max-w-6xl mx-auto">
+    <div class="mb-16">
+      <h2 class="font-display text-4xl md:text-5xl font-normal mb-4">Fleet</h2>
+      <p class="font-body text-text-secondary text-lg max-w-2xl">
+        Ten motorcycles, maintained to touring standard. Each rental includes daily
+        comprehensive insurance — ride without worry.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {bikes.map((bike) => (
+        <BikeCard bike={bike} />
+      ))}
+    </div>
+  </div>
+</section>
