@@ -29,18 +29,34 @@
       <!-- Step 1: What are you looking for? -->
       <div data-step="1" class="wizard-step">
         <h3 class="font-display text-xl mb-6">Was suchst du?</h3>
-        <div class="grid grid-cols-1 gap-3">
-          <button data-choice="interest" data-value="bike" class="wizard-option text-left px-5 py-4 border border-border rounded hover:border-text-muted transition-colors duration-300">
-            <span class="block font-body text-text-primary text-sm font-medium">Motorrad mieten</span>
-            <span class="block font-body text-text-muted text-xs mt-1">Ich will ein bestimmtes Bike ausleihen</span>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+          <button data-choice="interest" data-value="bike" class="wizard-option flex items-start gap-4 text-left px-5 py-4 border border-border rounded hover:border-text-muted transition-colors duration-300">
+            <svg class="w-6 h-6 text-text-muted shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 17a2 2 0 11-4 0 2 2 0 014 0zM19 17a2 2 0 11-4 0 2 2 0 014 0z" />
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 16V6l-4 2v4l7 4" />
+            </svg>
+            <div>
+              <span class="block font-body text-text-primary text-sm font-medium">Motorrad mieten</span>
+              <span class="block font-body text-text-muted text-xs mt-1">Ich will ein bestimmtes Bike ausleihen</span>
+            </div>
           </button>
-          <button data-choice="interest" data-value="tour" class="wizard-option text-left px-5 py-4 border border-border rounded hover:border-text-muted transition-colors duration-300">
-            <span class="block font-body text-text-primary text-sm font-medium">Geführte Tour</span>
-            <span class="block font-body text-text-muted text-xs mt-1">Ich will an einer geführten Motorradtour teilnehmen</span>
+          <button data-choice="interest" data-value="tour" class="wizard-option flex items-start gap-4 text-left px-5 py-4 border border-border rounded hover:border-text-muted transition-colors duration-300">
+            <svg class="w-6 h-6 text-text-muted shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" />
+            </svg>
+            <div>
+              <span class="block font-body text-text-primary text-sm font-medium">Geführte Tour</span>
+              <span class="block font-body text-text-muted text-xs mt-1">Ich will an einer geführten Motorradtour teilnehmen</span>
+            </div>
           </button>
-          <button data-choice="interest" data-value="both" class="wizard-option text-left px-5 py-4 border border-border rounded hover:border-text-muted transition-colors duration-300">
-            <span class="block font-body text-text-primary text-sm font-medium">Offen für beides</span>
-            <span class="block font-body text-text-muted text-xs mt-1">Zeig mir was ihr habt</span>
+          <button data-choice="interest" data-value="both" class="wizard-option flex items-start gap-4 text-left px-5 py-4 border border-border rounded hover:border-text-muted transition-colors duration-300">
+            <svg class="w-6 h-6 text-text-muted shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 6h16M4 10h16M4 14h16M4 18h16" />
+            </svg>
+            <div>
+              <span class="block font-body text-text-primary text-sm font-medium">Offen für beides</span>
+              <span class="block font-body text-text-muted text-xs mt-1">Zeig mir was ihr habt</span>
+            </div>
           </button>
         </div>
       </div>
@@ -48,25 +64,37 @@
       <!-- Step 2: Brand preference -->
       <div data-step="2" class="wizard-step hidden">
         <h3 class="font-display text-xl mb-6">Hast du eine Markenpräferenz?</h3>
-        <div class="grid grid-cols-2 gap-3">
-          <button data-choice="brand" data-value="bmw" class="wizard-option text-left px-5 py-4 border border-border rounded hover:border-text-muted transition-colors duration-300">
-            <span class="block font-body text-text-primary text-sm font-medium">BMW</span>
+        <div class="grid grid-cols-2 md:grid-cols-3 gap-3">
+          <button data-choice="brand" data-value="bmw" class="wizard-option flex items-center gap-3 text-left px-5 py-4 border border-border rounded hover:border-text-muted transition-colors duration-300">
+            <img src="/images/logos/bmw.svg" alt="BMW" class="w-6 h-6 object-contain" />
+            <span class="font-body text-text-primary text-sm font-medium">BMW</span>
           </button>
-          <button data-choice="brand" data-value="harley" class="wizard-option text-left px-5 py-4 border border-border rounded hover:border-text-muted transition-colors duration-300">
-            <span class="block font-body text-text-primary text-sm font-medium">Harley-Davidson</span>
+          <button data-choice="brand" data-value="triumph" class="wizard-option flex items-center gap-3 text-left px-5 py-4 border border-border rounded hover:border-text-muted transition-colors duration-300">
+            <img src="/images/logos/triumph.svg" alt="Triumph" class="w-6 h-6 object-contain brightness-0 invert" />
+            <span class="font-body text-text-primary text-sm font-medium">Triumph</span>
           </button>
-          <button data-choice="brand" data-value="triumph" class="wizard-option text-left px-5 py-4 border border-border rounded hover:border-text-muted transition-colors duration-300">
-            <span class="block font-body text-text-primary text-sm font-medium">Triumph</span>
+          <button data-choice="brand" data-value="ducati" class="wizard-option flex items-center gap-3 text-left px-5 py-4 border border-border rounded hover:border-text-muted transition-colors duration-300">
+            <img src="/images/logos/ducati.svg" alt="Ducati" class="w-6 h-6 object-contain brightness-0 invert" />
+            <span class="font-body text-text-primary text-sm font-medium">Ducati</span>
           </button>
-          <button data-choice="brand" data-value="ducati" class="wizard-option text-left px-5 py-4 border border-border rounded hover:border-text-muted transition-colors duration-300">
-            <span class="block font-body text-text-primary text-sm font-medium">Ducati</span>
+          <button data-choice="brand" data-value="honda" class="wizard-option flex items-center gap-3 text-left px-5 py-4 border border-border rounded hover:border-text-muted transition-colors duration-300">
+            <img src="/images/logos/honda.svg" alt="Honda" class="w-6 h-6 object-contain brightness-0 invert" />
+            <span class="font-body text-text-primary text-sm font-medium">Honda</span>
           </button>
-          <button data-choice="brand" data-value="other" class="wizard-option text-left px-5 py-4 border border-border rounded hover:border-text-muted transition-colors duration-300">
-            <span class="block font-body text-text-primary text-sm font-medium">Andere</span>
+          <button data-choice="brand" data-value="other" class="wizard-option flex items-center gap-3 text-left px-5 py-4 border border-border rounded hover:border-text-muted transition-colors duration-300">
+            <svg class="w-6 h-6 text-text-muted shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 12h.01M12 12h.01M16 12h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            <span class="font-body text-text-primary text-sm font-medium">Andere</span>
           </button>
-          <button data-choice="brand" data-value="no-preference" class="wizard-option text-left px-5 py-4 border border-border rounded hover:border-text-muted transition-colors duration-300">
-            <span class="block font-body text-text-primary text-sm font-medium">Egal</span>
-            <span class="block font-body text-text-muted text-xs mt-1">Hauptsache Fahrspass</span>
+          <button data-choice="brand" data-value="no-preference" class="wizard-option flex items-center gap-3 text-left px-5 py-4 border border-border rounded hover:border-text-muted transition-colors duration-300">
+            <svg class="w-6 h-6 text-text-muted shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            <div>
+              <span class="block font-body text-text-primary text-sm font-medium">Egal</span>
+              <span class="block font-body text-text-muted text-xs mt-0.5">Hauptsache Fahrspass</span>
+            </div>
           </button>
         </div>
       </div>
@@ -74,18 +102,33 @@
       <!-- Step 3: Booking preference -->
       <div data-step="3" class="wizard-step hidden">
         <h3 class="font-display text-xl mb-6">Wie möchtest du buchen?</h3>
-        <div class="grid grid-cols-1 gap-3">
-          <button data-choice="booking" data-value="ribe" class="wizard-option text-left px-5 py-4 border border-border rounded hover:border-text-muted transition-colors duration-300">
-            <span class="block font-body text-text-primary text-sm font-medium">Über RIBE</span>
-            <span class="block font-body text-text-muted text-xs mt-1">Online-Plattform mit europaweiter Vollkasko</span>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+          <button data-choice="booking" data-value="ribe" class="wizard-option flex items-start gap-4 text-left px-5 py-4 border border-border rounded hover:border-text-muted transition-colors duration-300">
+            <svg class="w-6 h-6 text-text-muted shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" />
+            </svg>
+            <div>
+              <span class="block font-body text-text-primary text-sm font-medium">Über RIBE</span>
+              <span class="block font-body text-text-muted text-xs mt-1">Online-Plattform mit europaweiter Vollkasko</span>
+            </div>
           </button>
-          <button data-choice="booking" data-value="direct" class="wizard-option text-left px-5 py-4 border border-border rounded hover:border-text-muted transition-colors duration-300">
-            <span class="block font-body text-text-primary text-sm font-medium">Direkt bei motoko</span>
-            <span class="block font-body text-text-muted text-xs mt-1">Persönlicher Kontakt, individuelle Absprache</span>
+          <button data-choice="booking" data-value="direct" class="wizard-option flex items-start gap-4 text-left px-5 py-4 border border-border rounded hover:border-text-muted transition-colors duration-300">
+            <svg class="w-6 h-6 text-text-muted shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2v4l-4-4H9a1.994 1.994 0 01-1.414-.586m0 0L11 14h4a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2v4l.586-.586z" />
+            </svg>
+            <div>
+              <span class="block font-body text-text-primary text-sm font-medium">Direkt bei motoko</span>
+              <span class="block font-body text-text-muted text-xs mt-1">Persönlicher Kontakt, individuelle Absprache</span>
+            </div>
           </button>
-          <button data-choice="booking" data-value="unsure" class="wizard-option text-left px-5 py-4 border border-border rounded hover:border-text-muted transition-colors duration-300">
-            <span class="block font-body text-text-primary text-sm font-medium">Bin mir unsicher</span>
-            <span class="block font-body text-text-muted text-xs mt-1">Beratet mich</span>
+          <button data-choice="booking" data-value="unsure" class="wizard-option flex items-start gap-4 text-left px-5 py-4 border border-border rounded hover:border-text-muted transition-colors duration-300">
+            <svg class="w-6 h-6 text-text-muted shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            <div>
+              <span class="block font-body text-text-primary text-sm font-medium">Bin mir unsicher</span>
+              <span class="block font-body text-text-muted text-xs mt-1">Beratet mich</span>
+            </div>
           </button>
         </div>
       </div>
@@ -93,18 +136,33 @@
       <!-- Step 4: Insurance -->
       <div data-step="4" class="wizard-step hidden">
         <h3 class="font-display text-xl mb-6">Versicherung</h3>
-        <div class="grid grid-cols-1 gap-3">
-          <button data-choice="insurance" data-value="full" class="wizard-option text-left px-5 py-4 border border-border rounded hover:border-text-muted transition-colors duration-300">
-            <span class="block font-body text-text-primary text-sm font-medium">Europaweite Vollkasko</span>
-            <span class="block font-body text-text-muted text-xs mt-1">Maximaler Schutz, inklusive bei RIBE-Buchungen</span>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+          <button data-choice="insurance" data-value="full" class="wizard-option flex items-start gap-4 text-left px-5 py-4 border border-border rounded hover:border-text-muted transition-colors duration-300">
+            <svg class="w-6 h-6 text-text-muted shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+            </svg>
+            <div>
+              <span class="block font-body text-text-primary text-sm font-medium">Europaweite Vollkasko</span>
+              <span class="block font-body text-text-muted text-xs mt-1">Maximaler Schutz, inklusive bei RIBE-Buchungen</span>
+            </div>
           </button>
-          <button data-choice="insurance" data-value="basic" class="wizard-option text-left px-5 py-4 border border-border rounded hover:border-text-muted transition-colors duration-300">
-            <span class="block font-body text-text-primary text-sm font-medium">Haftpflicht</span>
-            <span class="block font-body text-text-muted text-xs mt-1">Gesetzlicher Mindestschutz</span>
+          <button data-choice="insurance" data-value="basic" class="wizard-option flex items-start gap-4 text-left px-5 py-4 border border-border rounded hover:border-text-muted transition-colors duration-300">
+            <svg class="w-6 h-6 text-text-muted shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M20.618 5.984A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+            </svg>
+            <div>
+              <span class="block font-body text-text-primary text-sm font-medium">Haftpflicht</span>
+              <span class="block font-body text-text-muted text-xs mt-1">Gesetzlicher Mindestschutz</span>
+            </div>
           </button>
-          <button data-choice="insurance" data-value="own" class="wizard-option text-left px-5 py-4 border border-border rounded hover:border-text-muted transition-colors duration-300">
-            <span class="block font-body text-text-primary text-sm font-medium">Eigene Versicherung</span>
-            <span class="block font-body text-text-muted text-xs mt-1">Ich bin bereits versichert</span>
+          <button data-choice="insurance" data-value="own" class="wizard-option flex items-start gap-4 text-left px-5 py-4 border border-border rounded hover:border-text-muted transition-colors duration-300">
+            <svg class="w-6 h-6 text-text-muted shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
+            </svg>
+            <div>
+              <span class="block font-body text-text-primary text-sm font-medium">Eigene Versicherung</span>
+              <span class="block font-body text-text-muted text-xs mt-1">Ich bin bereits versichert</span>
+            </div>
           </button>
         </div>
       </div>
@@ -113,27 +171,29 @@
       <div data-step="5" class="wizard-step hidden">
         <h3 class="font-display text-xl mb-6">Deine Kontaktdaten</h3>
         <form id="wizard-form" class="space-y-4">
-          <div>
-            <label for="wiz-name" class="block text-xs font-mono text-text-muted uppercase tracking-wider mb-1">Name</label>
-            <input
-              type="text"
-              id="wiz-name"
-              name="name"
-              required
-              class="w-full px-4 py-3 bg-bg-surface-alt border border-border rounded text-text-primary font-body text-sm placeholder:text-text-muted focus:outline-none focus:border-text-muted transition-colors duration-300"
-              placeholder="Max Mustermann"
-            />
-          </div>
-          <div>
-            <label for="wiz-email" class="block text-xs font-mono text-text-muted uppercase tracking-wider mb-1">E-Mail</label>
-            <input
-              type="email"
-              id="wiz-email"
-              name="email"
-              required
-              class="w-full px-4 py-3 bg-bg-surface-alt border border-border rounded text-text-primary font-body text-sm placeholder:text-text-muted focus:outline-none focus:border-text-muted transition-colors duration-300"
-              placeholder="max@example.com"
-            />
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <label for="wiz-name" class="block text-xs font-mono text-text-muted uppercase tracking-wider mb-1">Name</label>
+              <input
+                type="text"
+                id="wiz-name"
+                name="name"
+                required
+                class="w-full px-4 py-3 bg-bg-surface-alt border border-border rounded text-text-primary font-body text-sm placeholder:text-text-muted focus:outline-none focus:border-text-muted transition-colors duration-300"
+                placeholder="Max Mustermann"
+              />
+            </div>
+            <div>
+              <label for="wiz-email" class="block text-xs font-mono text-text-muted uppercase tracking-wider mb-1">E-Mail</label>
+              <input
+                type="email"
+                id="wiz-email"
+                name="email"
+                required
+                class="w-full px-4 py-3 bg-bg-surface-alt border border-border rounded text-text-primary font-body text-sm placeholder:text-text-muted focus:outline-none focus:border-text-muted transition-colors duration-300"
+                placeholder="max@example.com"
+              />
+            </div>
           </div>
           <div>
             <label for="wiz-message" class="block text-xs font-mono text-text-muted uppercase tracking-wider mb-1">Nachricht (optional)</label>
