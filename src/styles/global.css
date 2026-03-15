@@ -2,19 +2,20 @@
 @import '@fontsource/cormorant-garamond/300.css';
 @import '@fontsource/cormorant-garamond/400.css';
 @import '@fontsource/cormorant-garamond/600.css';
+@import '@fontsource/inter/300.css';
 @import '@fontsource/inter/400.css';
 @import '@fontsource/inter/500.css';
 @import '@fontsource/jetbrains-mono/400.css';
 
 @theme {
-  --color-bg-primary: #0A0A08;
-  --color-bg-surface: #1A1A1A;
-  --color-bg-surface-alt: #141414;
-  --color-border: #2A2A2A;
-  --color-border-subtle: #1F1F1F;
+  --color-bg-primary: #000000;
+  --color-bg-surface: #111111;
+  --color-bg-surface-alt: #0A0A0A;
+  --color-border: #222222;
+  --color-border-subtle: #1A1A1A;
   --color-text-primary: #FFFFFF;
-  --color-text-secondary: #A0A0A0;
-  --color-text-muted: #666666;
+  --color-text-secondary: #999999;
+  --color-text-muted: #555555;
   --color-accent: #FF6B00;
   --color-accent-hover: #E55F00;
   --color-accent-muted: #FF6B0033;
@@ -30,10 +31,18 @@ html {
 
 body {
   font-family: var(--font-body);
+  font-weight: 300;
   background-color: var(--color-bg-primary);
   color: var(--color-text-primary);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  letter-spacing: 0.01em;
+}
+
+/* SOC-style heading treatment */
+h1, h2, h3, h4 {
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
 }
 
 @media (prefers-reduced-motion: reduce) {
