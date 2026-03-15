@@ -18,19 +18,6 @@ export function generateSlug(name: string): string {
 
 export const bikes: Bike[] = [
   {
-    name: 'Harley-Davidson FLH',
-    nickname: 'Violet',
-    category: 'Cruiser',
-    engine: '1449 cc V-Twin',
-    power: '66 PS',
-    weight: '340 kg',
-    seat: '150 cm+',
-    year: 2001,
-    pricePerDay: 100,
-    ripeUrl: 'https://www.ribeme.com/de/motorrad/mieten/8250-harley-davidson-flh-2001',
-    slug: 'harley-davidson-flh',
-  },
-  {
     name: 'Honda GL Goldwing Valkyrie',
     nickname: 'Gorilla',
     category: 'Touring',
