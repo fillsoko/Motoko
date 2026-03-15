@@ -5,15 +5,16 @@ import TourCard from './TourCard.astro';
 
 <section id="tours" class="py-24 px-6">
   <div class="max-w-6xl mx-auto">
-    <div class="mb-16">
-      <h2 class="font-display text-4xl md:text-5xl font-normal mb-4">Touren</h2>
+    <div class="mb-16 reveal">
+      <span class="text-xs font-mono uppercase tracking-widest text-accent">Erlebnisse</span>
+      <h2 class="font-display text-4xl md:text-5xl font-normal mb-4 mt-2">Touren</h2>
       <p class="font-body text-text-secondary text-lg max-w-2xl">
         Geführte und selbstgeführte Touren ab Frankfurt. Von Tagesausflügen durch
         den Taunus bis zur einwöchigen Alpenüberquerung.
       </p>
     </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 reveal">
       {tours.map((tour) => (
         <TourCard tour={tour} />
       ))}

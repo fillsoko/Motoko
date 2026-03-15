@@ -13,8 +13,9 @@ const displayBikes = preview ? bikes.slice(0, 3) : bikes;
 
 <section id="fleet" class="py-24 px-6">
   <div class="max-w-6xl mx-auto">
-    <div class="mb-12">
-      <h2 class="font-display text-4xl md:text-5xl font-normal mb-4"
+    <div class="mb-12 reveal">
+      <span class="text-xs font-mono uppercase tracking-widest text-accent">Motorräder</span>
+      <h2 class="font-display text-4xl md:text-5xl font-normal mb-4 mt-2"
           data-i18n-de="Fleet"
           data-i18n-en="Fleet"
       >Fleet</h2>
@@ -36,7 +37,7 @@ const displayBikes = preview ? bikes.slice(0, 3) : bikes;
       </div>
     )}
 
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 reveal">
       {displayBikes.map((bike) => (
         <BikeCard bike={bike} />
       ))}
