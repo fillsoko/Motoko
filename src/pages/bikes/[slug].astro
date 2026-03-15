@@ -1,4 +1,5 @@
 ---
+import { Image } from 'astro:assets';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Nav from '../../components/Nav.astro';
 import Footer from '../../components/Footer.astro';
@@ -13,6 +14,18 @@ export const getStaticPaths: GetStaticPaths = () => {
 };
 
 const { bike } = Astro.props;
+
+// Dynamically load bike images
+const allImages = import.meta.glob<{ default: ImageMetadata }>(
+  '../../assets/images/bikes/**/*.{jpg,jpeg,png,webp}',
+  { eager: true }
+);
+
+const bikeImages = Object.entries(allImages)
+  .filter(([path]) => path.includes(`/${bike.slug}/`))
+  .map(([, mod]) => mod.default);
+
+const heroImage = bikeImages[0];
 ---
 
 <BaseLayout title={`${bike.name} — motoko`} description={`${bike.name} mieten bei motoko. ${bike.engine}, ${bike.power}. Ab ${bike.pricePerDay} EUR pro Tag.`}>
@@ -31,8 +44,35 @@ const { bike } = Astro.props;
         Alle Bikes
       </a>
 
-      <!-- Image placeholder: 16:9 aspect ratio -->
-      <div class="aspect-[16/9] bg-bg-surface-alt rounded-lg mb-10"></div>
+      <!-- Hero image or placeholder -->
+      {heroImage ? (
+        <Image
+          src={heroImage}
+          alt={bike.name}
+          class="aspect-[16/9] w-full object-cover rounded-lg mb-10 grayscale"
+          widths={[600, 900, 1200]}
+          sizes="(max-width: 768px) 100vw, 900px"
+          loading="eager"
+        />
+      ) : (
+        <div class="aspect-[16/9] bg-bg-surface-alt rounded-lg mb-10"></div>
+      )}
+
+      <!-- Additional images gallery -->
+      {bikeImages.length > 1 && (
+        <div class="grid grid-cols-3 gap-3 mb-10">
+          {bikeImages.slice(1).map((img) => (
+            <Image
+              src={img}
+              alt={bike.name}
+              class="aspect-[3/2] w-full object-cover rounded grayscale"
+              widths={[300, 400]}
+              sizes="33vw"
+              loading="lazy"
+            />
+          ))}
+        </div>
+      )}
 
       <!-- Header -->
       <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-8">
@@ -69,7 +109,7 @@ const { bike } = Astro.props;
           <dd class="font-body text-text-secondary">{bike.weight}</dd>
         </div>
         <div>
-          <dt class="font-mono text-xs uppercase tracking-wider text-text-muted mb-1">Sitzhoehe</dt>
+          <dt class="font-mono text-xs uppercase tracking-wider text-text-muted mb-1">Mindestgroesse</dt>
           <dd class="font-body text-text-secondary">{bike.seat}</dd>
         </div>
         <div>

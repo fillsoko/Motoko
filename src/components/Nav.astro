@@ -1,8 +1,8 @@
 ---
 const links = [
-  { label: 'Fleet', href: '#fleet' },
-  { label: 'Tours', href: '#tours' },
-  { label: 'Contact', href: '#contact' },
+  { labelDe: 'Fleet', labelEn: 'Fleet', href: '#fleet' },
+  { labelDe: 'Touren', labelEn: 'Tours', href: '#tours' },
+  { labelDe: 'Kontakt', labelEn: 'Contact', href: '#contact' },
 ];
 ---
 
@@ -19,8 +19,10 @@ const links = [
             <a
               href={link.href}
               class="text-sm font-body font-medium uppercase tracking-widest text-text-secondary hover:text-text-primary transition-colors duration-300"
+              data-i18n-de={link.labelDe}
+              data-i18n-en={link.labelEn}
             >
-              {link.label}
+              {link.labelDe}
             </a>
           </li>
         ))}
@@ -29,15 +31,15 @@ const links = [
       <!-- Language switcher -->
       <div class="flex items-center gap-1 border-l border-border-subtle pl-6">
         <button
-          id="lang-de"
-          class="text-xs font-mono uppercase tracking-wider px-2 py-1 rounded text-text-primary bg-bg-surface"
+          data-lang-btn="de"
+          class="lang-btn text-xs font-mono uppercase tracking-wider px-2 py-1 rounded text-text-primary bg-bg-surface"
           aria-label="Deutsch"
         >
           DE
         </button>
         <button
-          id="lang-en"
-          class="text-xs font-mono uppercase tracking-wider px-2 py-1 rounded text-text-muted hover:text-text-secondary transition-colors duration-300"
+          data-lang-btn="en"
+          class="lang-btn text-xs font-mono uppercase tracking-wider px-2 py-1 rounded text-text-muted hover:text-text-secondary transition-colors duration-300"
           aria-label="English"
         >
           EN
@@ -64,28 +66,70 @@ const links = [
         <a
           href={link.href}
           class="block text-sm font-body font-medium uppercase tracking-widest text-text-secondary hover:text-text-primary transition-colors duration-300"
+          data-i18n-de={link.labelDe}
+          data-i18n-en={link.labelEn}
         >
-          {link.label}
+          {link.labelDe}
         </a>
       ))}
       <div class="flex items-center gap-2 pt-2 border-t border-border-subtle">
-        <button class="text-xs font-mono uppercase tracking-wider px-2 py-1 rounded text-text-primary bg-bg-surface">DE</button>
-        <button class="text-xs font-mono uppercase tracking-wider px-2 py-1 rounded text-text-muted">EN</button>
+        <button data-lang-btn="de" class="lang-btn text-xs font-mono uppercase tracking-wider px-2 py-1 rounded text-text-primary bg-bg-surface">DE</button>
+        <button data-lang-btn="en" class="lang-btn text-xs font-mono uppercase tracking-wider px-2 py-1 rounded text-text-muted">EN</button>
       </div>
     </div>
   </div>
 </nav>
 
 <script>
-  const btn = document.getElementById('mobile-menu-btn');
+  function setLang(lang: string) {
+    // Update all translatable elements
+    document.querySelectorAll('[data-i18n-de]').forEach((el) => {
+      const text = (el as HTMLElement).dataset[`i18n${lang === 'de' ? 'De' : 'En'}`];
+      if (text) el.textContent = text;
+    });
+
+    // Update button styles
+    document.querySelectorAll('.lang-btn').forEach((btn) => {
+      const btnLang = (btn as HTMLElement).dataset.langBtn;
+      if (btnLang === lang) {
+        btn.classList.remove('text-text-muted');
+        btn.classList.add('text-text-primary', 'bg-bg-surface');
+      } else {
+        btn.classList.remove('text-text-primary', 'bg-bg-surface');
+        btn.classList.add('text-text-muted');
+      }
+    });
+
+    // Update html lang attribute
+    document.documentElement.lang = lang;
+
+    // Persist choice
+    localStorage.setItem('motoko-lang', lang);
+  }
+
+  // Language button clicks
+  document.querySelectorAll('.lang-btn').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const lang = (btn as HTMLElement).dataset.langBtn!;
+      setLang(lang);
+    });
+  });
+
+  // Mobile menu toggle
+  const menuBtn = document.getElementById('mobile-menu-btn');
   const menu = document.getElementById('mobile-menu');
-  btn?.addEventListener('click', () => {
+  menuBtn?.addEventListener('click', () => {
     menu?.classList.toggle('hidden');
   });
-  // Close mobile menu on link click
   menu?.querySelectorAll('a').forEach((link) => {
     link.addEventListener('click', () => {
       menu?.classList.add('hidden');
     });
   });
+
+  // Restore saved language
+  const saved = localStorage.getItem('motoko-lang');
+  if (saved && saved !== 'de') {
+    setLang(saved);
+  }
 </script>

@@ -1,4 +1,5 @@
 ---
+import { Image } from 'astro:assets';
 import type { Bike } from '../data/bikes';
 
 interface Props {
@@ -6,12 +7,35 @@ interface Props {
 }
 
 const { bike } = Astro.props;
+
+// Dynamically load bike images
+const allImages = import.meta.glob<{ default: ImageMetadata }>(
+  '../assets/images/bikes/**/*.{jpg,jpeg,png,webp}',
+  { eager: true }
+);
+
+// Find first image matching this bike's slug
+const bikeImages = Object.entries(allImages)
+  .filter(([path]) => path.includes(`/${bike.slug}/`))
+  .map(([, mod]) => mod.default);
+
+const heroImage = bikeImages[0];
 ---
 
 <article class="group bg-bg-surface border border-border rounded-lg overflow-hidden hover:border-text-muted transition-colors duration-300">
-  <!-- Image placeholder: 3:2 aspect ratio -->
   <a href={`/bikes/${bike.slug}`} class="block">
-    <div class="aspect-[3/2] bg-bg-surface-alt"></div>
+    {heroImage ? (
+      <Image
+        src={heroImage}
+        alt={bike.name}
+        class="aspect-[3/2] w-full object-cover grayscale"
+        widths={[400, 600]}
+        sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+        loading="lazy"
+      />
+    ) : (
+      <div class="aspect-[3/2] bg-bg-surface-alt"></div>
+    )}
   </a>
 
   <div class="p-6">
