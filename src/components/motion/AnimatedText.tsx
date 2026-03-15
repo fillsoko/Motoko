@@ -1,4 +1,5 @@
 import { motion, useReducedMotion } from 'framer-motion';
+import { useEffect, useRef, useState } from 'react';
 
 interface AnimatedTextProps {
   text: string;
@@ -14,10 +15,24 @@ export default function AnimatedText({
   as: Tag = 'h2',
 }: AnimatedTextProps) {
   const prefersReducedMotion = useReducedMotion();
+  const ref = useRef<HTMLElement>(null);
+  const [mounted, setMounted] = useState(false);
+  const [skipAnimation, setSkipAnimation] = useState(false);
   const words = text.split(' ');
 
-  if (prefersReducedMotion) {
-    return <Tag className={className}>{text}</Tag>;
+  useEffect(() => {
+    if (ref.current) {
+      const rect = ref.current.getBoundingClientRect();
+      const inView = rect.top < window.innerHeight && rect.bottom > 0;
+      if (inView) {
+        setSkipAnimation(true);
+      }
+    }
+    setMounted(true);
+  }, []);
+
+  if (prefersReducedMotion || !mounted || skipAnimation) {
+    return <Tag ref={ref as any} className={className}>{text}</Tag>;
   }
 
   return (

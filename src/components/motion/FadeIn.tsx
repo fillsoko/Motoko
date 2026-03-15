@@ -1,4 +1,5 @@
 import { motion, useReducedMotion } from 'framer-motion';
+import { useEffect, useRef, useState } from 'react';
 import type { ReactNode } from 'react';
 
 interface FadeInProps {
@@ -9,6 +10,8 @@ interface FadeInProps {
   className?: string;
   once?: boolean;
   amount?: number;
+  /** Force animation even if already in viewport on mount (use with client:load) */
+  eager?: boolean;
 }
 
 const directionOffset = {
@@ -27,11 +30,31 @@ export default function FadeIn({
   className = '',
   once = true,
   amount = 0.15,
+  eager = false,
 }: FadeInProps) {
   const prefersReducedMotion = useReducedMotion();
+  const ref = useRef<HTMLDivElement>(null);
+  const [mounted, setMounted] = useState(false);
+  const [skipAnimation, setSkipAnimation] = useState(false);
+
+  useEffect(() => {
+    if (!eager && ref.current) {
+      const rect = ref.current.getBoundingClientRect();
+      const inView = rect.top < window.innerHeight && rect.bottom > 0;
+      if (inView) {
+        setSkipAnimation(true);
+      }
+    }
+    setMounted(true);
+  }, [eager]);
 
   if (prefersReducedMotion) {
     return <div className={className}>{children}</div>;
+  }
+
+  // Before hydration or if already visible on mount: render visible div
+  if (!mounted || skipAnimation) {
+    return <div ref={ref} className={className}>{children}</div>;
   }
 
   return (

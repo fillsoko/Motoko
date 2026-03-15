@@ -1,4 +1,5 @@
 import { motion, useReducedMotion } from 'framer-motion';
+import { useEffect, useRef, useState } from 'react';
 import type { ReactNode } from 'react';
 
 interface StaggerContainerProps {
@@ -15,9 +16,23 @@ export default function StaggerContainer({
   once = true,
 }: StaggerContainerProps) {
   const prefersReducedMotion = useReducedMotion();
+  const ref = useRef<HTMLDivElement>(null);
+  const [mounted, setMounted] = useState(false);
+  const [skipAnimation, setSkipAnimation] = useState(false);
 
-  if (prefersReducedMotion) {
-    return <div className={className}>{children}</div>;
+  useEffect(() => {
+    if (ref.current) {
+      const rect = ref.current.getBoundingClientRect();
+      const inView = rect.top < window.innerHeight && rect.bottom > 0;
+      if (inView) {
+        setSkipAnimation(true);
+      }
+    }
+    setMounted(true);
+  }, []);
+
+  if (prefersReducedMotion || !mounted || skipAnimation) {
+    return <div ref={ref} className={className}>{children}</div>;
   }
 
   return (

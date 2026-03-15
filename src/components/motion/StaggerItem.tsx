@@ -1,4 +1,5 @@
 import { motion, useReducedMotion } from 'framer-motion';
+import { useEffect, useState } from 'react';
 import type { ReactNode } from 'react';
 
 interface StaggerItemProps {
@@ -28,8 +29,14 @@ export default function StaggerItem({
   direction = 'up',
 }: StaggerItemProps) {
   const prefersReducedMotion = useReducedMotion();
+  const [mounted, setMounted] = useState(false);
 
-  if (prefersReducedMotion) {
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  // Before hydration or with reduced motion, render visible
+  if (prefersReducedMotion || !mounted) {
     return <div className={className}>{children}</div>;
   }
 

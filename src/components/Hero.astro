@@ -19,7 +19,7 @@ import heroImage from '../assets/images/heroes/home.webp';
   </div>
 
   <div class="relative z-10 w-full px-6 pb-12 md:pb-16 max-w-4xl mx-auto">
-    <FadeIn client:load delay={0.3} direction="up">
+    <FadeIn client:load delay={0.3} direction="up" eager>
       <p class="font-body text-text-secondary text-base md:text-lg max-w-2xl mx-auto mb-8 leading-relaxed text-center"
          data-i18n-de="Motorradverleih, geführte Touren und Custom Parts — mit Sitz in Frankfurt am Main. Jede Miete beinhaltet eine tägliche Vollkaskoversicherung."
          data-i18n-en="Motorcycle rental, guided tours, and custom parts — based in Frankfurt, Germany. Every rental includes daily comprehensive insurance."
@@ -27,7 +27,7 @@ import heroImage from '../assets/images/heroes/home.webp';
         Motorradverleih, geführte Touren und Custom Parts — mit Sitz in Frankfurt am Main. Jede Miete beinhaltet eine tägliche Vollkaskoversicherung.
       </p>
     </FadeIn>
-    <FadeIn client:load delay={0.5} direction="up">
+    <FadeIn client:load delay={0.5} direction="up" eager>
       <div class="flex flex-col sm:flex-row items-center justify-center gap-4 mb-10">
         <a
           href="/fleet"
@@ -49,7 +49,7 @@ import heroImage from '../assets/images/heroes/home.webp';
         </a>
       </div>
     </FadeIn>
-    <FadeIn client:load delay={0.7} direction="up">
+    <FadeIn client:load delay={0.7} direction="up" eager>
       <div class="w-full max-w-3xl mx-auto">
         <BrandBar />
       </div>
