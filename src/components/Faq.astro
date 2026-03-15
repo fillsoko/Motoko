@@ -1,0 +1,115 @@
+---
+const faqs = [
+  {
+    questionDe: 'Brauche ich einen bestimmten Führerschein?',
+    questionEn: 'Do I need a specific license?',
+    answerDe: 'Ja, du benötigst einen gültigen Motorradführerschein der Klasse A (oder gleichwertig für EU-Bürger). Für einige Bikes reicht auch A2. Bitte bring deinen Führerschein zur Übergabe mit.',
+    answerEn: 'Yes, you need a valid Class A motorcycle license (or equivalent for EU citizens). Some bikes are also available with an A2 license. Please bring your license to the pickup.',
+  },
+  {
+    questionDe: 'Was ist in der Versicherung enthalten?',
+    questionEn: 'What does the insurance cover?',
+    answerDe: 'Jede Buchung über RIBE beinhaltet eine europaweite Vollkaskoversicherung mit täglicher Deckung. Die Selbstbeteiligung variiert je nach Motorrad — Details findest du auf der jeweiligen Bike-Seite.',
+    answerEn: 'Every booking via RIBE includes Europe-wide comprehensive insurance with daily coverage. The deductible varies by motorcycle — details can be found on each bike page.',
+  },
+  {
+    questionDe: 'Kann ich das Motorrad ins Ausland fahren?',
+    questionEn: 'Can I ride abroad?',
+    answerDe: 'Ja, mit der europaweiten Vollkasko bist du in allen EU-Ländern sowie der Schweiz versichert. Bitte informiere uns vorab über dein Reiseziel.',
+    answerEn: 'Yes, with the Europe-wide comprehensive insurance you are covered in all EU countries and Switzerland. Please inform us about your destination in advance.',
+  },
+  {
+    questionDe: 'Wie funktioniert die Übergabe?',
+    questionEn: 'How does pickup/dropoff work?',
+    answerDe: 'Die Übergabe erfolgt persönlich in Frankfurt am Main. Wir nehmen uns Zeit, dir das Motorrad zu erklären und individuelle Routentipps zu geben. Rückgabe am vereinbarten Tag zur abgesprochenen Uhrzeit.',
+    answerEn: 'Pickup and dropoff happen in person in Frankfurt am Main. We take time to explain the motorcycle and give you personal route tips. Return on the agreed day at the arranged time.',
+  },
+  {
+    questionDe: 'Welche Zahlungsmethoden akzeptiert ihr?',
+    questionEn: 'What payment methods do you accept?',
+    answerDe: 'Über RIBE kannst du per Kreditkarte, PayPal oder Banküberweisung zahlen. Bei Direktbuchungen akzeptieren wir Banküberweisung und Barzahlung bei Übergabe.',
+    answerEn: 'Via RIBE you can pay by credit card, PayPal, or bank transfer. For direct bookings we accept bank transfer and cash payment at pickup.',
+  },
+  {
+    questionDe: 'Gibt es Langzeitrabatte?',
+    questionEn: 'Are there long-term discounts?',
+    answerDe: 'Ja, ab einer Mietdauer von 7 Tagen bieten wir reduzierte Tagespreise an. Kontaktiere uns direkt für ein individuelles Angebot.',
+    answerEn: 'Yes, for rental periods of 7 days or more we offer reduced daily rates. Contact us directly for a custom quote.',
+  },
+  {
+    questionDe: 'Was passiert bei einer Panne?',
+    questionEn: 'What if I break down?',
+    answerDe: 'Du erreichst uns jederzeit telefonisch. Wir organisieren Pannenhilfe und bei Bedarf ein Ersatzfahrzeug. Die Vollkasko deckt auch Abschleppkosten.',
+    answerEn: 'You can reach us by phone at any time. We organize roadside assistance and a replacement vehicle if needed. The comprehensive insurance also covers towing costs.',
+  },
+];
+---
+
+<section class="py-24 px-6">
+  <div class="max-w-3xl mx-auto">
+    <h2 class="font-display text-4xl md:text-5xl font-normal mb-4"
+        data-i18n-de="Häufige Fragen"
+        data-i18n-en="FAQ"
+    >
+      Häufige Fragen
+    </h2>
+    <p class="font-body text-text-secondary text-lg mb-12"
+       data-i18n-de="Alles was du vor deiner ersten Miete wissen musst."
+       data-i18n-en="Everything you need to know before your first rental."
+    >
+      Alles was du vor deiner ersten Miete wissen musst.
+    </p>
+
+    <div class="divide-y divide-border">
+      {faqs.map((faq, i) => (
+        <div class="faq-item" data-faq={i}>
+          <button
+            class="faq-toggle w-full flex items-center justify-between py-6 text-left group"
+            aria-expanded="false"
+          >
+            <span
+              class="font-body text-text-primary font-medium pr-4"
+              data-i18n-de={faq.questionDe}
+              data-i18n-en={faq.questionEn}
+            >
+              {faq.questionDe}
+            </span>
+            <svg class="faq-icon w-5 h-5 text-text-muted shrink-0 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 6v12M6 12h12" />
+            </svg>
+          </button>
+          <div class="faq-answer hidden pb-6">
+            <p
+              class="font-body text-text-secondary text-sm leading-relaxed"
+              data-i18n-de={faq.answerDe}
+              data-i18n-en={faq.answerEn}
+            >
+              {faq.answerDe}
+            </p>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<script>
+  document.querySelectorAll('.faq-toggle').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const item = btn.closest('.faq-item')!;
+      const answer = item.querySelector('.faq-answer')!;
+      const icon = item.querySelector('.faq-icon')!;
+      const isOpen = !answer.classList.contains('hidden');
+
+      if (isOpen) {
+        answer.classList.add('hidden');
+        icon.classList.remove('rotate-45');
+        btn.setAttribute('aria-expanded', 'false');
+      } else {
+        answer.classList.remove('hidden');
+        icon.classList.add('rotate-45');
+        btn.setAttribute('aria-expanded', 'true');
+      }
+    });
+  });
+</script>

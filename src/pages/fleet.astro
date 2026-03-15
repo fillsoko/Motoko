@@ -1,0 +1,21 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Nav from '../components/Nav.astro';
+import PageHero from '../components/PageHero.astro';
+import Fleet from '../components/Fleet.astro';
+import Footer from '../components/Footer.astro';
+import CookieBanner from '../components/CookieBanner.astro';
+---
+
+<BaseLayout title="Fleet — motoko" description="Neun handverlesene Motorräder von sieben Herstellern. Jede Miete beinhaltet eine tägliche Vollkaskoversicherung.">
+  <Nav />
+  <main>
+    <PageHero
+      title="Fleet"
+      subtitle="Neun Motorräder, gewartet auf Touring-Standard. Jede Miete beinhaltet eine tägliche Vollkaskoversicherung."
+    />
+    <Fleet />
+  </main>
+  <Footer />
+  <CookieBanner />
+</BaseLayout>

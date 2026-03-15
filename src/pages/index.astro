@@ -2,9 +2,9 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Nav from '../components/Nav.astro';
 import Hero from '../components/Hero.astro';
+import ValueProps from '../components/ValueProps.astro';
 import Fleet from '../components/Fleet.astro';
-import Tours from '../components/Tours.astro';
-import Testimonials from '../components/Testimonials.astro';
+import Faq from '../components/Faq.astro';
 import InquiryWizard from '../components/InquiryWizard.astro';
 import CtaSection from '../components/CtaSection.astro';
 import Footer from '../components/Footer.astro';
@@ -15,9 +15,9 @@ import CookieBanner from '../components/CookieBanner.astro';
   <Nav />
   <main>
     <Hero />
-    <Fleet />
-    <Tours />
-    <Testimonials />
+    <ValueProps />
+    <Fleet preview={true} />
+    <Faq />
     <InquiryWizard />
     <CtaSection />
   </main>

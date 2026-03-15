@@ -1,14 +1,15 @@
 ---
 const links = [
-  { labelDe: 'Fleet', labelEn: 'Fleet', href: '#fleet' },
-  { labelDe: 'Touren', labelEn: 'Tours', href: '#tours' },
-  { labelDe: 'Kontakt', labelEn: 'Contact', href: '#contact' },
+  { labelDe: 'Fleet', labelEn: 'Fleet', href: '/fleet' },
+  { labelDe: 'Touren', labelEn: 'Tours', href: '/tours' },
+  { labelDe: 'Stimmen', labelEn: 'Testimonials', href: '/testimonials' },
+  { labelDe: 'Kontakt', labelEn: 'Contact', href: '/#contact' },
 ];
 ---
 
 <nav class="fixed top-0 left-0 right-0 z-50 bg-bg-primary/90 backdrop-blur-sm border-b border-border-subtle">
   <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
-    <a href="#hero" class="font-display text-2xl font-light tracking-wide text-text-primary">
+    <a href="/" class="font-display text-2xl font-light tracking-wide text-text-primary">
       motoko
     </a>
 
@@ -18,7 +19,7 @@ const links = [
           <li>
             <a
               href={link.href}
-              class="text-sm font-body font-medium uppercase tracking-widest text-text-secondary hover:text-text-primary transition-colors duration-300"
+              class="text-sm font-body font-medium uppercase tracking-widest text-text-secondary hover:text-accent transition-colors duration-300"
               data-i18n-de={link.labelDe}
               data-i18n-en={link.labelEn}
             >
@@ -32,7 +33,7 @@ const links = [
       <div class="flex items-center gap-1 border-l border-border-subtle pl-6">
         <button
           data-lang-btn="de"
-          class="lang-btn text-xs font-mono uppercase tracking-wider px-2 py-1 rounded text-text-primary bg-bg-surface"
+          class="lang-btn text-xs font-mono uppercase tracking-wider px-2 py-1 rounded bg-accent text-text-primary"
           aria-label="Deutsch"
         >
           DE
@@ -65,7 +66,7 @@ const links = [
       {links.map((link) => (
         <a
           href={link.href}
-          class="block text-sm font-body font-medium uppercase tracking-widest text-text-secondary hover:text-text-primary transition-colors duration-300"
+          class="block text-sm font-body font-medium uppercase tracking-widest text-text-secondary hover:text-accent transition-colors duration-300"
           data-i18n-de={link.labelDe}
           data-i18n-en={link.labelEn}
         >
@@ -73,7 +74,7 @@ const links = [
         </a>
       ))}
       <div class="flex items-center gap-2 pt-2 border-t border-border-subtle">
-        <button data-lang-btn="de" class="lang-btn text-xs font-mono uppercase tracking-wider px-2 py-1 rounded text-text-primary bg-bg-surface">DE</button>
+        <button data-lang-btn="de" class="lang-btn text-xs font-mono uppercase tracking-wider px-2 py-1 rounded bg-accent text-text-primary">DE</button>
         <button data-lang-btn="en" class="lang-btn text-xs font-mono uppercase tracking-wider px-2 py-1 rounded text-text-muted">EN</button>
       </div>
     </div>
@@ -93,9 +94,9 @@ const links = [
       const btnLang = (btn as HTMLElement).dataset.langBtn;
       if (btnLang === lang) {
         btn.classList.remove('text-text-muted');
-        btn.classList.add('text-text-primary', 'bg-bg-surface');
+        btn.classList.add('text-text-primary', 'bg-accent');
       } else {
-        btn.classList.remove('text-text-primary', 'bg-bg-surface');
+        btn.classList.remove('text-text-primary', 'bg-accent');
         btn.classList.add('text-text-muted');
       }
     });

@@ -15,6 +15,9 @@
   --color-text-primary: #FFFFFF;
   --color-text-secondary: #A0A0A0;
   --color-text-muted: #666666;
+  --color-accent: #FF6B00;
+  --color-accent-hover: #E55F00;
+  --color-accent-muted: #FF6B0033;
 
   --font-display: 'Cormorant Garamond', serif;
   --font-body: 'Inter', sans-serif;

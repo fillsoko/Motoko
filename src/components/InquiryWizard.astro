@@ -17,7 +17,7 @@
           {[1, 2, 3, 4, 5].map((n) => (
             <div
               data-dot={n}
-              class={`w-2 h-2 rounded-full transition-colors duration-300 ${n === 1 ? 'bg-text-primary' : 'bg-border'}`}
+              class={`w-2 h-2 rounded-full transition-colors duration-300 ${n === 1 ? 'bg-accent' : 'bg-border'}`}
             />
           ))}
         </div>
@@ -207,7 +207,7 @@
           </div>
           <button
             type="submit"
-            class="w-full px-6 py-3 bg-text-primary text-bg-primary text-sm font-body font-medium uppercase tracking-widest rounded hover:bg-text-secondary transition-colors duration-300"
+            class="w-full px-6 py-3 bg-accent text-text-primary text-sm font-body font-medium uppercase tracking-widest rounded hover:bg-accent-hover transition-colors duration-300"
           >
             Anfrage senden
           </button>
@@ -304,7 +304,7 @@
       // Update dots
       document.querySelectorAll('[data-dot]').forEach((dot) => {
         const n = parseInt((dot as HTMLElement).dataset.dot!);
-        dot.classList.toggle('bg-text-primary', n <= this.step);
+        dot.classList.toggle('bg-accent', n <= this.step);
         dot.classList.toggle('bg-border', n > this.step);
       });
 

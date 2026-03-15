@@ -1,0 +1,21 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Nav from '../components/Nav.astro';
+import PageHero from '../components/PageHero.astro';
+import Testimonials from '../components/Testimonials.astro';
+import Footer from '../components/Footer.astro';
+import CookieBanner from '../components/CookieBanner.astro';
+---
+
+<BaseLayout title="Stimmen unserer Fahrer — motoko" description="Was unsere Fahrer über motoko sagen. Erfahrungsberichte von Motorradmietern.">
+  <Nav />
+  <main>
+    <PageHero
+      title="Stimmen unserer Fahrer"
+      subtitle="Was unsere Mieter über ihre Erfahrung mit motoko sagen."
+    />
+    <Testimonials />
+  </main>
+  <Footer />
+  <CookieBanner />
+</BaseLayout>
