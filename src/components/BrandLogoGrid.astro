@@ -1,0 +1,64 @@
+---
+import { brands } from '../data/brands';
+---
+
+<div data-hero-brand-marquee class="brand-marquee hero-brand-marquee relative overflow-hidden rounded-[28px] border border-white/10 bg-black/30 px-5 py-5 backdrop-blur-md sm:px-7 sm:py-6">
+  <div class="pointer-events-none absolute inset-y-0 left-0 z-10 w-12 bg-gradient-to-r from-black via-black/92 to-transparent sm:w-20"></div>
+  <div class="pointer-events-none absolute inset-y-0 right-0 z-10 w-12 bg-gradient-to-l from-black via-black/92 to-transparent sm:w-20"></div>
+
+  <div data-hero-brand-track class="brand-marquee-track hero-brand-marquee-track">
+    {[0, 1].map((copy) => (
+      <div data-hero-brand-group class="brand-marquee-group hero-brand-marquee-group" aria-hidden={copy === 1 ? 'true' : 'false'}>
+        {brands.map((brand) => (
+          <div class="flex min-h-[76px] min-w-[102px] items-center justify-center px-4 py-4 sm:min-w-[122px] sm:px-5 md:min-w-[136px] md:px-6">
+            <img
+              src={brand.logo}
+              alt={copy === 0 ? brand.name : ''}
+              class:list={[
+                'h-7 w-auto max-w-[82px] object-contain opacity-78 transition-opacity duration-300 sm:h-8 sm:max-w-[94px] md:h-9 md:max-w-[106px]',
+                brand.name === 'Harley-Davidson' && 'scale-[1.3]',
+                !brand.preserveColor && 'brightness-0 invert',
+              ]}
+              loading="lazy"
+            />
+          </div>
+        ))}
+      </div>
+    ))}
+  </div>
+</div>
+
+<script>
+  const marquee = document.querySelector('[data-hero-brand-marquee]');
+  const track = marquee?.querySelector('[data-hero-brand-track]');
+  const group = marquee?.querySelector('[data-hero-brand-group]');
+
+  if (marquee && track && group && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    let offset = 0;
+    let lastTime = 0;
+    let groupWidth = group.getBoundingClientRect().width;
+    const speed = 38;
+
+    const measure = () => {
+      groupWidth = group.getBoundingClientRect().width;
+    };
+
+    const step = (time) => {
+      if (!lastTime) lastTime = time;
+      const delta = (time - lastTime) / 1000;
+      lastTime = time;
+      offset += speed * delta;
+
+      if (offset >= groupWidth) {
+        offset = 0;
+      }
+
+      track.style.transform = `translate3d(${-offset}px, 0, 0)`;
+      window.requestAnimationFrame(step);
+    };
+
+    window.addEventListener('resize', measure);
+    measure();
+    window.requestAnimationFrame(step);
+  }
+</script>

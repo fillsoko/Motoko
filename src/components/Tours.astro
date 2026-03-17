@@ -2,13 +2,13 @@
 import { tours } from '../data/tours';
 
 const difficultyColor = {
-  Easy: 'text-text-muted border-text-muted',
-  Moderate: 'text-text-secondary border-text-secondary',
-  Challenging: 'text-accent border-accent',
+  Easy: 'border-[#1d6f42] bg-[#0f2d1d] text-[#7ae3a3]',
+  Moderate: 'border-[#8a6510] bg-[#2e2107] text-[#ffd36b]',
+  Challenging: 'border-[#b13a12] bg-[#351208] text-[#ff8d62]',
 };
 ---
 
-<section id="tours" class="py-24 px-6">
+<section id="tours" class="bg-[#060606] px-4 py-20 sm:px-6 md:py-24">
   <div class="max-w-6xl mx-auto">
     <div class="mb-20 reveal">
       <span class="text-xs font-mono uppercase tracking-widest text-accent"
@@ -45,11 +45,25 @@ const difficultyColor = {
             {/* Map */}
             <div class={`${i % 2 === 1 ? 'lg:order-2' : 'lg:order-1'}`}>
               <div class="komoot-map-wrapper relative aspect-[4/3] rounded-lg overflow-hidden border border-border bg-bg-surface-alt">
+                <button
+                  type="button"
+                  class="komoot-map-trigger absolute inset-0 z-10 flex flex-col items-center justify-center gap-3 bg-bg-surface-alt/90 text-center transition-colors duration-300 hover:bg-bg-surface-alt/80"
+                  data-embed-src={`https://www.komoot.com/tour/${tour.komootTourId}/embed?profile=0`}
+                  data-fallback-url={tour.komootUrl}
+                >
+                  <svg class="w-12 h-12 text-accent opacity-80" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" />
+                  </svg>
+                  <span class="font-mono text-xs uppercase tracking-[0.2em] text-text-muted">Komoot</span>
+                  <span class="max-w-[16rem] px-4 font-body text-sm text-text-secondary sm:max-w-xs">
+                    Route laden. Falls das Embed nicht verfuegbar ist, oeffnen wir die Tour direkt auf Komoot.
+                  </span>
+                </button>
                 <iframe
-                  src={`https://www.komoot.com/tour/${tour.komootTourId}/embed?profile=0`}
+                  src=""
                   loading="lazy"
                   scrolling="no"
-                  class="w-full h-full"
+                  class="komoot-map-frame h-full w-full opacity-0 transition-opacity duration-500"
                   title={`Route: ${tour.name}`}
                 ></iframe>
               </div>
@@ -126,3 +140,84 @@ const difficultyColor = {
     </div>
   </div>
 </section>
+
+<script>
+  const consentStorageKey = 'motoko-consent';
+
+  function hasExternalMediaConsent() {
+    const raw = localStorage.getItem(consentStorageKey);
+    if (!raw) return false;
+
+    try {
+      const parsed = JSON.parse(raw) as { externalMedia?: boolean };
+      return parsed.externalMedia === true;
+    } catch {
+      return false;
+    }
+  }
+
+  function mountKomootMap(trigger) {
+    const wrapper = trigger.closest('.komoot-map-wrapper');
+    const iframe = wrapper?.querySelector('.komoot-map-frame');
+    const embedSrc = trigger.dataset.embedSrc;
+    const fallbackUrl = trigger.dataset.fallbackUrl;
+
+    if (!(iframe instanceof HTMLIFrameElement) || !embedSrc) {
+      if (fallbackUrl) window.open(fallbackUrl, '_blank', 'noopener,noreferrer');
+      return;
+    }
+
+    if (iframe.src) {
+      iframe.classList.remove('opacity-0');
+      trigger.classList.add('hidden');
+      return;
+    }
+
+    const handleError = () => {
+      if (fallbackUrl) window.open(fallbackUrl, '_blank', 'noopener,noreferrer');
+    };
+
+    iframe.addEventListener('error', handleError, { once: true });
+    iframe.addEventListener(
+      'load',
+      () => {
+        iframe.classList.remove('opacity-0');
+        trigger.classList.add('hidden');
+      },
+      { once: true }
+    );
+
+    iframe.src = embedSrc;
+  }
+
+  function updateKomootTriggers() {
+    const consentGiven = hasExternalMediaConsent();
+
+    document.querySelectorAll('.komoot-map-trigger').forEach((trigger) => {
+      const label = trigger.querySelector('.komoot-trigger-copy');
+      if (label) {
+        label.textContent = consentGiven
+          ? 'Komoot wird automatisch geladen.'
+          : 'Bitte erlauben Sie externe Inhalte, um die Komoot-Karte zu laden.';
+      }
+
+      if (consentGiven) {
+        mountKomootMap(trigger);
+      }
+    });
+  }
+
+  document.querySelectorAll('.komoot-map-trigger').forEach((trigger) => {
+    trigger.addEventListener('click', () => {
+      if (!hasExternalMediaConsent()) {
+        window.dispatchEvent(new Event('motoko-consent:open'));
+        return;
+      }
+
+      mountKomootMap(trigger);
+    });
+  });
+
+  window.addEventListener('motoko-consent:changed', updateKomootTriggers);
+  updateKomootTriggers();
+</script>

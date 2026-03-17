@@ -12,9 +12,16 @@ interface Props {
 
 const { preview = false } = Astro.props;
 const displayBikes = preview ? bikes.slice(0, 3) : bikes;
+
+function getBrandName(name: string) {
+  return name.split(' ')[0] === 'Harley-Davidson' ? 'Harley-Davidson' : name.split(' ').slice(0, 1).join('');
+}
+
+const brands = [...new Set(displayBikes.map((bike) => getBrandName(bike.name)))].sort((a, b) => a.localeCompare(b));
+const categories = [...new Set(displayBikes.map((bike) => bike.category))].sort((a, b) => a.localeCompare(b));
 ---
 
-<section id="fleet" class="relative py-24 px-6 overflow-hidden">
+<section id="fleet" class="relative px-4 py-20 overflow-hidden bg-[#050505] sm:px-6 md:py-24">
   {preview && (
     <div class="absolute inset-0" aria-hidden="true">
       <Image
@@ -25,7 +32,7 @@ const displayBikes = preview ? bikes.slice(0, 3) : bikes;
         sizes="100vw"
         loading="lazy"
       />
-      <div class="absolute inset-0 bg-gradient-to-b from-bg-primary via-bg-primary/85 to-bg-primary"></div>
+      <div class="absolute inset-0 bg-gradient-to-b from-[#131313] via-[#050505]/76 to-[#020202]"></div>
     </div>
   )}
 
@@ -34,9 +41,9 @@ const displayBikes = preview ? bikes.slice(0, 3) : bikes;
       <div class="mb-12">
         <span class="text-xs font-mono uppercase tracking-widest text-accent">Motorräder</span>
         <h2 class="font-display text-4xl md:text-5xl font-normal mb-4 mt-2"
-            data-i18n-de="Fleet"
+            data-i18n-de="Unser Fuhrpark"
             data-i18n-en="Fleet"
-        >Fleet</h2>
+        >Unser Fuhrpark</h2>
         <p class="font-body text-text-secondary text-lg max-w-2xl"
            data-i18n-de="Zehn Motorräder, gewartet auf Touring-Standard. Jede Miete beinhaltet eine tägliche Vollkaskoversicherung."
            data-i18n-en="Ten motorcycles, maintained to touring standard. Each rental includes daily comprehensive insurance — ride without worry."
@@ -47,21 +54,68 @@ const displayBikes = preview ? bikes.slice(0, 3) : bikes;
     </FadeIn>
 
     {!preview && (
-      <div class="mb-16 py-8 border-y border-border-subtle">
+      <div class="mb-12 border-y border-border-subtle py-8">
         <p class="text-center text-xs font-mono text-text-muted uppercase tracking-widest mb-6"
-           data-i18n-de="Marken in unserer Fleet"
+           data-i18n-de="Marken in unserem Fuhrpark"
            data-i18n-en="Brands in our fleet"
-        >Marken in unserer Fleet</p>
+        >Marken in unserem Fuhrpark</p>
         <BrandBar />
       </div>
     )}
 
+    {!preview && (
+      <FadeIn client:visible direction="up" delay={0.1}>
+        <div class="mb-10 rounded-2xl border border-border bg-bg-surface p-5 sm:p-6">
+          <div class="grid gap-6 lg:grid-cols-2">
+            <div>
+              <p class="mb-3 font-mono text-xs uppercase tracking-[0.22em] text-text-muted">Marke</p>
+              <div class="flex flex-wrap gap-2">
+                <button type="button" class="fleet-filter-btn is-active" data-filter-group="brand" data-filter-value="all">
+                  Alle Marken
+                </button>
+                {brands.map((brand) => (
+                  <button type="button" class="fleet-filter-btn" data-filter-group="brand" data-filter-value={brand}>
+                    {brand}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            <div>
+              <p class="mb-3 font-mono text-xs uppercase tracking-[0.22em] text-text-muted">Bike Type</p>
+              <div class="flex flex-wrap gap-2">
+                <button type="button" class="fleet-filter-btn is-active" data-filter-group="category" data-filter-value="all">
+                  Alle Typen
+                </button>
+                {categories.map((category) => (
+                  <button type="button" class="fleet-filter-btn" data-filter-group="category" data-filter-value={category}>
+                    {category}
+                  </button>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </FadeIn>
+    )}
+
     <FadeIn client:visible direction="up" delay={0.15}>
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
+      <div id="fleet-grid" class="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6 lg:grid-cols-3">
         {displayBikes.map((bike) => (
-          <BikeCard bike={bike} />
+          <div
+            data-bike-card
+            data-brand={getBrandName(bike.name)}
+            data-category={bike.category}
+          >
+            <BikeCard bike={bike} />
+          </div>
         ))}
       </div>
+      {!preview && (
+        <p id="fleet-empty-state" class="mt-8 hidden rounded-2xl border border-border bg-bg-surface px-6 py-5 text-center font-body text-text-secondary">
+          Keine Motorräder für diese Kombination gefunden. Bitte Filter anpassen.
+        </p>
+      )}
     </FadeIn>
 
     {preview && (
@@ -80,3 +134,87 @@ const displayBikes = preview ? bikes.slice(0, 3) : bikes;
     )}
   </div>
 </section>
+
+<style>
+  .fleet-filter-btn {
+    border: 1px solid var(--color-border);
+    border-radius: 9999px;
+    background-color: transparent;
+    color: var(--color-text-muted);
+    font-family: var(--font-body);
+    font-size: 0.8rem;
+    line-height: 1;
+    padding: 0.72rem 0.95rem;
+    transition: border-color 150ms ease, color 150ms ease, background-color 150ms ease;
+  }
+
+  .fleet-filter-btn:hover {
+    border-color: var(--color-text-secondary);
+    color: var(--color-text-secondary);
+  }
+
+  .fleet-filter-btn.is-active {
+    border-color: var(--color-accent);
+    color: var(--color-text-primary);
+    background-color: rgba(255, 107, 0, 0.08);
+  }
+</style>
+
+<script>
+  const fleetButtons = Array.from(document.querySelectorAll('.fleet-filter-btn'));
+  const bikeCards = Array.from(document.querySelectorAll('[data-bike-card]'));
+  const emptyState = document.getElementById('fleet-empty-state');
+
+  if (fleetButtons.length > 0 && bikeCards.length > 0) {
+    const filterState = {
+      brand: 'all',
+      category: 'all',
+    };
+
+    const renderFleetFilters = () => {
+      let visibleCount = 0;
+
+      bikeCards.forEach((card) => {
+        const matchesBrand = filterState.brand === 'all' || card.dataset.brand === filterState.brand;
+        const matchesCategory = filterState.category === 'all' || card.dataset.category === filterState.category;
+        const isVisible = matchesBrand && matchesCategory;
+
+        card.classList.toggle('hidden', !isVisible);
+        if (isVisible) visibleCount += 1;
+      });
+
+      fleetButtons.forEach((button) => {
+        const group = button.dataset.filterGroup;
+        const value = button.dataset.filterValue;
+        const isActive = group && value && filterState[group] === value;
+        button.classList.toggle('is-active', Boolean(isActive));
+      });
+
+      if (emptyState) {
+        emptyState.classList.toggle('hidden', visibleCount > 0);
+      }
+    };
+
+    fleetButtons.forEach((button) => {
+      button.addEventListener('click', () => {
+        const group = button.dataset.filterGroup;
+        const value = button.dataset.filterValue;
+        if (!group || !value) return;
+
+        filterState[group] = value;
+        renderFleetFilters();
+      });
+    });
+
+    window.addEventListener('fleet:filter-brand', (event) => {
+      const customEvent = event as CustomEvent;
+      const brand = customEvent.detail?.brand;
+      if (!brand) return;
+
+      filterState.brand = brand;
+      renderFleetFilters();
+    });
+
+    renderFleetFilters();
+  }
+</script>

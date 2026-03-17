@@ -1,9 +1,14 @@
 ---
 import { Image } from 'astro:assets';
 import bgImage from '../assets/images/sections/contact-bg.webp';
+
+const EMAILJS_SERVICE_ID = import.meta.env.PUBLIC_EMAILJS_SERVICE_ID ?? '';
+const EMAILJS_TEMPLATE_ID = import.meta.env.PUBLIC_EMAILJS_TEMPLATE_ID ?? '';
+const EMAILJS_PUBLIC_KEY = import.meta.env.PUBLIC_EMAILJS_PUBLIC_KEY ?? '';
+const TEST_RECIPIENT_EMAIL = 'sokolowski.fill@gmail.com';
 ---
 
-<section id="contact" class="relative py-24 px-6 overflow-hidden">
+<section id="contact" class="relative py-24 px-6 overflow-hidden bg-[#202020]">
   <div class="absolute inset-0" aria-hidden="true">
     <Image
       src={bgImage}
@@ -13,39 +18,79 @@ import bgImage from '../assets/images/sections/contact-bg.webp';
       sizes="100vw"
       loading="lazy"
     />
-    <div class="absolute inset-0 bg-gradient-to-b from-bg-primary via-bg-primary/85 to-bg-primary"></div>
+    <div class="absolute inset-0 bg-gradient-to-b from-[#2b2b2b] via-[#202020]/60 to-[#141414]"></div>
   </div>
   <div class="hidden"><!-- spacer --></div>
-  <div class="relative z-10 max-w-6xl mx-auto">
-    <div class="mb-12 reveal">
-      <span class="text-xs font-mono uppercase tracking-widest text-accent">Starte hier</span>
-      <h2 class="font-display text-4xl md:text-5xl font-normal mb-4 mt-2">Anfrage</h2>
-      <p class="font-body text-text-secondary text-lg">
-        Beantworte ein paar Fragen und wir melden uns bei dir.
-      </p>
-    </div>
-
-    <div class="bg-bg-surface border border-border rounded-lg p-6 md:p-8">
-      <!-- Progress bar -->
-      <div class="flex items-center gap-2 mb-8">
-        <div id="step-dots" class="flex items-center gap-2">
-          {[1, 2, 3, 4, 5].map((n) => (
-            <div
-              data-dot={n}
-              class={`w-2 h-2 rounded-full transition-colors duration-300 ${n === 1 ? 'bg-accent' : 'bg-border'}`}
-            />
-          ))}
+  <div class="relative z-10 max-w-7xl mx-auto">
+    <div class="rounded-[30px] border border-white/10 bg-[#0d0d0d]/90 shadow-[0_35px_80px_rgba(0,0,0,0.45)] backdrop-blur-xl">
+      <div class="flex items-center gap-3 border-b border-white/10 px-5 py-4 sm:px-6">
+        <div class="flex items-center gap-2">
+          <span class="h-3 w-3 rounded-full bg-[#ff5f57]"></span>
+          <span class="h-3 w-3 rounded-full bg-[#ffbd2e]"></span>
+          <span class="h-3 w-3 rounded-full bg-[#28c840]"></span>
         </div>
-        <span id="step-label" class="ml-3 text-xs font-mono text-text-muted uppercase tracking-wider hidden sm:inline">
-          Schritt 1 / 5
-        </span>
+        <div class="ml-2 flex-1 rounded-full border border-white/10 bg-white/[0.04] px-4 py-2 text-center font-mono text-[11px] uppercase tracking-[0.32em] text-text-muted">
+          motoko://kontakt/anfrage
+        </div>
       </div>
+
+      <div class="grid lg:grid-cols-[320px_minmax(0,1fr)]">
+        <aside class="border-b border-white/10 bg-black/25 p-6 sm:p-8 lg:border-b-0 lg:border-r">
+          <span class="text-xs font-mono uppercase tracking-[0.35em] text-accent">Starte hier</span>
+          <h2 class="mt-4 font-display text-5xl font-semibold leading-none text-text-primary md:text-6xl">
+            Anfrage
+          </h2>
+          <p class="mt-5 max-w-sm font-body text-base leading-relaxed text-text-secondary md:text-lg">
+            Beantworte ein paar Fragen und wir melden uns bei dir.
+          </p>
+
+          <div class="mt-8 h-px w-full bg-white/10"></div>
+
+          <div id="step-dots" class="mt-8 grid gap-2.5">
+            {[
+              'Was suchst du?',
+              'Markenpräferenz',
+              'Buchungsweg',
+              'Versicherung',
+              'Kontaktdaten',
+            ].map((label, index) => {
+              const step = index + 1;
+
+              return (
+                <div
+                  data-dot-item={step}
+                  class={`wizard-progress-item flex items-center gap-3 rounded-2xl border px-3 py-3 transition-colors duration-300 ${
+                    step === 1 ? 'border-accent/40 bg-accent-muted/20' : 'border-transparent bg-transparent'
+                  }`}
+                >
+                  <div
+                    data-dot={step}
+                    class={`flex h-9 w-9 shrink-0 items-center justify-center rounded-full border text-xs font-mono transition-colors duration-300 ${
+                      step === 1 ? 'border-accent bg-accent text-black' : 'border-white/10 text-text-muted'
+                    }`}
+                  >
+                    {step}
+                  </div>
+                  <div class="min-w-0">
+                    <p class="font-body text-sm font-medium text-text-secondary">{label}</p>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+
+          <span id="step-label" class="mt-8 block font-mono text-xs uppercase tracking-[0.3em] text-accent">
+            Schritt 1 / 5
+          </span>
+        </aside>
+
+        <div class="p-6 sm:p-8 md:p-10">
 
       <!-- Step 1: What are you looking for? -->
       <div data-step="1" class="wizard-step">
-        <h3 class="font-display text-xl mb-6">Was suchst du?</h3>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
-          <button data-choice="interest" data-value="bike" class="wizard-option flex items-start gap-4 text-left px-5 py-4 border border-border rounded hover:border-text-muted transition-colors duration-300">
+        <h3 class="font-display text-3xl md:text-4xl mb-6">Was suchst du?</h3>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <button data-choice="interest" data-value="bike" class="wizard-option flex min-h-[156px] items-start gap-4 text-left rounded-2xl border border-border px-5 py-5 hover:border-text-muted transition-colors duration-300">
             <svg class="w-6 h-6 text-text-muted shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 17a2 2 0 11-4 0 2 2 0 014 0zM19 17a2 2 0 11-4 0 2 2 0 014 0z" />
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 16V6l-4 2v4l7 4" />
@@ -55,7 +100,7 @@ import bgImage from '../assets/images/sections/contact-bg.webp';
               <span class="block font-body text-text-muted text-xs mt-1">Ich will ein bestimmtes Bike ausleihen</span>
             </div>
           </button>
-          <button data-choice="interest" data-value="tour" class="wizard-option flex items-start gap-4 text-left px-5 py-4 border border-border rounded hover:border-text-muted transition-colors duration-300">
+          <button data-choice="interest" data-value="tour" class="wizard-option flex min-h-[156px] items-start gap-4 text-left rounded-2xl border border-border px-5 py-5 hover:border-text-muted transition-colors duration-300">
             <svg class="w-6 h-6 text-text-muted shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" />
             </svg>
@@ -64,7 +109,7 @@ import bgImage from '../assets/images/sections/contact-bg.webp';
               <span class="block font-body text-text-muted text-xs mt-1">Ich will an einer geführten Motorradtour teilnehmen</span>
             </div>
           </button>
-          <button data-choice="interest" data-value="both" class="wizard-option flex items-start gap-4 text-left px-5 py-4 border border-border rounded hover:border-text-muted transition-colors duration-300">
+          <button data-choice="interest" data-value="both" class="wizard-option flex min-h-[156px] items-start gap-4 text-left rounded-2xl border border-border px-5 py-5 hover:border-text-muted transition-colors duration-300">
             <svg class="w-6 h-6 text-text-muted shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 6h16M4 10h16M4 14h16M4 18h16" />
             </svg>
@@ -78,35 +123,35 @@ import bgImage from '../assets/images/sections/contact-bg.webp';
 
       <!-- Step 2: Brand preference -->
       <div data-step="2" class="wizard-step hidden">
-        <h3 class="font-display text-xl mb-6">Hast du eine Markenpräferenz?</h3>
-        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
-          <button data-choice="brand" data-value="bmw" class="wizard-option flex items-center gap-3 text-left px-5 py-4 border border-border rounded hover:border-text-muted transition-colors duration-300">
+        <h3 class="font-display text-3xl md:text-4xl mb-6">Hast du eine Markenpräferenz?</h3>
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+          <button data-choice="brand" data-value="bmw" class="wizard-option flex min-h-[88px] items-center gap-3 rounded-2xl border border-border px-5 py-4 text-left hover:border-text-muted transition-colors duration-300">
             <img src="/images/logos/bmw.svg" alt="BMW" class="w-6 h-6 object-contain" />
             <span class="font-body text-text-primary text-sm font-medium">BMW</span>
           </button>
-          <button data-choice="brand" data-value="triumph" class="wizard-option flex items-center gap-3 text-left px-5 py-4 border border-border rounded hover:border-text-muted transition-colors duration-300">
+          <button data-choice="brand" data-value="triumph" class="wizard-option flex min-h-[88px] items-center gap-3 rounded-2xl border border-border px-5 py-4 text-left hover:border-text-muted transition-colors duration-300">
             <img src="/images/logos/triumph.svg" alt="Triumph" class="w-6 h-6 object-contain brightness-0 invert" />
             <span class="font-body text-text-primary text-sm font-medium">Triumph</span>
           </button>
-          <button data-choice="brand" data-value="ducati" class="wizard-option flex items-center gap-3 text-left px-5 py-4 border border-border rounded hover:border-text-muted transition-colors duration-300">
+          <button data-choice="brand" data-value="ducati" class="wizard-option flex min-h-[88px] items-center gap-3 rounded-2xl border border-border px-5 py-4 text-left hover:border-text-muted transition-colors duration-300">
             <img src="/images/logos/ducati.svg" alt="Ducati" class="w-6 h-6 object-contain brightness-0 invert" />
             <span class="font-body text-text-primary text-sm font-medium">Ducati</span>
           </button>
-          <button data-choice="brand" data-value="harley" class="wizard-option flex items-center gap-3 text-left px-5 py-4 border border-border rounded hover:border-text-muted transition-colors duration-300">
+          <button data-choice="brand" data-value="harley" class="wizard-option flex min-h-[88px] items-center gap-3 rounded-2xl border border-border px-5 py-4 text-left hover:border-text-muted transition-colors duration-300">
             <img src="/images/logos/harley-davidson.svg" alt="Harley-Davidson" class="w-6 h-6 object-contain brightness-0 invert" />
             <span class="font-body text-text-primary text-sm font-medium">Harley-Davidson</span>
           </button>
-          <button data-choice="brand" data-value="honda" class="wizard-option flex items-center gap-3 text-left px-5 py-4 border border-border rounded hover:border-text-muted transition-colors duration-300">
+          <button data-choice="brand" data-value="honda" class="wizard-option flex min-h-[88px] items-center gap-3 rounded-2xl border border-border px-5 py-4 text-left hover:border-text-muted transition-colors duration-300">
             <img src="/images/logos/honda.svg" alt="Honda" class="w-6 h-6 object-contain brightness-0 invert" />
             <span class="font-body text-text-primary text-sm font-medium">Honda</span>
           </button>
-          <button data-choice="brand" data-value="other" class="wizard-option flex items-center gap-3 text-left px-5 py-4 border border-border rounded hover:border-text-muted transition-colors duration-300">
+          <button data-choice="brand" data-value="other" class="wizard-option flex min-h-[88px] items-center gap-3 rounded-2xl border border-border px-5 py-4 text-left hover:border-text-muted transition-colors duration-300">
             <svg class="w-6 h-6 text-text-muted shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 12h.01M12 12h.01M16 12h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
             </svg>
             <span class="font-body text-text-primary text-sm font-medium">Andere</span>
           </button>
-          <button data-choice="brand" data-value="no-preference" class="wizard-option flex items-center gap-3 text-left px-5 py-4 border border-border rounded hover:border-text-muted transition-colors duration-300">
+          <button data-choice="brand" data-value="no-preference" class="wizard-option flex min-h-[88px] items-center gap-3 rounded-2xl border border-border px-5 py-4 text-left hover:border-text-muted transition-colors duration-300">
             <svg class="w-6 h-6 text-text-muted shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
             </svg>
@@ -120,9 +165,9 @@ import bgImage from '../assets/images/sections/contact-bg.webp';
 
       <!-- Step 3: Booking preference -->
       <div data-step="3" class="wizard-step hidden">
-        <h3 class="font-display text-xl mb-6">Wie möchtest du buchen?</h3>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
-          <button data-choice="booking" data-value="ribe" class="wizard-option flex items-start gap-4 text-left px-5 py-4 border border-border rounded hover:border-text-muted transition-colors duration-300">
+        <h3 class="font-display text-3xl md:text-4xl mb-6">Wie möchtest du buchen?</h3>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <button data-choice="booking" data-value="ribe" class="wizard-option flex min-h-[156px] items-start gap-4 rounded-2xl border border-border px-5 py-5 text-left hover:border-text-muted transition-colors duration-300">
             <svg class="w-6 h-6 text-text-muted shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" />
             </svg>
@@ -131,7 +176,7 @@ import bgImage from '../assets/images/sections/contact-bg.webp';
               <span class="block font-body text-text-muted text-xs mt-1">Online-Plattform mit europaweiter Vollkasko</span>
             </div>
           </button>
-          <button data-choice="booking" data-value="direct" class="wizard-option flex items-start gap-4 text-left px-5 py-4 border border-border rounded hover:border-text-muted transition-colors duration-300">
+          <button data-choice="booking" data-value="direct" class="wizard-option flex min-h-[156px] items-start gap-4 rounded-2xl border border-border px-5 py-5 text-left hover:border-text-muted transition-colors duration-300">
             <svg class="w-6 h-6 text-text-muted shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2v4l-4-4H9a1.994 1.994 0 01-1.414-.586m0 0L11 14h4a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2v4l.586-.586z" />
             </svg>
@@ -140,7 +185,7 @@ import bgImage from '../assets/images/sections/contact-bg.webp';
               <span class="block font-body text-text-muted text-xs mt-1">Persönlicher Kontakt, individuelle Absprache</span>
             </div>
           </button>
-          <button data-choice="booking" data-value="unsure" class="wizard-option flex items-start gap-4 text-left px-5 py-4 border border-border rounded hover:border-text-muted transition-colors duration-300">
+          <button data-choice="booking" data-value="unsure" class="wizard-option flex min-h-[156px] items-start gap-4 rounded-2xl border border-border px-5 py-5 text-left hover:border-text-muted transition-colors duration-300">
             <svg class="w-6 h-6 text-text-muted shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
             </svg>
@@ -154,9 +199,9 @@ import bgImage from '../assets/images/sections/contact-bg.webp';
 
       <!-- Step 4: Insurance -->
       <div data-step="4" class="wizard-step hidden">
-        <h3 class="font-display text-xl mb-6">Versicherung</h3>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
-          <button data-choice="insurance" data-value="full" class="wizard-option flex items-start gap-4 text-left px-5 py-4 border border-border rounded hover:border-text-muted transition-colors duration-300">
+        <h3 class="font-display text-3xl md:text-4xl mb-6">Versicherung</h3>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <button data-choice="insurance" data-value="full" class="wizard-option flex min-h-[156px] items-start gap-4 rounded-2xl border border-border px-5 py-5 text-left hover:border-text-muted transition-colors duration-300">
             <svg class="w-6 h-6 text-text-muted shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
             </svg>
@@ -165,7 +210,7 @@ import bgImage from '../assets/images/sections/contact-bg.webp';
               <span class="block font-body text-text-muted text-xs mt-1">Maximaler Schutz, inklusive bei RIBE-Buchungen</span>
             </div>
           </button>
-          <button data-choice="insurance" data-value="basic" class="wizard-option flex items-start gap-4 text-left px-5 py-4 border border-border rounded hover:border-text-muted transition-colors duration-300">
+          <button data-choice="insurance" data-value="basic" class="wizard-option flex min-h-[156px] items-start gap-4 rounded-2xl border border-border px-5 py-5 text-left hover:border-text-muted transition-colors duration-300">
             <svg class="w-6 h-6 text-text-muted shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M20.618 5.984A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
             </svg>
@@ -174,7 +219,7 @@ import bgImage from '../assets/images/sections/contact-bg.webp';
               <span class="block font-body text-text-muted text-xs mt-1">Gesetzlicher Mindestschutz</span>
             </div>
           </button>
-          <button data-choice="insurance" data-value="own" class="wizard-option flex items-start gap-4 text-left px-5 py-4 border border-border rounded hover:border-text-muted transition-colors duration-300">
+          <button data-choice="insurance" data-value="own" class="wizard-option flex min-h-[156px] items-start gap-4 rounded-2xl border border-border px-5 py-5 text-left hover:border-text-muted transition-colors duration-300">
             <svg class="w-6 h-6 text-text-muted shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
             </svg>
@@ -188,7 +233,12 @@ import bgImage from '../assets/images/sections/contact-bg.webp';
 
       <!-- Step 5: Contact details -->
       <div data-step="5" class="wizard-step hidden">
-        <h3 class="font-display text-xl mb-6">Deine Kontaktdaten</h3>
+        <h3 class="font-display text-3xl md:text-4xl mb-6">Deine Kontaktdaten</h3>
+        <div id="wizard-prefill" class="hidden mb-6 rounded-2xl border border-accent/30 bg-accent-muted/40 p-5">
+          <p class="mb-1 font-mono text-xs uppercase tracking-[0.28em] text-accent">Direkte Anfrage</p>
+          <p id="wizard-prefill-title" class="font-display text-2xl text-text-primary"></p>
+          <p id="wizard-prefill-copy" class="mt-2 font-body text-sm leading-relaxed text-text-secondary"></p>
+        </div>
         <form id="wizard-form" class="space-y-4">
           <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
@@ -198,7 +248,7 @@ import bgImage from '../assets/images/sections/contact-bg.webp';
                 id="wiz-name"
                 name="name"
                 required
-                class="w-full px-4 py-3 bg-bg-surface-alt border border-border rounded text-text-primary font-body text-sm placeholder:text-text-muted focus:outline-none focus:border-text-muted transition-colors duration-300"
+                class="w-full rounded-2xl border border-border bg-bg-surface-alt px-4 py-3 text-sm text-text-primary placeholder:text-text-muted focus:outline-none focus:border-text-muted transition-colors duration-300"
                 placeholder="Max Mustermann"
               />
             </div>
@@ -209,7 +259,7 @@ import bgImage from '../assets/images/sections/contact-bg.webp';
                 id="wiz-email"
                 name="email"
                 required
-                class="w-full px-4 py-3 bg-bg-surface-alt border border-border rounded text-text-primary font-body text-sm placeholder:text-text-muted focus:outline-none focus:border-text-muted transition-colors duration-300"
+                class="w-full rounded-2xl border border-border bg-bg-surface-alt px-4 py-3 text-sm text-text-primary placeholder:text-text-muted focus:outline-none focus:border-text-muted transition-colors duration-300"
                 placeholder="max@example.com"
               />
             </div>
@@ -220,21 +270,23 @@ import bgImage from '../assets/images/sections/contact-bg.webp';
               id="wiz-message"
               name="message"
               rows="3"
-              class="w-full px-4 py-3 bg-bg-surface-alt border border-border rounded text-text-primary font-body text-sm placeholder:text-text-muted focus:outline-none focus:border-text-muted transition-colors duration-300 resize-none"
+              class="w-full resize-none rounded-2xl border border-border bg-bg-surface-alt px-4 py-3 text-sm text-text-primary placeholder:text-text-muted focus:outline-none focus:border-text-muted transition-colors duration-300"
               placeholder="Wunschtermin, Fragen, etc."
             ></textarea>
           </div>
           <button
+            id="wizard-submit"
             type="submit"
-            class="w-full px-6 py-3 bg-accent text-text-primary text-sm font-body font-medium uppercase tracking-widest rounded hover:bg-accent-hover transition-colors duration-300"
+            class="w-full rounded-2xl bg-accent px-6 py-4 text-sm font-body font-medium uppercase tracking-widest text-text-primary hover:bg-accent-hover transition-colors duration-300"
           >
             Anfrage senden
           </button>
+          <p id="wizard-error" class="hidden text-sm font-body text-[#ff8a8a]"></p>
         </form>
       </div>
 
       <!-- Success state -->
-      <div id="wizard-success" class="hidden text-center py-8">
+      <div id="wizard-success" class="hidden py-8 text-center">
         <h3 class="font-display text-2xl mb-3">Danke</h3>
         <p class="font-body text-text-secondary">
           Wir melden uns innerhalb von 24 Stunden bei dir.
@@ -242,7 +294,7 @@ import bgImage from '../assets/images/sections/contact-bg.webp';
       </div>
 
       <!-- Navigation -->
-      <div id="wizard-nav" class="flex items-center justify-between mt-8">
+      <div id="wizard-nav" class="mt-8 flex items-center justify-between">
         <button
           id="wizard-back"
           class="text-sm font-body text-text-muted hover:text-text-secondary transition-colors duration-300 invisible"
@@ -251,17 +303,61 @@ import bgImage from '../assets/images/sections/contact-bg.webp';
         </button>
         <div></div>
       </div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
 
-<script>
+<script define:vars={{ EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, EMAILJS_PUBLIC_KEY, TEST_RECIPIENT_EMAIL }}>
+  const EMAILJS_ENDPOINT = 'https://api.emailjs.com/api/v1.0/email/send';
+  const brandParamMap = {
+    bmw: 'bmw',
+    buell: 'other',
+    ducati: 'ducati',
+    'harley-davidson': 'harley',
+    harley: 'harley',
+    honda: 'honda',
+    husqvarna: 'other',
+    kawasaki: 'other',
+    triumph: 'triumph',
+  };
+
+  const optionLabels = {
+    interest: {
+      bike: 'Motorrad mieten',
+      tour: 'Gefuehrte Tour',
+      both: 'Offen fuer beides',
+    },
+    brand: {
+      bmw: 'BMW',
+      triumph: 'Triumph',
+      ducati: 'Ducati',
+      harley: 'Harley-Davidson',
+      honda: 'Honda',
+      other: 'Andere',
+      'no-preference': 'Keine Praeferenz',
+    },
+    booking: {
+      ribe: 'Ueber RIBE',
+      direct: 'Direkt bei motoko',
+      unsure: 'Beratung erwuenscht',
+    },
+    insurance: {
+      full: 'Europaweite Vollkasko',
+      basic: 'Haftpflicht',
+      own: 'Eigene Versicherung',
+    },
+  };
+
   const wizard = {
     step: 1,
     total: 5,
-    data: {} as Record<string, string>,
+    data: {},
 
     init() {
+      this.applyPrefillFromUrl();
+
       // Choice buttons
       document.querySelectorAll('.wizard-option').forEach((btn) => {
         btn.addEventListener('click', () => {
@@ -283,24 +379,163 @@ import bgImage from '../assets/images/sections/contact-bg.webp';
       document.getElementById('wizard-back')?.addEventListener('click', () => this.prev());
 
       // Form submit
-      document.getElementById('wizard-form')?.addEventListener('submit', (e) => {
+      document.getElementById('wizard-form')?.addEventListener('submit', async (e) => {
         e.preventDefault();
         const form = e.target as HTMLFormElement;
         const formData = new FormData(form);
         this.data.name = formData.get('name') as string;
         this.data.email = formData.get('email') as string;
         this.data.message = formData.get('message') as string;
-
-        // Log data (replace with actual form submission)
-        console.log('Inquiry:', this.data);
-
-        // Show success
-        document.querySelectorAll('.wizard-step').forEach((s) => s.classList.add('hidden'));
-        document.getElementById('wizard-success')!.classList.remove('hidden');
-        document.getElementById('wizard-nav')!.classList.add('hidden');
-        document.getElementById('step-dots')!.classList.add('hidden');
-        document.getElementById('step-label')!.classList.add('hidden');
+        await this.submit(form);
       });
+
+      this.renderPrefill();
+      this.render();
+    },
+
+    getLabel(group, value) {
+      return optionLabels[group]?.[value] || value || 'Nicht angegeben';
+    },
+
+    applyPrefillFromUrl() {
+      const params = new URLSearchParams(window.location.search);
+      const prefilledBike = params.get('bike');
+
+      if (!prefilledBike) return;
+
+      const prefilledBrand = params.get('brand')?.trim().toLowerCase() || '';
+      const prefilledBooking = params.get('booking')?.trim().toLowerCase() || '';
+      const prefilledInterest = params.get('interest')?.trim().toLowerCase() || '';
+      const mappedBrand = brandParamMap[prefilledBrand] || 'other';
+
+      this.data.bike = prefilledBike;
+      this.data.bikeSlug = params.get('bikeSlug') || '';
+      this.data.brand = mappedBrand;
+      this.data.booking = prefilledBooking === 'motoko' ? 'direct' : (prefilledBooking || 'direct');
+      this.data.interest = prefilledInterest || 'bike';
+      this.step = 5;
+    },
+
+    renderPrefill() {
+      const container = document.getElementById('wizard-prefill');
+      const title = document.getElementById('wizard-prefill-title');
+      const copy = document.getElementById('wizard-prefill-copy');
+      const message = document.getElementById('wiz-message') as HTMLTextAreaElement | null;
+
+      if (!container || !title || !copy) return;
+
+      if (!this.data.bike) {
+        container.classList.add('hidden');
+        return;
+      }
+
+      container.classList.remove('hidden');
+      title.textContent = this.data.bike;
+      copy.textContent = `Direkte Buchungsanfrage via motoko. Marke: ${this.getLabel('brand', this.data.brand)}. Buchungskanal: ${this.getLabel('booking', this.data.booking)}.`;
+
+      if (message && !message.value) {
+        message.value = `Ich interessiere mich fuer die ${this.data.bike}. Bitte meldet euch mit Verfuegbarkeit und den naechsten Schritten.`;
+      }
+    },
+
+    showError(message) {
+      const error = document.getElementById('wizard-error');
+      if (!error) return;
+
+      error.textContent = message;
+      error.classList.remove('hidden');
+    },
+
+    clearError() {
+      const error = document.getElementById('wizard-error');
+      if (!error) return;
+
+      error.textContent = '';
+      error.classList.add('hidden');
+    },
+
+    setSubmitting(isSubmitting) {
+      const submitButton = document.getElementById('wizard-submit');
+      if (!submitButton) return;
+
+      submitButton.toggleAttribute('disabled', isSubmitting);
+      submitButton.textContent = isSubmitting ? 'Wird gesendet...' : 'Anfrage senden';
+      submitButton.classList.toggle('opacity-60', isSubmitting);
+      submitButton.classList.toggle('cursor-not-allowed', isSubmitting);
+    },
+
+    async submit(form) {
+      this.clearError();
+
+      if (!EMAILJS_SERVICE_ID || !EMAILJS_TEMPLATE_ID || !EMAILJS_PUBLIC_KEY) {
+        this.showError('EmailJS ist noch nicht konfiguriert. Bitte PUBLIC_EMAILJS_SERVICE_ID, PUBLIC_EMAILJS_TEMPLATE_ID und PUBLIC_EMAILJS_PUBLIC_KEY setzen.');
+        return;
+      }
+
+      this.setSubmitting(true);
+
+      const summaryLines = [
+        `Bike: ${this.data.bike || 'Nicht angegeben'}`,
+        `Interesse: ${this.getLabel('interest', this.data.interest)}`,
+        `Marke: ${this.getLabel('brand', this.data.brand)}`,
+        `Buchung: ${this.getLabel('booking', this.data.booking)}`,
+        `Versicherung: ${this.getLabel('insurance', this.data.insurance)}`,
+        `Name: ${this.data.name || 'Nicht angegeben'}`,
+        `E-Mail: ${this.data.email || 'Nicht angegeben'}`,
+        `Nachricht: ${this.data.message || 'Keine Nachricht'}`,
+      ];
+
+      const payload = {
+        service_id: EMAILJS_SERVICE_ID,
+        template_id: EMAILJS_TEMPLATE_ID,
+        user_id: EMAILJS_PUBLIC_KEY,
+        template_params: {
+          to_email: TEST_RECIPIENT_EMAIL,
+          reply_to: this.data.email || '',
+          from_name: this.data.name || '',
+          from_email: this.data.email || '',
+          bike: this.data.bike || '',
+          interest: this.getLabel('interest', this.data.interest),
+          brand: this.getLabel('brand', this.data.brand),
+          booking: this.getLabel('booking', this.data.booking),
+          insurance: this.getLabel('insurance', this.data.insurance),
+          message: this.data.message || '',
+          summary: summaryLines.join('\n'),
+          sent_at: new Date().toISOString(),
+          website: window.location.origin,
+        },
+      };
+
+      try {
+        const response = await fetch(EMAILJS_ENDPOINT, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(payload),
+        });
+
+        if (!response.ok) {
+          const errorText = await response.text();
+          throw new Error(errorText || 'EmailJS request failed');
+        }
+
+        form.reset();
+        this.showSuccess();
+      } catch (error) {
+        console.error('EmailJS submission failed', error);
+        this.showError('Die Anfrage konnte nicht gesendet werden. Bitte versuche es erneut oder kontaktiere uns direkt per WhatsApp.');
+      } finally {
+        this.setSubmitting(false);
+      }
+    },
+
+    showSuccess() {
+      document.querySelectorAll('.wizard-step').forEach((s) => s.classList.add('hidden'));
+      document.getElementById('wizard-success')?.classList.remove('hidden');
+      document.getElementById('wizard-nav')?.classList.add('hidden');
+      document.getElementById('step-dots')?.classList.add('hidden');
+      document.getElementById('step-label')?.classList.add('hidden');
     },
 
     next() {
@@ -320,11 +555,30 @@ import bgImage from '../assets/images/sections/contact-bg.webp';
       document.querySelectorAll('.wizard-step').forEach((s) => s.classList.add('hidden'));
       document.querySelector(`[data-step="${this.step}"]`)?.classList.remove('hidden');
 
+      document.querySelectorAll('.wizard-option').forEach((option) => {
+        const element = option as HTMLElement;
+        const group = element.dataset.choice;
+        const value = element.dataset.value;
+        const isSelected = group && this.data[group] === value;
+        element.classList.toggle('border-text-primary', Boolean(isSelected));
+      });
+
       // Update dots
       document.querySelectorAll('[data-dot]').forEach((dot) => {
         const n = parseInt((dot as HTMLElement).dataset.dot!);
+        dot.classList.toggle('border-accent', n <= this.step);
         dot.classList.toggle('bg-accent', n <= this.step);
-        dot.classList.toggle('bg-border', n > this.step);
+        dot.classList.toggle('text-black', n <= this.step);
+        dot.classList.toggle('border-white/10', n > this.step);
+        dot.classList.toggle('text-text-muted', n > this.step);
+      });
+
+      document.querySelectorAll('[data-dot-item]').forEach((item) => {
+        const n = parseInt((item as HTMLElement).dataset.dotItem!);
+        item.classList.toggle('border-accent/40', n <= this.step);
+        item.classList.toggle('bg-accent-muted/30', n <= this.step);
+        item.classList.toggle('border-white/10', n > this.step);
+        item.classList.toggle('bg-white/[0.03]', n > this.step);
       });
 
       // Update label

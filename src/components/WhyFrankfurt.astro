@@ -30,7 +30,7 @@ const reasons = [
 ];
 ---
 
-<section class="relative py-24 px-6 overflow-hidden">
+<section class="relative py-24 px-6 overflow-hidden bg-[#222222]">
   <div class="absolute inset-0" aria-hidden="true">
     <Image
       src={bgImage}
@@ -40,7 +40,7 @@ const reasons = [
       sizes="100vw"
       loading="lazy"
     />
-    <div class="absolute inset-0 bg-gradient-to-b from-bg-primary/90 via-bg-primary/75 to-bg-primary"></div>
+    <div class="absolute inset-0 bg-gradient-to-b from-[#303030]/92 via-[#222222]/58 to-[#141414]"></div>
   </div>
 
   <div class="relative z-10 max-w-6xl mx-auto">
@@ -57,11 +57,11 @@ const reasons = [
       </div>
     </FadeIn>
 
-    <StaggerContainer client:visible className="grid grid-cols-1 md:grid-cols-3 gap-12">
+    <StaggerContainer client:visible className="grid grid-cols-1 gap-5 md:grid-cols-3 md:gap-6">
       {reasons.map((reason) => (
         <StaggerItem client:visible>
-          <div class="text-center md:text-left">
-            <div class="inline-flex items-center justify-center w-10 h-10 md:w-12 md:h-12 mb-6 rounded-lg bg-accent-muted">
+          <div class="h-full rounded-2xl border border-border bg-bg-surface/80 p-6 text-center backdrop-blur-sm transition-colors duration-300 hover:border-text-muted md:p-7 md:text-left">
+            <div class="mb-6 inline-flex h-10 w-10 items-center justify-center rounded-lg bg-accent-muted md:h-12 md:w-12">
               {reason.icon === 'compass' && (
                 <svg class="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" />

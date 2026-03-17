@@ -14,7 +14,7 @@ const props = [
     icon: 'shield',
   },
   {
-    titleDe: 'Handverlesene Fleet',
+    titleDe: 'Handverlesener Fuhrpark',
     titleEn: 'Curated Fleet',
     descDe: 'Neun ausgewählte Motorräder von sieben Herstellern — gewartet auf Touring-Standard.',
     descEn: 'Nine curated motorcycles from seven manufacturers — maintained to touring standard.',
@@ -30,7 +30,7 @@ const props = [
 ];
 ---
 
-<section class="relative py-24 px-6 border-t border-border-subtle overflow-hidden">
+<section class="relative py-24 px-6 overflow-hidden bg-[#1a1a1a]">
   <div class="absolute inset-0" aria-hidden="true">
     <Image
       src={bgImage}
@@ -40,7 +40,7 @@ const props = [
       sizes="100vw"
       loading="lazy"
     />
-    <div class="absolute inset-0 bg-gradient-to-b from-bg-primary via-bg-primary/80 to-bg-primary"></div>
+    <div class="absolute inset-0 bg-gradient-to-b from-[#262626] via-[#1a1a1a]/62 to-[#121212]"></div>
   </div>
 
   <div class="relative z-10 max-w-6xl mx-auto">
@@ -49,11 +49,11 @@ const props = [
         <span class="text-xs font-mono uppercase tracking-widest text-accent">Unsere Vorteile</span>
       </div>
     </FadeIn>
-    <StaggerContainer client:visible className="grid grid-cols-1 md:grid-cols-3 gap-12">
+    <StaggerContainer client:visible className="grid grid-cols-1 gap-5 md:grid-cols-3 md:gap-6">
       {props.map((prop) => (
         <StaggerItem client:visible>
-          <div class="text-center md:text-left">
-            <div class="inline-flex items-center justify-center w-10 h-10 md:w-12 md:h-12 mb-6 rounded-lg bg-accent-muted">
+          <div class="h-full rounded-2xl border border-border bg-bg-surface/80 p-6 text-center backdrop-blur-sm transition-colors duration-300 hover:border-text-muted md:p-7 md:text-left">
+            <div class="mb-6 inline-flex items-center justify-center rounded-lg bg-accent-muted p-3">
               {prop.icon === 'shield' && (
                 <svg class="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />

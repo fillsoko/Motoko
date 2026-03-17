@@ -2,11 +2,54 @@
 import { Image } from 'astro:assets';
 import FadeIn from './motion/FadeIn';
 import bgImage from '../assets/images/sections/instagram-bg.webp';
+import bmwGsImage from '../assets/images/bikes/bmw-r-1200-gs/hero.webp';
+import rocketImage from '../assets/images/bikes/triumph-rocket-3r/hero.webp';
+import ducatiImage from '../assets/images/bikes/ducati-900-ss/hero.webp';
+import husqvarnaImage from '../assets/images/bikes/husqvarna-vitpilen-701/hero.webp';
+import homeHeroImage from '../assets/images/heroes/home.webp';
+import toursHeroImage from '../assets/images/heroes/tours.webp';
 
-const placeholders = Array.from({ length: 6 }, (_, i) => i);
+const mockPosts = [
+  {
+    image: bmwGsImage,
+    alt: 'BMW R 1200 GS in the motoko fleet',
+    label: 'Ride Report',
+    caption: 'Taunus morning run on the GS.',
+  },
+  {
+    image: rocketImage,
+    alt: 'Triumph Rocket 3 R in the motoko fleet',
+    label: 'Bike Portrait',
+    caption: 'Torque for days. Rocket 3 R.',
+  },
+  {
+    image: ducatiImage,
+    alt: 'Ducati 900 SS in the motoko fleet',
+    label: 'Workshop',
+    caption: 'Classic Ducati lines, stripped back.',
+  },
+  {
+    image: husqvarnaImage,
+    alt: 'Husqvarna Vitpilen 701 in the motoko fleet',
+    label: 'City Ride',
+    caption: 'Vitpilen detail for Frankfurt streets.',
+  },
+  {
+    image: homeHeroImage,
+    alt: 'motoko homepage visual',
+    label: 'Behind The Scenes',
+    caption: 'From the brand world to the road.',
+  },
+  {
+    image: toursHeroImage,
+    alt: 'motoko tours visual',
+    label: 'Tour Teaser',
+    caption: 'Curated routes out of Frankfurt.',
+  },
+];
 ---
 
-<section class="relative py-24 px-6 overflow-hidden">
+<section class="relative py-24 px-6 overflow-hidden bg-[#1d1d1d]">
   <div class="absolute inset-0" aria-hidden="true">
     <Image
       src={bgImage}
@@ -16,7 +59,7 @@ const placeholders = Array.from({ length: 6 }, (_, i) => i);
       sizes="100vw"
       loading="lazy"
     />
-    <div class="absolute inset-0 bg-gradient-to-b from-bg-primary via-bg-primary/85 to-bg-primary"></div>
+    <div class="absolute inset-0 bg-gradient-to-b from-[#2a2a2a] via-[#1d1d1d]/60 to-[#121212]"></div>
   </div>
 
   <div class="relative z-10 max-w-6xl mx-auto">
@@ -33,17 +76,25 @@ const placeholders = Array.from({ length: 6 }, (_, i) => i);
 
     <FadeIn client:visible direction="up" delay={0.15}>
       <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
-        {placeholders.map(() => (
+        {mockPosts.map((post) => (
           <a
             href="https://instagram.com/motoko"
             target="_blank"
             rel="noopener noreferrer"
-            class="group relative aspect-square bg-bg-surface-alt rounded-lg overflow-hidden border border-border hover:border-text-muted transition-colors duration-300"
+            class="group relative aspect-square rounded-lg overflow-hidden border border-border hover:border-text-muted transition-colors duration-300"
           >
-            <div class="absolute inset-0 flex items-center justify-center opacity-30 group-hover:opacity-60 transition-opacity duration-300">
-              <svg class="w-8 h-8 text-text-muted" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/>
-              </svg>
+            <Image
+              src={post.image}
+              alt={post.alt}
+              class="h-full w-full object-cover grayscale transition duration-500 group-hover:scale-[1.04] group-hover:grayscale-0"
+              widths={[300, 500]}
+              sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 16vw"
+              loading="lazy"
+            />
+            <div class="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent"></div>
+            <div class="absolute inset-x-0 bottom-0 p-3">
+              <p class="font-mono text-[10px] uppercase tracking-[0.28em] text-accent">{post.label}</p>
+              <p class="mt-2 font-body text-xs leading-relaxed text-text-primary">{post.caption}</p>
             </div>
           </a>
         ))}

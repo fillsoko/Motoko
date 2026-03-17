@@ -4,18 +4,17 @@ import Nav from '../components/Nav.astro';
 import PageHero from '../components/PageHero.astro';
 import Fleet from '../components/Fleet.astro';
 import GearAccessories from '../components/GearAccessories.astro';
-import AvailabilityCalendar from '../components/AvailabilityCalendar.astro';
 import Footer from '../components/Footer.astro';
 import CookieBanner from '../components/CookieBanner.astro';
 import SectionDivider from '../components/SectionDivider.astro';
 import heroImage from '../assets/images/heroes/fleet.webp';
 ---
 
-<BaseLayout title="Fleet — motoko" description="Neun handverlesene Motorräder von sieben Herstellern. Jede Miete beinhaltet eine tägliche Vollkaskoversicherung.">
+<BaseLayout title="Fuhrpark — motoko" description="Neun handverlesene Motorräder von sieben Herstellern. Jede Miete beinhaltet eine tägliche Vollkaskoversicherung.">
   <Nav />
   <main>
     <PageHero
-      title="Unsere Fleet"
+      title="Unser Fuhrpark"
       titleEn="Our Fleet"
       subtitle="Neun Motorräder, gewartet auf Touring-Standard. Jede Miete beinhaltet eine tägliche Vollkaskoversicherung."
       subtitleEn="Nine motorcycles, maintained to touring standard. Every rental includes daily comprehensive insurance."
@@ -25,8 +24,6 @@ import heroImage from '../assets/images/heroes/fleet.webp';
     <Fleet />
     <SectionDivider label="Ausrüstung" />
     <GearAccessories />
-    <SectionDivider label="Saison" />
-    <AvailabilityCalendar />
   </main>
   <Footer />
   <CookieBanner />

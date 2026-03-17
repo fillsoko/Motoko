@@ -4,7 +4,7 @@ import FadeIn from './motion/FadeIn';
 import bgImage from '../assets/images/sections/location-bg.webp';
 ---
 
-<section class="relative py-24 px-6 overflow-hidden">
+<section class="relative py-24 px-6 overflow-hidden bg-[#030303]">
   <div class="absolute inset-0" aria-hidden="true">
     <Image
       src={bgImage}
@@ -14,7 +14,7 @@ import bgImage from '../assets/images/sections/location-bg.webp';
       sizes="100vw"
       loading="lazy"
     />
-    <div class="absolute inset-0 bg-gradient-to-b from-bg-primary via-bg-primary/85 to-bg-primary"></div>
+    <div class="absolute inset-0 bg-gradient-to-b from-[#121212] via-[#030303]/76 to-[#010101]"></div>
   </div>
 
   <div class="relative z-10 max-w-6xl mx-auto">
@@ -134,11 +134,21 @@ import bgImage from '../assets/images/sections/location-bg.webp';
     }
   }
 
+  function maybeAutoloadMap() {
+    if (!hasExternalMediaConsent()) return;
+    if (!iframe || iframe.src) return;
+    loadMap();
+  }
+
   placeholder?.addEventListener('click', loadMap);
   placeholder?.addEventListener('keydown', (e) => {
     if ((e as KeyboardEvent).key === 'Enter') loadMap();
   });
 
-  window.addEventListener('motoko-consent:changed', updatePlaceholder);
+  window.addEventListener('motoko-consent:changed', () => {
+    updatePlaceholder();
+    maybeAutoloadMap();
+  });
   updatePlaceholder();
+  maybeAutoloadMap();
 </script>

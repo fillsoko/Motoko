@@ -33,7 +33,7 @@ const heroImage = bikeImages[0];
       <Image
         src={heroImage}
         alt={bike.name}
-        class="aspect-[3/2] w-full object-cover grayscale"
+        class="aspect-[3/2] w-full object-cover grayscale transition duration-500 ease-out group-hover:scale-[1.02] group-hover:grayscale-0"
         widths={[400, 600]}
         sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
         loading="lazy"

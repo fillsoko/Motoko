@@ -1,6 +1,6 @@
 ---
 const links = [
-  { labelDe: 'Fleet', labelEn: 'Fleet', href: '/fleet' },
+  { labelDe: 'Fuhrpark', labelEn: 'Fleet', href: '/fleet' },
   { labelDe: 'Touren', labelEn: 'Tours', href: '/tours' },
   { labelDe: 'Preise', labelEn: 'Pricing', href: '/pricing' },
   { labelDe: 'Gästebuch', labelEn: 'Guestbook', href: '/testimonials' },
@@ -9,8 +9,8 @@ const links = [
 ---
 
 <nav class="fixed top-0 left-0 right-0 z-50 bg-bg-primary/90 backdrop-blur-sm border-b border-border-subtle">
-  <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
-    <a href="/" class="font-display text-2xl font-light tracking-wide text-text-primary">
+  <div class="max-w-6xl mx-auto px-4 py-4 sm:px-6 flex items-center justify-between">
+    <a href="/" class="font-display text-[2rem] leading-none sm:text-[2.4rem] md:text-[2.7rem] font-light tracking-wide text-text-primary">
       motoko
     </a>
 
@@ -52,7 +52,7 @@ const links = [
     <!-- Mobile menu button -->
     <button
       id="mobile-menu-btn"
-      class="md:hidden p-2 text-text-secondary hover:text-text-primary transition-colors duration-300"
+      class="md:hidden rounded border border-border-subtle p-2 text-text-secondary hover:text-text-primary transition-colors duration-300"
       aria-label="Menu"
     >
       <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -63,7 +63,7 @@ const links = [
 
   <!-- Mobile menu -->
   <div id="mobile-menu" class="hidden md:hidden border-t border-border-subtle bg-bg-primary/95 backdrop-blur-sm">
-    <div class="px-6 py-4 space-y-4">
+    <div class="px-4 py-4 space-y-4 sm:px-6">
       {links.map((link) => (
         <a
           href={link.href}

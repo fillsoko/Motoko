@@ -85,3 +85,82 @@ h1, h2, h3, h4 {
 .komoot-map-wrapper {
   background-color: #0A0A0A;
 }
+
+.brand-marquee {
+  width: 100%;
+}
+
+.brand-marquee-track {
+  display: flex;
+  width: fit-content;
+  min-width: max-content;
+  will-change: transform;
+  animation: brand-marquee-scroll 16s linear infinite;
+}
+
+.brand-marquee-group {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  gap: 1rem;
+  padding-right: 1rem;
+}
+
+.hero-brand-marquee-track {
+  animation: none;
+}
+
+.hero-brand-marquee-group {
+  gap: 1.1rem;
+  padding-right: 1.1rem;
+}
+
+@media (min-width: 640px) {
+  .hero-brand-marquee-group {
+    gap: 1.35rem;
+    padding-right: 1.35rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .hero-brand-marquee-group {
+    gap: 1.7rem;
+    padding-right: 1.7rem;
+  }
+}
+
+@media (min-width: 640px) {
+  .brand-marquee-group {
+    gap: 1.5rem;
+    padding-right: 1.5rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .brand-marquee-group {
+    gap: 2rem;
+    padding-right: 2rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .brand-marquee-group {
+    gap: 3rem;
+    padding-right: 3rem;
+  }
+}
+
+@keyframes brand-marquee-scroll {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .brand-marquee-track {
+    animation: none;
+  }
+}

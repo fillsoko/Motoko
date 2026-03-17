@@ -5,7 +5,7 @@ import AnimatedText from './motion/AnimatedText';
 import bgImage from '../assets/images/sections/cta-bg.webp';
 ---
 
-<section class="relative py-32 px-6 border-t border-border-subtle overflow-hidden">
+<section class="relative py-32 px-6 overflow-hidden bg-[#020202]">
   <div class="absolute inset-0" aria-hidden="true">
     <Image
       src={bgImage}
@@ -15,7 +15,7 @@ import bgImage from '../assets/images/sections/cta-bg.webp';
       sizes="100vw"
       loading="lazy"
     />
-    <div class="absolute inset-0 bg-gradient-to-t from-bg-primary via-bg-primary/70 to-bg-primary/80"></div>
+    <div class="absolute inset-0 bg-gradient-to-t from-[#111111] via-[#020202]/74 to-[#000000]/84"></div>
   </div>
 
   <div class="relative z-10 max-w-6xl mx-auto text-center">
@@ -38,10 +38,10 @@ import bgImage from '../assets/images/sections/cta-bg.webp';
         <a
           href="/fleet"
           class="inline-block px-10 py-4 bg-accent text-text-primary text-xs sm:text-sm font-body font-medium uppercase tracking-widest rounded hover:bg-accent-hover transition-colors duration-300"
-          data-i18n-de="Fleet ansehen"
+          data-i18n-de="Fuhrpark ansehen"
           data-i18n-en="View Fleet"
         >
-          Fleet ansehen
+          Fuhrpark ansehen
         </a>
         <a
           href="/#contact"
