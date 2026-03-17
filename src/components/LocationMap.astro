@@ -37,15 +37,18 @@ import bgImage from '../assets/images/sections/location-bg.webp';
 
     <FadeIn client:visible direction="up" delay={0.15}>
       <div id="map-container" class="relative aspect-[16/9] md:aspect-[21/9] rounded-lg overflow-hidden border border-border bg-bg-surface">
-        <div id="map-placeholder" class="absolute inset-0 flex flex-col items-center justify-center gap-4 cursor-pointer" role="button" tabindex="0">
+        <div id="map-placeholder" class="absolute inset-0 flex flex-col items-center justify-center gap-4 cursor-pointer px-6 text-center" role="button" tabindex="0">
           <svg class="w-12 h-12 text-text-muted" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
           </svg>
-          <span class="text-sm font-body text-text-muted"
+          <span id="map-placeholder-label" class="text-sm font-body text-text-muted"
             data-i18n-de="Karte laden (Google Maps)"
             data-i18n-en="Load map (Google Maps)"
           >Karte laden (Google Maps)</span>
+          <span id="map-placeholder-note" class="text-xs font-body text-text-muted max-w-md">
+            Bitte erlauben Sie externe Inhalte, um Google Maps zu laden.
+          </span>
         </div>
         <iframe
           id="map-iframe"
@@ -86,8 +89,44 @@ import bgImage from '../assets/images/sections/location-bg.webp';
 <script>
   const placeholder = document.getElementById('map-placeholder');
   const iframe = document.getElementById('map-iframe') as HTMLIFrameElement;
+  const label = document.getElementById('map-placeholder-label');
+  const note = document.getElementById('map-placeholder-note');
+  const consentStorageKey = 'motoko-consent';
+
+  function hasExternalMediaConsent() {
+    const raw = localStorage.getItem(consentStorageKey);
+    if (!raw) return false;
+
+    try {
+      const parsed = JSON.parse(raw) as { externalMedia?: boolean };
+      return parsed.externalMedia === true;
+    } catch {
+      return false;
+    }
+  }
+
+  function updatePlaceholder() {
+    const consentGiven = hasExternalMediaConsent();
+
+    if (label) {
+      label.textContent = consentGiven
+        ? 'Karte laden (Google Maps)'
+        : 'Externe Karte entsperren';
+    }
+
+    if (note) {
+      note.textContent = consentGiven
+        ? 'Beim Laden wird eine Verbindung zu Google aufgebaut.'
+        : 'Bitte erlauben Sie externe Inhalte, um Google Maps zu laden.';
+    }
+  }
 
   function loadMap() {
+    if (!hasExternalMediaConsent()) {
+      window.dispatchEvent(new Event('motoko-consent:open'));
+      return;
+    }
+
     if (iframe && placeholder) {
       iframe.src = iframe.dataset.src || '';
       iframe.classList.remove('hidden');
@@ -99,4 +138,7 @@ import bgImage from '../assets/images/sections/location-bg.webp';
   placeholder?.addEventListener('keydown', (e) => {
     if ((e as KeyboardEvent).key === 'Enter') loadMap();
   });
+
+  window.addEventListener('motoko-consent:changed', updatePlaceholder);
+  updatePlaceholder();
 </script>

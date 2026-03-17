@@ -3,43 +3,95 @@
 
 <div
   id="cookie-banner"
-  class="fixed bottom-0 left-0 right-0 z-50 bg-bg-surface border-t border-border px-6 py-4 hidden"
+  class="fixed bottom-0 left-0 right-0 z-50 bg-bg-surface border-t border-border px-6 py-5 hidden"
 >
-  <div class="max-w-6xl mx-auto flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
-    <p class="font-body text-sm text-text-secondary">
-      Diese Website verwendet Cookies.
-    </p>
-    <div class="flex flex-col sm:flex-row items-center gap-2 sm:gap-3">
+  <div class="max-w-6xl mx-auto flex flex-col lg:flex-row items-start lg:items-end justify-between gap-4">
+    <div class="max-w-3xl">
+      <p class="font-body text-sm text-text-secondary">
+        Wir verwenden nur notwendige Speichertechniken f&uuml;r Grundfunktionen der Website. Externe Inhalte wie Google Maps laden wir erst nach Ihrer Einwilligung.
+      </p>
+      <p class="font-body text-xs text-text-muted mt-2">
+        Details finden Sie in unserer <a href="/datenschutz" class="underline underline-offset-4 hover:text-text-secondary transition-colors duration-300">Datenschutzerkl&auml;rung</a>.
+      </p>
+    </div>
+
+    <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 sm:gap-3 w-full lg:w-auto">
       <button
-        id="cookie-reject"
+        id="cookie-necessary"
         class="px-4 py-2 text-xs font-body font-medium uppercase tracking-widest text-text-muted border border-border rounded hover:text-text-secondary hover:border-text-muted transition-colors duration-300"
       >
-        Ablehnen
+        Nur notwendige
       </button>
       <button
-        id="cookie-accept"
+        id="cookie-external"
         class="px-4 py-2 text-xs font-body font-medium uppercase tracking-widest bg-text-primary text-bg-primary rounded hover:bg-text-secondary transition-colors duration-300"
       >
-        Akzeptieren
+        Externe Inhalte erlauben
       </button>
     </div>
   </div>
 </div>
 
 <script>
-  const banner = document.getElementById('cookie-banner');
-  const acceptBtn = document.getElementById('cookie-accept');
-  const rejectBtn = document.getElementById('cookie-reject');
+  type ConsentState = {
+    necessary: true;
+    externalMedia: boolean;
+    updatedAt: string;
+  };
 
-  if (!localStorage.getItem('cookie-consent')) {
+  const banner = document.getElementById('cookie-banner');
+  const necessaryBtn = document.getElementById('cookie-necessary');
+  const externalBtn = document.getElementById('cookie-external');
+  const storageKey = 'motoko-consent';
+
+  function emitConsentChange(consent: ConsentState) {
+    window.dispatchEvent(new CustomEvent('motoko-consent:changed', { detail: consent }));
+  }
+
+  function readConsent(): ConsentState | null {
+    const raw = localStorage.getItem(storageKey);
+    if (!raw) return null;
+
+    try {
+      const parsed = JSON.parse(raw) as Partial<ConsentState>;
+      if (typeof parsed.externalMedia !== 'boolean') return null;
+
+      return {
+        necessary: true,
+        externalMedia: parsed.externalMedia,
+        updatedAt: parsed.updatedAt || new Date().toISOString(),
+      };
+    } catch {
+      return null;
+    }
+  }
+
+  function writeConsent(externalMedia: boolean) {
+    const consent: ConsentState = {
+      necessary: true,
+      externalMedia,
+      updatedAt: new Date().toISOString(),
+    };
+
+    localStorage.setItem(storageKey, JSON.stringify(consent));
+    banner?.classList.add('hidden');
+    emitConsentChange(consent);
+  }
+
+  function openBanner() {
     banner?.classList.remove('hidden');
   }
 
-  function hideBanner(choice: string) {
-    localStorage.setItem('cookie-consent', choice);
-    banner?.classList.add('hidden');
+  const initialConsent = readConsent();
+
+  if (!initialConsent) {
+    openBanner();
+  } else {
+    emitConsentChange(initialConsent);
   }
 
-  acceptBtn?.addEventListener('click', () => hideBanner('accepted'));
-  rejectBtn?.addEventListener('click', () => hideBanner('rejected'));
+  necessaryBtn?.addEventListener('click', () => writeConsent(false));
+  externalBtn?.addEventListener('click', () => writeConsent(true));
+
+  window.addEventListener('motoko-consent:open', openBanner);
 </script>

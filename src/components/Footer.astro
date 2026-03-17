@@ -57,8 +57,21 @@
       <div class="flex items-center gap-6 text-sm font-body text-text-muted">
         <a href="/impressum" class="hover:text-text-secondary transition-colors duration-300">Impressum</a>
         <a href="/datenschutz" class="hover:text-text-secondary transition-colors duration-300">Datenschutz</a>
+        <button
+          type="button"
+          id="footer-cookie-settings"
+          class="hover:text-text-secondary transition-colors duration-300"
+        >
+          Cookie-Einstellungen
+        </button>
       </div>
       <span class="text-sm font-body text-text-muted">&copy; {new Date().getFullYear()} Motoko GmbH</span>
     </div>
   </div>
 </footer>
+
+<script>
+  document.getElementById('footer-cookie-settings')?.addEventListener('click', () => {
+    window.dispatchEvent(new Event('motoko-consent:open'));
+  });
+</script>

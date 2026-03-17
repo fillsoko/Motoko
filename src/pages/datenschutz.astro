@@ -4,17 +4,95 @@ import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
 ---
 
-<BaseLayout title="Datenschutz — motoko">
+<BaseLayout
+  title="Datenschutz — motoko"
+  description="Datenschutzhinweise f&uuml;r die Website von motoko."
+>
   <Nav />
   <main class="pt-24 pb-24 px-6">
     <div class="max-w-3xl mx-auto">
-      <h1 class="font-display text-4xl mb-8">Datenschutz</h1>
-      <p class="text-text-secondary font-body">
-        Datenschutzerkl&auml;rung der Motoko GmbH.
-      </p>
-      <p class="text-text-muted font-body mt-4 text-sm">
-        Content pending legal review.
-      </p>
+      <h1 class="font-display text-4xl md:text-5xl mb-8">Datenschutzerkl&auml;rung</h1>
+
+      <div class="space-y-10 font-body text-text-secondary">
+        <section class="space-y-3">
+          <h2 class="font-display text-2xl text-text-primary">1. Verantwortlicher</h2>
+          <p>
+            Verantwortlich f&uuml;r die Datenverarbeitung auf dieser Website ist:<br />
+            Motoko GmbH<br />
+            Waidmannstr. 7-9<br />
+            60596 Frankfurt am Main<br />
+            Deutschland
+          </p>
+          <p>
+            E-Mail: <a href="mailto:[E-Mail ergänzen]" class="underline underline-offset-4">[E-Mail erg&auml;nzen]</a><br />
+            Telefon: <a href="tel:+4917612345678" class="underline underline-offset-4">+49 176 12345678</a>
+          </p>
+        </section>
+
+        <section class="space-y-3">
+          <h2 class="font-display text-2xl text-text-primary">2. Hosting und Server-Logfiles</h2>
+          <p>
+            Beim Aufruf dieser Website werden technisch erforderliche Informationen durch unseren Hosting-Dienst verarbeitet, insbesondere IP-Adresse, Datum und Uhrzeit der Anfrage, aufgerufene URL, Referrer, Browsertyp und Betriebssystem.
+          </p>
+          <p>
+            Die Verarbeitung erfolgt zur Bereitstellung, Stabilit&auml;t und Sicherheit der Website. Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO. Hosting und Deployment erfolgen &uuml;ber Vercel. Erg&auml;nzen Sie vor dem Live-Betrieb die vollst&auml;ndigen Vertrags- und Anbieterangaben, sofern erforderlich.
+          </p>
+        </section>
+
+        <section class="space-y-3">
+          <h2 class="font-display text-2xl text-text-primary">3. Lokaler Speicher und Einwilligungen</h2>
+          <p>
+            Diese Website verwendet derzeit keine Analyse- oder Marketing-Cookies. Es werden jedoch Eintr&auml;ge im lokalen Speicher Ihres Browsers gesetzt, um Ihre Spracheinstellung und Ihre Auswahl zu den Cookie- beziehungsweise Einwilligungseinstellungen zu speichern.
+          </p>
+          <p>
+            Soweit diese Speicherung technisch erforderlich ist, erfolgt sie auf Grundlage von Art. 6 Abs. 1 lit. f DSGVO. Soweit externe Inhalte erst nach Ihrer Auswahl freigeschaltet werden, erfolgt die Verarbeitung auf Grundlage von Art. 6 Abs. 1 lit. a DSGVO.
+          </p>
+        </section>
+
+        <section class="space-y-3">
+          <h2 class="font-display text-2xl text-text-primary">4. Externe Inhalte und Links</h2>
+          <p>
+            Auf dieser Website verlinken wir auf externe Angebote wie WhatsApp, Instagram, TikTok und RIBE. Eine Daten&uuml;bertragung an diese Anbieter findet grunds&auml;tzlich erst statt, wenn Sie den jeweiligen Link aktiv anklicken.
+          </p>
+          <p>
+            Die eingebettete Google-Maps-Karte wird nicht automatisch geladen. Eine Verbindung zu Google wird erst hergestellt, wenn Sie externe Inhalte ausdr&uuml;cklich erlauben und die Karte aktiv laden. Dabei k&ouml;nnen personenbezogene Daten, insbesondere Ihre IP-Adresse, an Google &uuml;bermittelt werden.
+          </p>
+        </section>
+
+        <section class="space-y-3">
+          <h2 class="font-display text-2xl text-text-primary">5. Kontaktanfrage</h2>
+          <p>
+            Die auf der Website dargestellte Anfrage-Maske verarbeitet Ihre Eingaben derzeit ausschlie&szlig;lich lokal in Ihrem Browser und &uuml;bermittelt sie nicht automatisch an uns. Sobald eine echte Versandfunktion integriert wird, ist diese Datenschutzerkl&auml;rung entsprechend zu aktualisieren.
+          </p>
+          <p>
+            Wenn Sie uns stattdessen per E-Mail, Telefon, WhatsApp oder &uuml;ber externe Buchungsplattformen kontaktieren, verarbeiten wir Ihre Angaben zur Bearbeitung Ihrer Anfrage. Rechtsgrundlage ist Art. 6 Abs. 1 lit. b DSGVO beziehungsweise Art. 6 Abs. 1 lit. f DSGVO.
+          </p>
+        </section>
+
+        <section class="space-y-3">
+          <h2 class="font-display text-2xl text-text-primary">6. Ihre Rechte</h2>
+          <p>
+            Sie haben das Recht auf Auskunft, Berichtigung, L&ouml;schung, Einschr&auml;nkung der Verarbeitung, Daten&uuml;bertragbarkeit sowie Widerspruch gegen die Verarbeitung Ihrer personenbezogenen Daten nach Ma&szlig;gabe der gesetzlichen Vorschriften.
+          </p>
+          <p>
+            Eine erteilte Einwilligung k&ouml;nnen Sie jederzeit mit Wirkung f&uuml;r die Zukunft widerrufen, zum Beispiel &uuml;ber den Link &bdquo;Cookie-Einstellungen&ldquo; im Footer.
+          </p>
+        </section>
+
+        <section class="space-y-3">
+          <h2 class="font-display text-2xl text-text-primary">7. Beschwerderecht</h2>
+          <p>
+            Sie haben das Recht, sich bei einer Datenschutz-Aufsichtsbeh&ouml;rde &uuml;ber die Verarbeitung Ihrer personenbezogenen Daten zu beschweren.
+          </p>
+        </section>
+
+        <section class="space-y-3">
+          <h2 class="font-display text-2xl text-text-primary">8. Stand und Pflege</h2>
+          <p>
+            Stand: M&auml;rz 2026. Diese Datenschutzerkl&auml;rung muss aktualisiert werden, sobald neue Tools, Tracking-Dienste, Form-Backends oder weitere externe Inhalte eingebunden werden.
+          </p>
+        </section>
+      </div>
     </div>
   </main>
   <Footer />
