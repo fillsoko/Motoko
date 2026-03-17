@@ -2,39 +2,30 @@
 import { brands } from '../data/brands';
 ---
 
-<div class="brand-marquee relative overflow-hidden">
-  <div class="pointer-events-none absolute inset-y-0 left-0 z-10 w-10 bg-gradient-to-r from-bg-primary via-bg-primary/85 to-transparent sm:w-16"></div>
-  <div class="pointer-events-none absolute inset-y-0 right-0 z-10 w-10 bg-gradient-to-l from-bg-primary via-bg-primary/85 to-transparent sm:w-16"></div>
-
-  <div class="brand-marquee-track">
-    {[0, 1].map((copy) => (
-      <div class="brand-marquee-group" aria-hidden={copy === 1 ? 'true' : 'false'}>
-        {brands.map((brand) => (
-          <button
-            type="button"
-            class="brand-marquee-item flex h-8 shrink-0 items-center justify-center opacity-50 transition-opacity duration-300 hover:opacity-80"
-            title={brand.name}
-            data-brand={brand.name}
-            aria-label={`Filter by ${brand.name}`}
-          >
-            <img
-              src={brand.logo}
-              alt={copy === 0 ? brand.name : ''}
-              class:list={[
-                'h-full w-auto max-w-[80px] sm:max-w-[100px] md:max-w-[120px] object-contain',
-                !brand.preserveColor && 'brightness-0 invert',
-              ]}
-              loading="lazy"
-            />
-          </button>
-        ))}
-      </div>
-    ))}
-  </div>
+<div class="flex flex-wrap items-center justify-center gap-6 sm:gap-8 md:gap-10 lg:gap-12 py-2">
+  {brands.map((brand) => (
+    <button
+      type="button"
+      class="flex h-8 shrink-0 items-center justify-center opacity-50 transition-opacity duration-300 hover:opacity-80"
+      title={brand.name}
+      data-brand={brand.name}
+      aria-label={`Filter by ${brand.name}`}
+    >
+      <img
+        src={brand.logo}
+        alt={brand.name}
+        class:list={[
+          'h-full w-auto max-w-[80px] sm:max-w-[100px] md:max-w-[120px] object-contain',
+          !brand.preserveColor && 'brightness-0 invert',
+        ]}
+        loading="lazy"
+      />
+    </button>
+  ))}
 </div>
 
 <script>
-  document.querySelectorAll('.brand-marquee-item').forEach((item) => {
+  document.querySelectorAll('[data-brand]').forEach((item) => {
     item.addEventListener('click', () => {
       const brand = item.getAttribute('data-brand');
       if (!brand) return;

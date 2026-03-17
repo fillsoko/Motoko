@@ -142,20 +142,6 @@ const difficultyColor = {
 </section>
 
 <script>
-  const consentStorageKey = 'motoko-consent';
-
-  function hasExternalMediaConsent() {
-    const raw = localStorage.getItem(consentStorageKey);
-    if (!raw) return false;
-
-    try {
-      const parsed = JSON.parse(raw) as { externalMedia?: boolean };
-      return parsed.externalMedia === true;
-    } catch {
-      return false;
-    }
-  }
-
   function mountKomootMap(trigger) {
     const wrapper = trigger.closest('.komoot-map-wrapper');
     const iframe = wrapper?.querySelector('.komoot-map-frame');
@@ -173,51 +159,23 @@ const difficultyColor = {
       return;
     }
 
-    const handleError = () => {
+    iframe.addEventListener('error', () => {
       if (fallbackUrl) window.open(fallbackUrl, '_blank', 'noopener,noreferrer');
-    };
+    }, { once: true });
 
-    iframe.addEventListener('error', handleError, { once: true });
-    iframe.addEventListener(
-      'load',
-      () => {
-        iframe.classList.remove('opacity-0');
-        trigger.classList.add('hidden');
-      },
-      { once: true }
-    );
+    iframe.addEventListener('load', () => {
+      iframe.classList.remove('opacity-0');
+      trigger.classList.add('hidden');
+    }, { once: true });
 
     iframe.src = embedSrc;
   }
 
-  function updateKomootTriggers() {
-    const consentGiven = hasExternalMediaConsent();
-
-    document.querySelectorAll('.komoot-map-trigger').forEach((trigger) => {
-      const label = trigger.querySelector('.komoot-trigger-copy');
-      if (label) {
-        label.textContent = consentGiven
-          ? 'Komoot wird automatisch geladen.'
-          : 'Bitte erlauben Sie externe Inhalte, um die Komoot-Karte zu laden.';
-      }
-
-      if (consentGiven) {
-        mountKomootMap(trigger);
-      }
-    });
-  }
-
+  // Auto-load all Komoot maps on page load
   document.querySelectorAll('.komoot-map-trigger').forEach((trigger) => {
-    trigger.addEventListener('click', () => {
-      if (!hasExternalMediaConsent()) {
-        window.dispatchEvent(new Event('motoko-consent:open'));
-        return;
-      }
+    mountKomootMap(trigger);
 
-      mountKomootMap(trigger);
-    });
+    // Fallback: clicking the trigger also loads it
+    trigger.addEventListener('click', () => mountKomootMap(trigger));
   });
-
-  window.addEventListener('motoko-consent:changed', updateKomootTriggers);
-  updateKomootTriggers();
 </script>

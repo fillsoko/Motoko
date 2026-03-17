@@ -2,20 +2,17 @@
 import { brands } from '../data/brands';
 ---
 
-<div data-hero-brand-marquee class="brand-marquee hero-brand-marquee relative overflow-hidden rounded-[28px] border border-white/10 bg-black/30 px-5 py-5 backdrop-blur-md sm:px-7 sm:py-6">
-  <div class="pointer-events-none absolute inset-y-0 left-0 z-10 w-12 bg-gradient-to-r from-black via-black/92 to-transparent sm:w-20"></div>
-  <div class="pointer-events-none absolute inset-y-0 right-0 z-10 w-12 bg-gradient-to-l from-black via-black/92 to-transparent sm:w-20"></div>
-
-  <div data-hero-brand-track class="brand-marquee-track hero-brand-marquee-track">
+<div class="hero-logo-marquee">
+  <div class="hero-logo-marquee-track">
     {[0, 1].map((copy) => (
-      <div data-hero-brand-group class="brand-marquee-group hero-brand-marquee-group" aria-hidden={copy === 1 ? 'true' : 'false'}>
+      <div class="hero-logo-marquee-group" aria-hidden={copy === 1 ? 'true' : 'false'}>
         {brands.map((brand) => (
-          <div class="flex min-h-[76px] min-w-[102px] items-center justify-center px-4 py-4 sm:min-w-[122px] sm:px-5 md:min-w-[136px] md:px-6">
+          <div class="hero-logo-marquee-item">
             <img
               src={brand.logo}
               alt={copy === 0 ? brand.name : ''}
               class:list={[
-                'h-7 w-auto max-w-[82px] object-contain opacity-78 transition-opacity duration-300 sm:h-8 sm:max-w-[94px] md:h-9 md:max-w-[106px]',
+                'h-7 w-auto max-w-[82px] object-contain opacity-78 sm:h-8 sm:max-w-[94px] md:h-9 md:max-w-[106px]',
                 brand.name === 'Harley-Davidson' && 'scale-[1.3]',
                 !brand.preserveColor && 'brightness-0 invert',
               ]}
@@ -28,37 +25,90 @@ import { brands } from '../data/brands';
   </div>
 </div>
 
-<script>
-  const marquee = document.querySelector('[data-hero-brand-marquee]');
-  const track = marquee?.querySelector('[data-hero-brand-track]');
-  const group = marquee?.querySelector('[data-hero-brand-group]');
-
-  if (marquee && track && group && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-    let offset = 0;
-    let lastTime = 0;
-    let groupWidth = group.getBoundingClientRect().width;
-    const speed = 38;
-
-    const measure = () => {
-      groupWidth = group.getBoundingClientRect().width;
-    };
-
-    const step = (time) => {
-      if (!lastTime) lastTime = time;
-      const delta = (time - lastTime) / 1000;
-      lastTime = time;
-      offset += speed * delta;
-
-      if (offset >= groupWidth) {
-        offset = 0;
-      }
-
-      track.style.transform = `translate3d(${-offset}px, 0, 0)`;
-      window.requestAnimationFrame(step);
-    };
-
-    window.addEventListener('resize', measure);
-    measure();
-    window.requestAnimationFrame(step);
+<style is:global>
+  .hero-logo-marquee {
+    position: relative;
+    overflow: hidden;
+    border-radius: 28px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    padding: 1.25rem 0;
+    mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
+    -webkit-mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
   }
-</script>
+
+  @media (min-width: 640px) {
+    .hero-logo-marquee {
+      padding: 1.5rem 0;
+    }
+  }
+
+  .hero-logo-marquee-track {
+    display: flex;
+    width: max-content;
+    will-change: transform;
+    animation: hero-logo-scroll 28s linear infinite;
+  }
+
+  .hero-logo-marquee-group {
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    gap: 1.5rem;
+    padding-right: 1.5rem;
+  }
+
+  @media (min-width: 640px) {
+    .hero-logo-marquee-group {
+      gap: 2rem;
+      padding-right: 2rem;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .hero-logo-marquee-group {
+      gap: 2.5rem;
+      padding-right: 2.5rem;
+    }
+  }
+
+  .hero-logo-marquee-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 76px;
+    min-width: 102px;
+    padding: 1rem;
+  }
+
+  @media (min-width: 640px) {
+    .hero-logo-marquee-item {
+      min-width: 122px;
+      padding: 1rem 1.25rem;
+    }
+  }
+
+  @media (min-width: 768px) {
+    .hero-logo-marquee-item {
+      min-width: 136px;
+      padding: 1rem 1.5rem;
+    }
+  }
+
+  @keyframes hero-logo-scroll {
+    from {
+      transform: translate3d(0, 0, 0);
+    }
+    to {
+      transform: translate3d(-50%, 0, 0);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero-logo-marquee-track {
+      animation: none;
+    }
+  }
+</style>

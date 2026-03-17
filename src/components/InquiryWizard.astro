@@ -2,10 +2,7 @@
 import { Image } from 'astro:assets';
 import bgImage from '../assets/images/sections/contact-bg.webp';
 
-const EMAILJS_SERVICE_ID = import.meta.env.PUBLIC_EMAILJS_SERVICE_ID ?? '';
-const EMAILJS_TEMPLATE_ID = import.meta.env.PUBLIC_EMAILJS_TEMPLATE_ID ?? '';
-const EMAILJS_PUBLIC_KEY = import.meta.env.PUBLIC_EMAILJS_PUBLIC_KEY ?? '';
-const TEST_RECIPIENT_EMAIL = 'sokolowski.fill@gmail.com';
+const RECIPIENT_EMAIL = 'sokolowski.fill@gmail.com';
 ---
 
 <section id="contact" class="relative py-24 px-6 overflow-hidden bg-[#202020]">
@@ -35,9 +32,9 @@ const TEST_RECIPIENT_EMAIL = 'sokolowski.fill@gmail.com';
       </div>
 
       <div class="grid lg:grid-cols-[320px_minmax(0,1fr)]">
-        <aside class="border-b border-white/10 bg-black/25 p-6 sm:p-8 lg:border-b-0 lg:border-r">
+        <aside class="overflow-hidden border-b border-white/10 bg-black/25 p-6 sm:p-8 lg:border-b-0 lg:border-r">
           <span class="text-xs font-mono uppercase tracking-[0.35em] text-accent">Starte hier</span>
-          <h2 class="mt-4 font-display text-5xl font-semibold leading-none text-text-primary md:text-6xl">
+          <h2 class="mt-4 font-display text-4xl font-semibold leading-none text-text-primary lg:text-5xl">
             Anfrage
           </h2>
           <p class="mt-5 max-w-sm font-body text-base leading-relaxed text-text-secondary md:text-lg">
@@ -84,13 +81,13 @@ const TEST_RECIPIENT_EMAIL = 'sokolowski.fill@gmail.com';
           </span>
         </aside>
 
-        <div class="p-6 sm:p-8 md:p-10">
+        <div class="flex flex-col p-6 sm:p-8 md:p-10">
 
       <!-- Step 1: What are you looking for? -->
-      <div data-step="1" class="wizard-step">
+      <div data-step="1" class="wizard-step flex flex-1 flex-col">
         <h3 class="font-display text-3xl md:text-4xl mb-6">Was suchst du?</h3>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <button data-choice="interest" data-value="bike" class="wizard-option flex min-h-[156px] items-start gap-4 text-left rounded-2xl border border-border px-5 py-5 hover:border-text-muted transition-colors duration-300">
+        <div class="grid flex-1 grid-cols-1 md:grid-cols-3 gap-4">
+          <button data-choice="interest" data-value="bike" class="wizard-option flex items-start gap-4 text-left rounded-2xl border border-border px-5 py-5 hover:border-text-muted transition-colors duration-300">
             <svg class="w-6 h-6 text-text-muted shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 17a2 2 0 11-4 0 2 2 0 014 0zM19 17a2 2 0 11-4 0 2 2 0 014 0z" />
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 16V6l-4 2v4l7 4" />
@@ -100,7 +97,7 @@ const TEST_RECIPIENT_EMAIL = 'sokolowski.fill@gmail.com';
               <span class="block font-body text-text-muted text-xs mt-1">Ich will ein bestimmtes Bike ausleihen</span>
             </div>
           </button>
-          <button data-choice="interest" data-value="tour" class="wizard-option flex min-h-[156px] items-start gap-4 text-left rounded-2xl border border-border px-5 py-5 hover:border-text-muted transition-colors duration-300">
+          <button data-choice="interest" data-value="tour" class="wizard-option flex items-start gap-4 text-left rounded-2xl border border-border px-5 py-5 hover:border-text-muted transition-colors duration-300">
             <svg class="w-6 h-6 text-text-muted shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" />
             </svg>
@@ -109,7 +106,7 @@ const TEST_RECIPIENT_EMAIL = 'sokolowski.fill@gmail.com';
               <span class="block font-body text-text-muted text-xs mt-1">Ich will an einer geführten Motorradtour teilnehmen</span>
             </div>
           </button>
-          <button data-choice="interest" data-value="both" class="wizard-option flex min-h-[156px] items-start gap-4 text-left rounded-2xl border border-border px-5 py-5 hover:border-text-muted transition-colors duration-300">
+          <button data-choice="interest" data-value="both" class="wizard-option flex items-start gap-4 text-left rounded-2xl border border-border px-5 py-5 hover:border-text-muted transition-colors duration-300">
             <svg class="w-6 h-6 text-text-muted shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 6h16M4 10h16M4 14h16M4 18h16" />
             </svg>
@@ -122,36 +119,36 @@ const TEST_RECIPIENT_EMAIL = 'sokolowski.fill@gmail.com';
       </div>
 
       <!-- Step 2: Brand preference -->
-      <div data-step="2" class="wizard-step hidden">
+      <div data-step="2" class="wizard-step hidden flex-1 flex-col">
         <h3 class="font-display text-3xl md:text-4xl mb-6">Hast du eine Markenpräferenz?</h3>
-        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-          <button data-choice="brand" data-value="bmw" class="wizard-option flex min-h-[88px] items-center gap-3 rounded-2xl border border-border px-5 py-4 text-left hover:border-text-muted transition-colors duration-300">
+        <div class="grid flex-1 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 auto-rows-fr">
+          <button data-choice="brand" data-value="bmw" class="wizard-option flex items-center gap-3 rounded-2xl border border-border px-5 py-4 text-left hover:border-text-muted transition-colors duration-300">
             <img src="/images/logos/bmw.svg" alt="BMW" class="w-6 h-6 object-contain" />
             <span class="font-body text-text-primary text-sm font-medium">BMW</span>
           </button>
-          <button data-choice="brand" data-value="triumph" class="wizard-option flex min-h-[88px] items-center gap-3 rounded-2xl border border-border px-5 py-4 text-left hover:border-text-muted transition-colors duration-300">
+          <button data-choice="brand" data-value="triumph" class="wizard-option flex items-center gap-3 rounded-2xl border border-border px-5 py-4 text-left hover:border-text-muted transition-colors duration-300">
             <img src="/images/logos/triumph.svg" alt="Triumph" class="w-6 h-6 object-contain brightness-0 invert" />
             <span class="font-body text-text-primary text-sm font-medium">Triumph</span>
           </button>
-          <button data-choice="brand" data-value="ducati" class="wizard-option flex min-h-[88px] items-center gap-3 rounded-2xl border border-border px-5 py-4 text-left hover:border-text-muted transition-colors duration-300">
+          <button data-choice="brand" data-value="ducati" class="wizard-option flex items-center gap-3 rounded-2xl border border-border px-5 py-4 text-left hover:border-text-muted transition-colors duration-300">
             <img src="/images/logos/ducati.svg" alt="Ducati" class="w-6 h-6 object-contain brightness-0 invert" />
             <span class="font-body text-text-primary text-sm font-medium">Ducati</span>
           </button>
-          <button data-choice="brand" data-value="harley" class="wizard-option flex min-h-[88px] items-center gap-3 rounded-2xl border border-border px-5 py-4 text-left hover:border-text-muted transition-colors duration-300">
+          <button data-choice="brand" data-value="harley" class="wizard-option flex items-center gap-3 rounded-2xl border border-border px-5 py-4 text-left hover:border-text-muted transition-colors duration-300">
             <img src="/images/logos/harley-davidson.svg" alt="Harley-Davidson" class="w-6 h-6 object-contain brightness-0 invert" />
             <span class="font-body text-text-primary text-sm font-medium">Harley-Davidson</span>
           </button>
-          <button data-choice="brand" data-value="honda" class="wizard-option flex min-h-[88px] items-center gap-3 rounded-2xl border border-border px-5 py-4 text-left hover:border-text-muted transition-colors duration-300">
+          <button data-choice="brand" data-value="honda" class="wizard-option flex items-center gap-3 rounded-2xl border border-border px-5 py-4 text-left hover:border-text-muted transition-colors duration-300">
             <img src="/images/logos/honda.svg" alt="Honda" class="w-6 h-6 object-contain brightness-0 invert" />
             <span class="font-body text-text-primary text-sm font-medium">Honda</span>
           </button>
-          <button data-choice="brand" data-value="other" class="wizard-option flex min-h-[88px] items-center gap-3 rounded-2xl border border-border px-5 py-4 text-left hover:border-text-muted transition-colors duration-300">
+          <button data-choice="brand" data-value="other" class="wizard-option flex items-center gap-3 rounded-2xl border border-border px-5 py-4 text-left hover:border-text-muted transition-colors duration-300">
             <svg class="w-6 h-6 text-text-muted shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 12h.01M12 12h.01M16 12h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
             </svg>
             <span class="font-body text-text-primary text-sm font-medium">Andere</span>
           </button>
-          <button data-choice="brand" data-value="no-preference" class="wizard-option flex min-h-[88px] items-center gap-3 rounded-2xl border border-border px-5 py-4 text-left hover:border-text-muted transition-colors duration-300">
+          <button data-choice="brand" data-value="no-preference" class="wizard-option flex items-center gap-3 rounded-2xl border border-border px-5 py-4 text-left hover:border-text-muted transition-colors duration-300">
             <svg class="w-6 h-6 text-text-muted shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
             </svg>
@@ -164,10 +161,10 @@ const TEST_RECIPIENT_EMAIL = 'sokolowski.fill@gmail.com';
       </div>
 
       <!-- Step 3: Booking preference -->
-      <div data-step="3" class="wizard-step hidden">
+      <div data-step="3" class="wizard-step hidden flex-1 flex-col">
         <h3 class="font-display text-3xl md:text-4xl mb-6">Wie möchtest du buchen?</h3>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <button data-choice="booking" data-value="ribe" class="wizard-option flex min-h-[156px] items-start gap-4 rounded-2xl border border-border px-5 py-5 text-left hover:border-text-muted transition-colors duration-300">
+        <div class="grid flex-1 grid-cols-1 md:grid-cols-3 gap-4">
+          <button data-choice="booking" data-value="ribe" class="wizard-option flex items-start gap-4 rounded-2xl border border-border px-5 py-5 text-left hover:border-text-muted transition-colors duration-300">
             <svg class="w-6 h-6 text-text-muted shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" />
             </svg>
@@ -176,7 +173,7 @@ const TEST_RECIPIENT_EMAIL = 'sokolowski.fill@gmail.com';
               <span class="block font-body text-text-muted text-xs mt-1">Online-Plattform mit europaweiter Vollkasko</span>
             </div>
           </button>
-          <button data-choice="booking" data-value="direct" class="wizard-option flex min-h-[156px] items-start gap-4 rounded-2xl border border-border px-5 py-5 text-left hover:border-text-muted transition-colors duration-300">
+          <button data-choice="booking" data-value="direct" class="wizard-option flex items-start gap-4 rounded-2xl border border-border px-5 py-5 text-left hover:border-text-muted transition-colors duration-300">
             <svg class="w-6 h-6 text-text-muted shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2v4l-4-4H9a1.994 1.994 0 01-1.414-.586m0 0L11 14h4a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2v4l.586-.586z" />
             </svg>
@@ -185,7 +182,7 @@ const TEST_RECIPIENT_EMAIL = 'sokolowski.fill@gmail.com';
               <span class="block font-body text-text-muted text-xs mt-1">Persönlicher Kontakt, individuelle Absprache</span>
             </div>
           </button>
-          <button data-choice="booking" data-value="unsure" class="wizard-option flex min-h-[156px] items-start gap-4 rounded-2xl border border-border px-5 py-5 text-left hover:border-text-muted transition-colors duration-300">
+          <button data-choice="booking" data-value="unsure" class="wizard-option flex items-start gap-4 rounded-2xl border border-border px-5 py-5 text-left hover:border-text-muted transition-colors duration-300">
             <svg class="w-6 h-6 text-text-muted shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
             </svg>
@@ -198,10 +195,10 @@ const TEST_RECIPIENT_EMAIL = 'sokolowski.fill@gmail.com';
       </div>
 
       <!-- Step 4: Insurance -->
-      <div data-step="4" class="wizard-step hidden">
+      <div data-step="4" class="wizard-step hidden flex-1 flex-col">
         <h3 class="font-display text-3xl md:text-4xl mb-6">Versicherung</h3>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <button data-choice="insurance" data-value="full" class="wizard-option flex min-h-[156px] items-start gap-4 rounded-2xl border border-border px-5 py-5 text-left hover:border-text-muted transition-colors duration-300">
+        <div class="grid flex-1 grid-cols-1 md:grid-cols-3 gap-4">
+          <button data-choice="insurance" data-value="full" class="wizard-option flex items-start gap-4 rounded-2xl border border-border px-5 py-5 text-left hover:border-text-muted transition-colors duration-300">
             <svg class="w-6 h-6 text-text-muted shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
             </svg>
@@ -210,7 +207,7 @@ const TEST_RECIPIENT_EMAIL = 'sokolowski.fill@gmail.com';
               <span class="block font-body text-text-muted text-xs mt-1">Maximaler Schutz, inklusive bei RIBE-Buchungen</span>
             </div>
           </button>
-          <button data-choice="insurance" data-value="basic" class="wizard-option flex min-h-[156px] items-start gap-4 rounded-2xl border border-border px-5 py-5 text-left hover:border-text-muted transition-colors duration-300">
+          <button data-choice="insurance" data-value="basic" class="wizard-option flex items-start gap-4 rounded-2xl border border-border px-5 py-5 text-left hover:border-text-muted transition-colors duration-300">
             <svg class="w-6 h-6 text-text-muted shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M20.618 5.984A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
             </svg>
@@ -219,7 +216,7 @@ const TEST_RECIPIENT_EMAIL = 'sokolowski.fill@gmail.com';
               <span class="block font-body text-text-muted text-xs mt-1">Gesetzlicher Mindestschutz</span>
             </div>
           </button>
-          <button data-choice="insurance" data-value="own" class="wizard-option flex min-h-[156px] items-start gap-4 rounded-2xl border border-border px-5 py-5 text-left hover:border-text-muted transition-colors duration-300">
+          <button data-choice="insurance" data-value="own" class="wizard-option flex items-start gap-4 rounded-2xl border border-border px-5 py-5 text-left hover:border-text-muted transition-colors duration-300">
             <svg class="w-6 h-6 text-text-muted shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
             </svg>
@@ -232,14 +229,14 @@ const TEST_RECIPIENT_EMAIL = 'sokolowski.fill@gmail.com';
       </div>
 
       <!-- Step 5: Contact details -->
-      <div data-step="5" class="wizard-step hidden">
+      <div data-step="5" class="wizard-step hidden flex-1 flex-col">
         <h3 class="font-display text-3xl md:text-4xl mb-6">Deine Kontaktdaten</h3>
         <div id="wizard-prefill" class="hidden mb-6 rounded-2xl border border-accent/30 bg-accent-muted/40 p-5">
           <p class="mb-1 font-mono text-xs uppercase tracking-[0.28em] text-accent">Direkte Anfrage</p>
           <p id="wizard-prefill-title" class="font-display text-2xl text-text-primary"></p>
           <p id="wizard-prefill-copy" class="mt-2 font-body text-sm leading-relaxed text-text-secondary"></p>
         </div>
-        <form id="wizard-form" class="space-y-4">
+        <form id="wizard-form" class="flex flex-1 flex-col space-y-4">
           <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
               <label for="wiz-name" class="block text-xs font-mono text-text-muted uppercase tracking-wider mb-1">Name</label>
@@ -264,13 +261,13 @@ const TEST_RECIPIENT_EMAIL = 'sokolowski.fill@gmail.com';
               />
             </div>
           </div>
-          <div>
+          <div class="flex-1">
             <label for="wiz-message" class="block text-xs font-mono text-text-muted uppercase tracking-wider mb-1">Nachricht (optional)</label>
             <textarea
               id="wiz-message"
               name="message"
               rows="3"
-              class="w-full resize-none rounded-2xl border border-border bg-bg-surface-alt px-4 py-3 text-sm text-text-primary placeholder:text-text-muted focus:outline-none focus:border-text-muted transition-colors duration-300"
+              class="w-full h-full min-h-[80px] resize-none rounded-2xl border border-border bg-bg-surface-alt px-4 py-3 text-sm text-text-primary placeholder:text-text-muted focus:outline-none focus:border-text-muted transition-colors duration-300"
               placeholder="Wunschtermin, Fragen, etc."
             ></textarea>
           </div>
@@ -309,8 +306,7 @@ const TEST_RECIPIENT_EMAIL = 'sokolowski.fill@gmail.com';
   </div>
 </section>
 
-<script define:vars={{ EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, EMAILJS_PUBLIC_KEY, TEST_RECIPIENT_EMAIL }}>
-  const EMAILJS_ENDPOINT = 'https://api.emailjs.com/api/v1.0/email/send';
+<script define:vars={{ RECIPIENT_EMAIL }}>
   const brandParamMap = {
     bmw: 'bmw',
     buell: 'other',
@@ -358,36 +354,34 @@ const TEST_RECIPIENT_EMAIL = 'sokolowski.fill@gmail.com';
     init() {
       this.applyPrefillFromUrl();
 
-      // Choice buttons
       document.querySelectorAll('.wizard-option').forEach((btn) => {
         btn.addEventListener('click', () => {
-          const choice = (btn as HTMLElement).dataset.choice!;
-          const value = (btn as HTMLElement).dataset.value!;
+          const choice = btn.dataset.choice;
+          const value = btn.dataset.value;
           this.data[choice] = value;
 
-          // Highlight selected
-          const siblings = btn.parentElement!.querySelectorAll('.wizard-option');
-          siblings.forEach((s) => s.classList.remove('border-text-primary'));
+          btn.parentElement.querySelectorAll('.wizard-option').forEach((s) => s.classList.remove('border-text-primary'));
           btn.classList.add('border-text-primary');
 
-          // Auto-advance after short delay
           setTimeout(() => this.next(), 200);
         });
       });
 
-      // Back button
-      document.getElementById('wizard-back')?.addEventListener('click', () => this.prev());
+      const backBtn = document.getElementById('wizard-back');
+      if (backBtn) backBtn.addEventListener('click', () => this.prev());
 
-      // Form submit
-      document.getElementById('wizard-form')?.addEventListener('submit', async (e) => {
-        e.preventDefault();
-        const form = e.target as HTMLFormElement;
-        const formData = new FormData(form);
-        this.data.name = formData.get('name') as string;
-        this.data.email = formData.get('email') as string;
-        this.data.message = formData.get('message') as string;
-        await this.submit(form);
-      });
+      const wizForm = document.getElementById('wizard-form');
+      if (wizForm) {
+        wizForm.addEventListener('submit', async (e) => {
+          e.preventDefault();
+          const form = e.target;
+          const formData = new FormData(form);
+          this.data.name = formData.get('name');
+          this.data.email = formData.get('email');
+          this.data.message = formData.get('message');
+          await this.submit(form);
+        });
+      }
 
       this.renderPrefill();
       this.render();
@@ -420,7 +414,7 @@ const TEST_RECIPIENT_EMAIL = 'sokolowski.fill@gmail.com';
       const container = document.getElementById('wizard-prefill');
       const title = document.getElementById('wizard-prefill-title');
       const copy = document.getElementById('wizard-prefill-copy');
-      const message = document.getElementById('wiz-message') as HTMLTextAreaElement | null;
+      const message = document.getElementById('wiz-message');
 
       if (!container || !title || !copy) return;
 
@@ -441,7 +435,6 @@ const TEST_RECIPIENT_EMAIL = 'sokolowski.fill@gmail.com';
     showError(message) {
       const error = document.getElementById('wizard-error');
       if (!error) return;
-
       error.textContent = message;
       error.classList.remove('hidden');
     },
@@ -449,7 +442,6 @@ const TEST_RECIPIENT_EMAIL = 'sokolowski.fill@gmail.com';
     clearError() {
       const error = document.getElementById('wizard-error');
       if (!error) return;
-
       error.textContent = '';
       error.classList.add('hidden');
     },
@@ -457,7 +449,6 @@ const TEST_RECIPIENT_EMAIL = 'sokolowski.fill@gmail.com';
     setSubmitting(isSubmitting) {
       const submitButton = document.getElementById('wizard-submit');
       if (!submitButton) return;
-
       submitButton.toggleAttribute('disabled', isSubmitting);
       submitButton.textContent = isSubmitting ? 'Wird gesendet...' : 'Anfrage senden';
       submitButton.classList.toggle('opacity-60', isSubmitting);
@@ -466,66 +457,45 @@ const TEST_RECIPIENT_EMAIL = 'sokolowski.fill@gmail.com';
 
     async submit(form) {
       this.clearError();
-
-      if (!EMAILJS_SERVICE_ID || !EMAILJS_TEMPLATE_ID || !EMAILJS_PUBLIC_KEY) {
-        this.showError('EmailJS ist noch nicht konfiguriert. Bitte PUBLIC_EMAILJS_SERVICE_ID, PUBLIC_EMAILJS_TEMPLATE_ID und PUBLIC_EMAILJS_PUBLIC_KEY setzen.');
-        return;
-      }
-
       this.setSubmitting(true);
 
       const summaryLines = [
-        `Bike: ${this.data.bike || 'Nicht angegeben'}`,
+        this.data.bike ? `Bike: ${this.data.bike}` : null,
         `Interesse: ${this.getLabel('interest', this.data.interest)}`,
         `Marke: ${this.getLabel('brand', this.data.brand)}`,
         `Buchung: ${this.getLabel('booking', this.data.booking)}`,
         `Versicherung: ${this.getLabel('insurance', this.data.insurance)}`,
+      ].filter(Boolean);
+
+      const subject = encodeURIComponent(
+        `Anfrage von ${this.data.name || 'Unbekannt'} – motoko.de`
+      );
+
+      const bodyParts = [
+        ...summaryLines,
+        '',
         `Name: ${this.data.name || 'Nicht angegeben'}`,
         `E-Mail: ${this.data.email || 'Nicht angegeben'}`,
-        `Nachricht: ${this.data.message || 'Keine Nachricht'}`,
+        '',
+        `Nachricht:`,
+        this.data.message || 'Keine Nachricht',
       ];
 
-      const payload = {
-        service_id: EMAILJS_SERVICE_ID,
-        template_id: EMAILJS_TEMPLATE_ID,
-        user_id: EMAILJS_PUBLIC_KEY,
-        template_params: {
-          to_email: TEST_RECIPIENT_EMAIL,
-          reply_to: this.data.email || '',
-          from_name: this.data.name || '',
-          from_email: this.data.email || '',
-          bike: this.data.bike || '',
-          interest: this.getLabel('interest', this.data.interest),
-          brand: this.getLabel('brand', this.data.brand),
-          booking: this.getLabel('booking', this.data.booking),
-          insurance: this.getLabel('insurance', this.data.insurance),
-          message: this.data.message || '',
-          summary: summaryLines.join('\n'),
-          sent_at: new Date().toISOString(),
-          website: window.location.origin,
-        },
-      };
+      const body = encodeURIComponent(bodyParts.join('\n'));
+      const mailtoUrl = `mailto:${RECIPIENT_EMAIL}?subject=${subject}&body=${body}`;
 
       try {
-        const response = await fetch(EMAILJS_ENDPOINT, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(payload),
-        });
+        window.location.href = mailtoUrl;
 
-        if (!response.ok) {
-          const errorText = await response.text();
-          throw new Error(errorText || 'EmailJS request failed');
-        }
-
-        form.reset();
-        this.showSuccess();
+        // Show success after a short delay (mailto will have opened)
+        setTimeout(() => {
+          form.reset();
+          this.showSuccess();
+          this.setSubmitting(false);
+        }, 500);
       } catch (error) {
-        console.error('EmailJS submission failed', error);
-        this.showError('Die Anfrage konnte nicht gesendet werden. Bitte versuche es erneut oder kontaktiere uns direkt per WhatsApp.');
-      } finally {
+        console.error('Submission failed', error);
+        this.showError('Die Anfrage konnte nicht gesendet werden. Bitte kontaktiere uns direkt per E-Mail an ' + RECIPIENT_EMAIL);
         this.setSubmitting(false);
       }
     },
@@ -551,21 +521,25 @@ const TEST_RECIPIENT_EMAIL = 'sokolowski.fill@gmail.com';
     },
 
     render() {
-      // Show/hide steps
-      document.querySelectorAll('.wizard-step').forEach((s) => s.classList.add('hidden'));
-      document.querySelector(`[data-step="${this.step}"]`)?.classList.remove('hidden');
+      document.querySelectorAll('.wizard-step').forEach((s) => {
+        s.classList.add('hidden');
+        s.classList.remove('flex');
+      });
+      const active = document.querySelector(`[data-step="${this.step}"]`);
+      if (active) {
+        active.classList.remove('hidden');
+        active.classList.add('flex');
+      }
 
       document.querySelectorAll('.wizard-option').forEach((option) => {
-        const element = option as HTMLElement;
-        const group = element.dataset.choice;
-        const value = element.dataset.value;
+        const group = option.dataset.choice;
+        const value = option.dataset.value;
         const isSelected = group && this.data[group] === value;
-        element.classList.toggle('border-text-primary', Boolean(isSelected));
+        option.classList.toggle('border-text-primary', Boolean(isSelected));
       });
 
-      // Update dots
       document.querySelectorAll('[data-dot]').forEach((dot) => {
-        const n = parseInt((dot as HTMLElement).dataset.dot!);
+        const n = parseInt(dot.dataset.dot);
         dot.classList.toggle('border-accent', n <= this.step);
         dot.classList.toggle('bg-accent', n <= this.step);
         dot.classList.toggle('text-black', n <= this.step);
@@ -574,18 +548,16 @@ const TEST_RECIPIENT_EMAIL = 'sokolowski.fill@gmail.com';
       });
 
       document.querySelectorAll('[data-dot-item]').forEach((item) => {
-        const n = parseInt((item as HTMLElement).dataset.dotItem!);
+        const n = parseInt(item.dataset.dotItem);
         item.classList.toggle('border-accent/40', n <= this.step);
         item.classList.toggle('bg-accent-muted/30', n <= this.step);
         item.classList.toggle('border-white/10', n > this.step);
         item.classList.toggle('bg-white/[0.03]', n > this.step);
       });
 
-      // Update label
       const label = document.getElementById('step-label');
       if (label) label.textContent = `Schritt ${this.step} / ${this.total}`;
 
-      // Back button visibility
       const back = document.getElementById('wizard-back');
       if (back) {
         back.classList.toggle('invisible', this.step === 1);

@@ -106,28 +106,6 @@ h1, h2, h3, h4 {
   padding-right: 1rem;
 }
 
-.hero-brand-marquee-track {
-  animation: none;
-}
-
-.hero-brand-marquee-group {
-  gap: 1.1rem;
-  padding-right: 1.1rem;
-}
-
-@media (min-width: 640px) {
-  .hero-brand-marquee-group {
-    gap: 1.35rem;
-    padding-right: 1.35rem;
-  }
-}
-
-@media (min-width: 1024px) {
-  .hero-brand-marquee-group {
-    gap: 1.7rem;
-    padding-right: 1.7rem;
-  }
-}
 
 @media (min-width: 640px) {
   .brand-marquee-group {
