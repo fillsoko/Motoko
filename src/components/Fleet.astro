@@ -110,7 +110,7 @@ const categories = [...new Set(displayBikes.map((bike) => bike.category))].sort(
             data-brand={getBrandName(bike.name)}
             data-category={bike.category}
           >
-            <BikeCard bike={bike} />
+            <BikeCard bike={bike} showRibeButton={!preview} showMotokoButton={true} />
           </div>
         ))}
       </div>
