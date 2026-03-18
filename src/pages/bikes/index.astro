@@ -1,0 +1,620 @@
+---
+import { Image } from 'astro:assets';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Nav from '../../components/Nav.astro';
+import Footer from '../../components/Footer.astro';
+import { bikes } from '../../data/bikes';
+
+const allImages = import.meta.glob<{ default: ImageMetadata }>(
+  '../../assets/images/bikes/**/*.webp',
+  { eager: true }
+);
+
+const isImage = (image: ImageMetadata | undefined): image is ImageMetadata => Boolean(image);
+
+const bikeShowcase = bikes.map((bike) => {
+  const bikeImageEntries = Object.entries(allImages).filter(([path]) => path.includes(`/${bike.slug}/`));
+  const bikeImages = bike.images?.length
+    ? bike.images
+        .map((filename) => bikeImageEntries.find(([path]) => path.endsWith(`/${filename}`))?.[1].default)
+        .filter(isImage)
+    : bikeImageEntries
+        .sort(([a], [b]) => {
+          if (a.includes('hero.')) return -1;
+          if (b.includes('hero.')) return 1;
+          return a.localeCompare(b);
+        })
+        .map(([, mod]) => mod.default);
+
+  const brand = bike.name.startsWith('Harley-Davidson') ? 'Harley-Davidson' : bike.name.split(' ')[0];
+  const directHref = `/#contact?interest=bike&brand=${encodeURIComponent(brand)}&booking=direct&bike=${encodeURIComponent(bike.name)}&bikeSlug=${encodeURIComponent(bike.slug)}`;
+
+  return {
+    ...bike,
+    brand,
+    heroImage: bikeImages[0],
+    ghostWord: bike.category,
+    directHref,
+    statSlides: [
+      [
+        { labelDe: 'Motor', labelEn: 'Engine', value: bike.engine },
+        { labelDe: 'Leistung', labelEn: 'Power', value: bike.power },
+      ],
+      [
+        { labelDe: 'Gewicht', labelEn: 'Weight', value: bike.weight },
+        { labelDe: 'Mindestgroesse', labelEn: 'Rider Height', value: bike.seat },
+      ],
+      [
+        { labelDe: 'Baujahr', labelEn: 'Year', value: String(bike.year) },
+        { labelDe: 'Preis', labelEn: 'Rate', value: `ab ${bike.pricePerDay} EUR / Tag` },
+      ],
+    ],
+  };
+});
+
+const initialBike = bikeShowcase[0];
+---
+
+<BaseLayout title="Bikes Lab — motoko" description="Experimentelle Bike-Landing-Page fuer den Motoko Fuhrpark.">
+  <Nav />
+
+  <main class="bg-bg-primary pt-24">
+    <section class="bike-lab relative overflow-hidden px-4 pb-14 pt-6 sm:px-6 sm:pb-16 lg:min-h-[calc(100vh-6rem)] lg:px-10 lg:pt-10">
+      <div class="bike-lab__ambient bike-lab__ambient--left" aria-hidden="true"></div>
+      <div class="bike-lab__ambient bike-lab__ambient--right" aria-hidden="true"></div>
+
+      <div class="mx-auto flex max-w-7xl flex-col">
+        <div class="bike-lab__shell relative overflow-hidden rounded-[2rem] border border-white/10 bg-[linear-gradient(180deg,rgba(18,18,18,0.96),rgba(6,6,6,0.98))] px-5 pb-8 pt-6 shadow-[0_40px_120px_rgba(0,0,0,0.45)] sm:px-8 sm:pb-10 lg:px-10 lg:pb-12">
+          <div class="bike-lab__ghost" aria-hidden="true">{initialBike.ghostWord}</div>
+
+          <div class="relative z-10 flex flex-col gap-8">
+            <div class="flex flex-col gap-5 border-b border-white/10 pb-6 lg:flex-row lg:items-center lg:justify-between">
+              <div class="flex items-center gap-4">
+                <div class="rounded-full border border-white/10 bg-white/5 px-4 py-2 font-mono text-[11px] uppercase tracking-[0.28em] text-text-muted">
+                  motoko://bikes/lab
+                </div>
+                <div class="hidden h-px w-20 bg-white/10 lg:block"></div>
+                <p
+                  class="font-mono text-[11px] uppercase tracking-[0.28em] text-accent"
+                  data-i18n-de="Experimenteller Fuhrpark"
+                  data-i18n-en="Experimental Fleet"
+                >
+                  Experimenteller Fuhrpark
+                </p>
+              </div>
+
+              <nav class="bike-lab__anchors" aria-label="Bike showcase navigation">
+                <a href="#bike-story" data-i18n-de="Charakter" data-i18n-en="Character">Charakter</a>
+                <a href="#bike-specs" data-i18n-de="Daten" data-i18n-en="Data">Daten</a>
+                <a href="#bike-actions" data-i18n-de="Buchen" data-i18n-en="Book">Buchen</a>
+              </nav>
+            </div>
+
+            <div class="grid gap-8 lg:grid-cols-[minmax(0,1.02fr)_minmax(360px,0.98fr)] lg:items-center">
+              <div class="relative z-10 flex flex-col gap-6">
+                <div class="flex flex-wrap items-center gap-3">
+                  <span
+                    id="bike-active-brand"
+                    class="rounded-full border border-accent/30 bg-accent/10 px-3 py-1 font-mono text-xs uppercase tracking-[0.22em] text-accent"
+                  >
+                    {initialBike.brand}
+                  </span>
+                  <span
+                    id="bike-active-category"
+                    class="rounded-full border border-white/10 px-3 py-1 font-mono text-xs uppercase tracking-[0.22em] text-text-muted"
+                  >
+                    {initialBike.category}
+                  </span>
+                </div>
+
+                <div>
+                  <p
+                    class="font-mono text-xs uppercase tracking-[0.35em] text-text-muted"
+                    data-i18n-de="Ready to ride"
+                    data-i18n-en="Ready to ride"
+                  >
+                    Ready to ride
+                  </p>
+                  <h1
+                    id="bike-active-name"
+                    class="mt-4 max-w-4xl font-display text-[3.1rem] font-light uppercase leading-[0.88] tracking-[0.06em] text-text-primary sm:text-[4.4rem] lg:text-[6.2rem]"
+                  >
+                    {initialBike.name}
+                  </h1>
+                  <p
+                    id="bike-active-summary"
+                    class="mt-5 max-w-2xl font-body text-base leading-relaxed text-text-secondary sm:text-lg"
+                  >
+                    {initialBike.rideNote}
+                  </p>
+                </div>
+
+                <div id="bike-actions" class="flex flex-col gap-3 sm:flex-row">
+                  <a
+                    id="bike-direct-link"
+                    href={initialBike.directHref}
+                    class="inline-flex items-center justify-center rounded-full bg-accent px-7 py-4 text-sm font-body font-medium uppercase tracking-[0.24em] text-black transition-all duration-300 hover:bg-accent-hover hover:tracking-[0.3em]"
+                    data-i18n-de="Direkt anfragen"
+                    data-i18n-en="Request direct"
+                  >
+                    Direkt anfragen
+                  </a>
+                  <a
+                    id="bike-ripe-link"
+                    href={initialBike.ripeUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="inline-flex items-center justify-center rounded-full border border-white/15 bg-white/5 px-7 py-4 text-sm font-body font-medium uppercase tracking-[0.24em] text-text-primary transition-all duration-300 hover:border-accent hover:text-accent"
+                    data-i18n-de="Via RIBE buchen"
+                    data-i18n-en="Book via RIBE"
+                  >
+                    Via RIBE buchen
+                  </a>
+                </div>
+
+                <div id="bike-story" class="grid gap-4 sm:grid-cols-3">
+                  {initialBike.highlights.slice(0, 3).map((highlight, index) => (
+                    <article class="rounded-[1.6rem] border border-white/10 bg-white/[0.03] p-4 backdrop-blur-sm">
+                      <p class="font-mono text-[11px] uppercase tracking-[0.24em] text-accent">0{index + 1}</p>
+                      <p class="mt-3 font-body text-sm leading-relaxed text-text-secondary">{highlight}</p>
+                    </article>
+                  ))}
+                </div>
+              </div>
+
+              <div class="relative">
+                <div class="bike-stage relative mx-auto flex min-h-[320px] w-full max-w-[780px] items-center justify-center sm:min-h-[420px] lg:min-h-[540px]">
+                  <div class="bike-stage__ring bike-stage__ring--large" aria-hidden="true"></div>
+                  <div class="bike-stage__ring bike-stage__ring--small" aria-hidden="true"></div>
+                  <div class="bike-stage__spotlight" aria-hidden="true"></div>
+                  <div id="bike-image-frame" class="bike-stage__frame">
+                    {initialBike.heroImage ? (
+                      <Image
+                        id="bike-active-image"
+                        src={initialBike.heroImage}
+                        alt={initialBike.name}
+                        class="bike-stage__image"
+                        widths={[720, 960, 1280]}
+                        sizes="(max-width: 1024px) 100vw, 50vw"
+                        loading="eager"
+                      />
+                    ) : (
+                      <div class="bike-stage__fallback"></div>
+                    )}
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="grid gap-6 border-t border-white/10 pt-6 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-end">
+              <div id="bike-specs" class="relative min-h-[170px] overflow-hidden rounded-[1.8rem] border border-white/10 bg-white/[0.03] px-5 py-5 sm:px-6">
+                {initialBike.statSlides.map((slide, index) => (
+                  <div class={`bike-spec-slide grid gap-6 sm:grid-cols-2 ${index === 0 ? 'is-active' : ''}`} data-spec-slide={index}>
+                    {slide.map((stat) => (
+                      <div>
+                        <p
+                          class="font-mono text-[11px] uppercase tracking-[0.24em] text-accent"
+                          data-label-de={stat.labelDe}
+                          data-label-en={stat.labelEn}
+                        >
+                          {stat.labelDe}
+                        </p>
+                        <p class="mt-3 font-display text-3xl uppercase leading-none tracking-[0.06em] text-text-primary sm:text-4xl">
+                          {stat.value}
+                        </p>
+                      </div>
+                    ))}
+                  </div>
+                ))}
+              </div>
+
+              <div class="flex flex-col gap-4 lg:min-w-[240px]">
+                <div class="bike-dot-row" role="tablist" aria-label="Choose bike">
+                  {bikeShowcase.map((bike, index) => (
+                    <button
+                      type="button"
+                      class={`bike-dot ${index === 0 ? 'is-active' : ''}`}
+                      data-bike-dot={index}
+                      aria-label={`Show ${bike.name}`}
+                    ></button>
+                  ))}
+                </div>
+                <div class="bike-thumb-list">
+                  {bikeShowcase.map((bike, index) => (
+                    <button
+                      type="button"
+                      class={`bike-thumb ${index === 0 ? 'is-active' : ''}`}
+                      data-bike-thumb={index}
+                    >
+                      <span class="bike-thumb__brand">{bike.brand}</span>
+                      <span class="bike-thumb__name">{bike.name}</span>
+                    </button>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</BaseLayout>
+
+<style>
+  .bike-lab {
+    isolation: isolate;
+    background:
+      radial-gradient(circle at top left, rgba(255, 107, 0, 0.17), transparent 28%),
+      radial-gradient(circle at right 20%, rgba(255, 255, 255, 0.06), transparent 22%),
+      linear-gradient(180deg, #080808 0%, #030303 100%);
+  }
+
+  .bike-lab__ambient {
+    position: absolute;
+    width: 28rem;
+    height: 28rem;
+    border-radius: 9999px;
+    filter: blur(90px);
+    opacity: 0.55;
+    pointer-events: none;
+  }
+
+  .bike-lab__ambient--left {
+    top: 8rem;
+    left: -8rem;
+    background: rgba(255, 107, 0, 0.18);
+  }
+
+  .bike-lab__ambient--right {
+    right: -10rem;
+    bottom: 6rem;
+    background: rgba(255, 255, 255, 0.08);
+  }
+
+  .bike-lab__shell {
+    min-height: min(880px, calc(100vh - 9rem));
+  }
+
+  .bike-lab__ghost {
+    position: absolute;
+    left: 50%;
+    top: 48%;
+    transform: translate(-50%, -50%);
+    font-family: var(--font-display);
+    font-size: clamp(4.5rem, 16vw, 14rem);
+    line-height: 0.85;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: rgba(255, 255, 255, 0.04);
+    white-space: nowrap;
+    pointer-events: none;
+    user-select: none;
+  }
+
+  .bike-lab__anchors {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.1rem;
+  }
+
+  .bike-lab__anchors a {
+    font-family: var(--font-body);
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.28em;
+    color: var(--color-text-secondary);
+    transition: color 150ms ease;
+  }
+
+  .bike-lab__anchors a:hover {
+    color: var(--color-accent);
+  }
+
+  .bike-stage__ring,
+  .bike-stage__spotlight {
+    position: absolute;
+    inset: auto;
+    border-radius: 9999px;
+    pointer-events: none;
+  }
+
+  .bike-stage__ring--large {
+    width: 88%;
+    aspect-ratio: 1;
+    border: 1px solid rgba(255, 255, 255, 0.09);
+  }
+
+  .bike-stage__ring--small {
+    width: 64%;
+    aspect-ratio: 1;
+    border: 1px solid rgba(255, 107, 0, 0.18);
+  }
+
+  .bike-stage__spotlight {
+    width: 70%;
+    aspect-ratio: 1;
+    background: radial-gradient(circle, rgba(255, 107, 0, 0.22) 0%, rgba(255, 107, 0, 0) 72%);
+    filter: blur(6px);
+  }
+
+  .bike-stage__frame {
+    position: relative;
+    z-index: 1;
+    width: min(100%, 760px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .bike-stage__image {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+    filter: drop-shadow(0 35px 35px rgba(0, 0, 0, 0.55));
+    transform: rotate(-6deg) translateY(0);
+    transition: transform 320ms ease, filter 320ms ease, opacity 240ms ease;
+  }
+
+  .bike-stage__fallback {
+    width: 100%;
+    aspect-ratio: 16 / 10;
+    border-radius: 2rem;
+    background: linear-gradient(180deg, #191919 0%, #0e0e0e 100%);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .bike-spec-slide {
+    position: absolute;
+    inset: 1.25rem;
+    opacity: 0;
+    transform: translateY(12px);
+    pointer-events: none;
+    transition: opacity 220ms ease, transform 220ms ease;
+  }
+
+  .bike-spec-slide.is-active {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+
+  .bike-dot-row {
+    display: flex;
+    gap: 0.7rem;
+    justify-content: flex-start;
+  }
+
+  .bike-dot {
+    width: 0.8rem;
+    height: 0.8rem;
+    border-radius: 9999px;
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    background: rgba(255, 255, 255, 0.12);
+    transition: transform 150ms ease, background-color 150ms ease, border-color 150ms ease;
+  }
+
+  .bike-dot.is-active {
+    background: var(--color-accent);
+    border-color: var(--color-accent);
+    transform: scale(1.15);
+  }
+
+  .bike-thumb-list {
+    display: grid;
+    gap: 0.75rem;
+  }
+
+  .bike-thumb {
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 1.2rem;
+    padding: 0.95rem 1rem;
+    background: rgba(255, 255, 255, 0.03);
+    text-align: left;
+    transition: border-color 150ms ease, background-color 150ms ease, transform 150ms ease;
+  }
+
+  .bike-thumb:hover {
+    border-color: rgba(255, 255, 255, 0.22);
+    transform: translateY(-1px);
+  }
+
+  .bike-thumb.is-active {
+    border-color: rgba(255, 107, 0, 0.45);
+    background: rgba(255, 107, 0, 0.08);
+  }
+
+  .bike-thumb__brand {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: var(--color-accent);
+  }
+
+  .bike-thumb__name {
+    display: block;
+    margin-top: 0.4rem;
+    font-family: var(--font-body);
+    font-size: 0.92rem;
+    line-height: 1.4;
+    color: var(--color-text-primary);
+  }
+
+  @media (max-width: 1023px) {
+    .bike-lab__shell {
+      min-height: auto;
+    }
+
+    .bike-lab__ghost {
+      top: 19rem;
+      font-size: clamp(3rem, 22vw, 8rem);
+    }
+
+    .bike-stage__image {
+      transform: rotate(-5deg);
+    }
+  }
+
+  @media (max-width: 767px) {
+    .bike-lab__anchors {
+      gap: 0.8rem;
+    }
+
+    .bike-lab__anchors a {
+      font-size: 0.72rem;
+      letter-spacing: 0.22em;
+    }
+
+    .bike-lab__ghost {
+      top: 15rem;
+      left: 52%;
+      letter-spacing: 0.06em;
+    }
+
+    .bike-stage {
+      min-height: 280px;
+    }
+
+    .bike-stage__ring--large {
+      width: 100%;
+    }
+
+    .bike-stage__ring--small {
+      width: 72%;
+    }
+
+    .bike-spec-slide {
+      inset: 1rem;
+    }
+  }
+</style>
+
+<script define:vars={{ bikeShowcase }}>
+  const bikes = bikeShowcase;
+  let activeBikeIndex = 0;
+  let activeSpecIndex = 0;
+
+  const bikeName = document.getElementById('bike-active-name');
+  const bikeBrand = document.getElementById('bike-active-brand');
+  const bikeCategory = document.getElementById('bike-active-category');
+  const bikeSummary = document.getElementById('bike-active-summary');
+  const bikeImage = document.getElementById('bike-active-image');
+  const bikeGhost = document.querySelector('.bike-lab__ghost');
+  const bikeDirectLink = document.getElementById('bike-direct-link');
+  const bikeRipeLink = document.getElementById('bike-ripe-link');
+  const bikeStory = document.getElementById('bike-story');
+  const bikeDots = Array.from(document.querySelectorAll('[data-bike-dot]'));
+  const bikeThumbs = Array.from(document.querySelectorAll('[data-bike-thumb]'));
+  const specContainer = document.getElementById('bike-specs');
+
+  const getCurrentLang = () => {
+    const saved = localStorage.getItem('motoko-lang');
+    if (saved === 'de' || saved === 'en') return saved;
+
+    const htmlLang = document.documentElement.lang?.toLowerCase();
+    if (htmlLang?.startsWith('en')) return 'en';
+    return 'de';
+  };
+
+  const renderSpecSlides = (bike) => {
+    if (!specContainer) return;
+
+    const lang = getCurrentLang();
+    specContainer.innerHTML = bike.statSlides
+      .map((slide, slideIndex) => {
+        const items = slide
+          .map(
+            (stat) => `
+              <div>
+                <p class="font-mono text-[11px] uppercase tracking-[0.24em] text-accent">${lang === 'de' ? stat.labelDe : stat.labelEn}</p>
+                <p class="mt-3 font-display text-3xl uppercase leading-none tracking-[0.06em] text-text-primary sm:text-4xl">${stat.value}</p>
+              </div>
+            `
+          )
+          .join('');
+
+        return `<div class="bike-spec-slide ${slideIndex === activeSpecIndex ? 'is-active' : ''}" data-spec-slide="${slideIndex}">${items}</div>`;
+      })
+      .join('');
+
+    Array.from(specContainer.querySelectorAll('[data-spec-slide]')).forEach((slide, slideIndex) => {
+      slide.addEventListener('click', () => {
+        activeSpecIndex = slideIndex;
+        renderSpecSlides(bike);
+      });
+    });
+  };
+
+  const renderHighlights = (bike) => {
+    if (!bikeStory) return;
+
+    bikeStory.innerHTML = bike.highlights
+      .slice(0, 3)
+      .map(
+        (highlight, index) => `
+          <article class="rounded-[1.6rem] border border-white/10 bg-white/[0.03] p-4 backdrop-blur-sm">
+            <p class="font-mono text-[11px] uppercase tracking-[0.24em] text-accent">0${index + 1}</p>
+            <p class="mt-3 font-body text-sm leading-relaxed text-text-secondary">${highlight}</p>
+          </article>
+        `
+      )
+      .join('');
+  };
+
+  const updateActiveBike = (index) => {
+    const bike = bikes[index];
+    if (!bike) return;
+
+    activeBikeIndex = index;
+    activeSpecIndex = 0;
+
+    bikeName.textContent = bike.name;
+    bikeBrand.textContent = bike.brand;
+    bikeCategory.textContent = bike.category;
+    bikeSummary.textContent = bike.rideNote;
+    bikeGhost.textContent = bike.ghostWord;
+    bikeDirectLink.href = bike.directHref;
+    bikeRipeLink.href = bike.ripeUrl;
+
+    if (bikeImage) {
+      bikeImage.src = bike.heroImage.src;
+      bikeImage.srcset = '';
+      bikeImage.alt = bike.name;
+    }
+
+    bikeDots.forEach((dot, dotIndex) => {
+      dot.classList.toggle('is-active', dotIndex === index);
+    });
+
+    bikeThumbs.forEach((thumb, thumbIndex) => {
+      thumb.classList.toggle('is-active', thumbIndex === index);
+    });
+
+    renderHighlights(bike);
+    renderSpecSlides(bike);
+  };
+
+  bikeDots.forEach((dot, index) => {
+    dot.addEventListener('click', () => updateActiveBike(index));
+  });
+
+  bikeThumbs.forEach((thumb, index) => {
+    thumb.addEventListener('click', () => updateActiveBike(index));
+  });
+
+  window.addEventListener('storage', (event) => {
+    if (event.key !== 'motoko-lang') return;
+    updateActiveBike(activeBikeIndex);
+  });
+
+  document.querySelectorAll('[data-lang-btn]').forEach((button) => {
+    button.addEventListener('click', () => {
+      window.setTimeout(() => updateActiveBike(activeBikeIndex), 0);
+    });
+  });
+
+  updateActiveBike(activeBikeIndex);
+</script>
