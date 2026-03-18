@@ -14,15 +14,20 @@ const allImages = import.meta.glob<{ default: ImageMetadata }>(
   { eager: true }
 );
 
-// Find first image matching this bike's slug
-const bikeImages = Object.entries(allImages)
-  .filter(([path]) => path.includes(`/${bike.slug}/`))
-  .sort(([a], [b]) => {
-    if (a.includes('hero.')) return -1;
-    if (b.includes('hero.')) return 1;
-    return a.localeCompare(b);
-  })
-  .map(([, mod]) => mod.default);
+const bikeImageEntries = Object.entries(allImages).filter(([path]) => path.includes(`/${bike.slug}/`));
+const isImage = (image: ImageMetadata | undefined): image is ImageMetadata => Boolean(image);
+
+const bikeImages = bike.images?.length
+  ? bike.images
+      .map((filename) => bikeImageEntries.find(([path]) => path.endsWith(`/${filename}`))?.[1].default)
+      .filter(isImage)
+  : bikeImageEntries
+      .sort(([a], [b]) => {
+        if (a.includes('hero.')) return -1;
+        if (b.includes('hero.')) return 1;
+        return a.localeCompare(b);
+      })
+      .map(([, mod]) => mod.default);
 
 const heroImage = bikeImages[0];
 ---

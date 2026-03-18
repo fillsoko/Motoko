@@ -9,7 +9,7 @@ export interface BikeAvailability {
 export const availability: BikeAvailability[] = [
   {
     bikeSlug: 'honda-gl-goldwing-valkyrie',
-    bikeName: 'Honda GL Goldwing Valkyrie',
+    bikeName: 'Honda F6C Gold Wing Valkyrie',
     availableMonths: [4, 5, 6, 7, 8, 9, 10],
     notesDe: 'Nur Saison April–Oktober',
     notesEn: 'Seasonal April–October only',

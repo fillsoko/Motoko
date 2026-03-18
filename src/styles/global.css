@@ -7,6 +7,18 @@
 @import '@fontsource/inter/500.css';
 @import '@fontsource/jetbrains-mono/400.css';
 
+@font-face {
+  font-family: 'Crillee Wordmark';
+  src:
+    local('Crillee'),
+    local('Crillee Regular'),
+    local('Crillee Italic'),
+    local('Crillee AT Italic Regular');
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+
 @theme {
   --color-bg-primary: #000000;
   --color-bg-surface: #111111;
@@ -23,6 +35,7 @@
   --font-display: 'Cormorant Garamond', serif;
   --font-body: 'Inter', sans-serif;
   --font-mono: 'JetBrains Mono', monospace;
+  --font-wordmark: 'Crillee Wordmark', 'Cormorant Garamond', serif;
 }
 
 html {
@@ -43,6 +56,13 @@ body {
 h1, h2, h3, h4 {
   text-transform: uppercase;
   letter-spacing: 0.08em;
+}
+
+.wordmark {
+  font-family: var(--font-wordmark);
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  text-transform: none;
 }
 
 @media (prefers-reduced-motion: reduce) {

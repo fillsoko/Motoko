@@ -10,6 +10,7 @@ export interface Bike {
   pricePerDay: number;
   ripeUrl: string;
   slug: string;
+  images?: string[];
   overview: string;
   rideNote: string;
   highlights: string[];
@@ -21,9 +22,9 @@ export function generateSlug(name: string): string {
 
 export const bikes: Bike[] = [
   {
-    name: 'Honda GL Goldwing Valkyrie',
+    name: 'Honda F6C Gold Wing Valkyrie',
     nickname: 'Gorilla',
-    category: 'Touring',
+    category: 'Cruiser',
     engine: '1832 cc Flat-6',
     power: '115 PS',
     weight: '340 kg',
@@ -32,11 +33,12 @@ export const bikes: Bike[] = [
     pricePerDay: 200,
     ripeUrl: 'https://www.ribeme.com/de/motorrad/mieten/8242-honda-gl-goldwing-gl-custom-2015',
     slug: 'honda-gl-goldwing-valkyrie',
+    images: ['hero.webp', 'gallery-1.webp', 'gallery-2.webp', 'gallery-3.webp', 'gallery-4.webp'],
     overview:
-      'Die F6C Gold Wing Valkyrie ist Hondas Power-Cruiser auf Gold-Wing-Basis: ein 1.8-Liter-Boxer-Sechszylinder mit Wellenantrieb, tiefem Schwerpunkt und enorm viel Schub aus dem Keller. Technisch verbindet sie Langstrecken-Gene mit einem deutlich reduzierteren, muskulöseren Auftritt.',
+      'Die F6C Gold Wing Valkyrie ist Hondas muskuloser Power-Cruiser auf Gold-Wing-Basis: 1.8 Liter Flat-6, Wellenantrieb, tiefer Schwerpunkt und massiver Durchzug schon knapp ueber Leerlauf. Sie verbindet die Souveraenitaet einer Langstreckenmaschine mit einem deutlich reduzierteren, selbstbewussteren Cruiser-Auftritt.',
     rideNote:
-      'Auf der Straße fühlt sich die Valkyrie souverän und überraschend leichtfüßig für ihre Größe an. Sie passt besonders gut zu entspannten, kraftvollen Landstraßenetappen und langen Tagen im Sattel.',
-    highlights: ['1832 cc Flat-6 auf Gold-Wing-Basis', 'Wellenantrieb und tiefes 734-mm-Sitzniveau', 'Kräftiger Drehmoment-Charakter für Touring und Cruiser-Rides'],
+      'Auf der Strasse fuehlt sich die Valkyrie satt, ruhig und fuer ihre Groesse erstaunlich leichtfuesig an. Sie passt besonders gut zu entspannten, kraftvollen Landstrassenetappen und langen Tagen im Sattel.',
+    highlights: ['1832 cc Flat-6 auf Gold-Wing-Basis', 'Wellenantrieb und tiefes Sitzniveau', 'Massiver Drehmoment-Charakter fuer entspannte Cruiser-Rides'],
   },
   {
     name: 'BMW R 1200 GS',
@@ -180,8 +182,8 @@ export const bikes: Bike[] = [
     highlights: ['2458 cc Dreizylinder mit überragendem Drehmoment', 'Showa/Brembo-Setup auf sehr hohem Niveau', 'Muscle-Roadster mit Wellenantrieb und echter Langstrecken-Souveränität'],
   },
   {
-    name: 'Harley-Davidson FLH',
-    nickname: 'Electra Glide',
+    name: 'Harley-Davidson Road King',
+    nickname: 'Road King',
     category: 'Touring',
     engine: '1449 cc V-Twin',
     power: '63 PS',
@@ -191,10 +193,11 @@ export const bikes: Bike[] = [
     pricePerDay: 150,
     ripeUrl: 'https://www.ribeme.com/de/motorrad/mieten/8250-harley-davidson-flh-2001',
     slug: 'harley-davidson-flh',
+    images: ['hero.webp', 'gallery-1.webp', 'gallery-2.webp', 'gallery-3.webp'],
     overview:
-      'Die FLH Electra Glide repräsentiert die klassische Harley-Davidson Touring-Welt: großer Twin-Cam-V2, tiefer Sitz, viel Schwungmasse und ein sehr souveränes, entspanntes Fahrgefühl. Sie ist gebaut für ruhigen Druck, lange Etappen und den typischen amerikanischen Touring-Flow.',
+      'Die Road King verkoerpert die klassische Harley-Davidson Touring-Welt: grosser Twin-Cam-V2, tiefer Sitz, viel Schwungmasse und ein sehr gelassenes, souveraenes Fahrgefuehl. Sie ist gebaut fuer ruhigen Druck, lange Etappen und den typischen amerikanischen V-Twin-Flow.',
     rideNote:
-      'Am wohlsten fühlt sie sich bei gleichmäßigem Tempo, weitem Blick und viel Zeit auf dem Motorrad. Wer entspannt cruisen und das klassische Big-Twin-Gefühl erleben will, ist hier richtig.',
-    highlights: ['1450 cc Twin Cam 88 V-Twin mit Einspritzung', 'Sehr niedrige Sitzhöhe und klassische Touring-Ergonomie', 'Belt Drive und gelassener Big-Twin-Charakter'],
+      'Am wohlsten fuehlt sie sich bei gleichmaessigem Tempo, weitem Blick und viel Zeit auf dem Motorrad. Wer entspannt cruisen und das klassische Big-Twin-Gefuehl erleben will, ist hier richtig.',
+    highlights: ['1450 cc Twin Cam 88 V-Twin mit Einspritzung', 'Klassische Road-King-Ergonomie mit tiefer Sitzposition', 'Belt Drive und gelassener Big-Twin-Charakter'],
   },
 ];

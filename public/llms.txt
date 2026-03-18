@@ -10,7 +10,7 @@ Motoko GmbH is a premium motorcycle rental company based in Frankfurt am Main, G
 
 We rent the following motorcycles (all prices per day, insurance included):
 
-- Honda GL Goldwing Valkyrie (2014) — Touring, 1832cc Flat-6, 115 PS — €200/day
+- Honda F6C Gold Wing Valkyrie (2014) — Cruiser, 1832cc Flat-6, 115 PS — €200/day
 - BMW R 1200 GS (2010) — Adventure, 1170cc Boxer Twin, 109 PS — €100/day
 - BMW K 1300 R (2009) — Naked, 1293cc Inline-4, 170 PS — €130/day
 - Buell XB12 SCG (2006) — Naked, 1202cc V-Twin, 101 PS — €130/day
@@ -19,7 +19,7 @@ We rent the following motorcycles (all prices per day, insurance included):
 - Husqvarna Vitpilen 701 (2020) — Naked, 693cc Single, 74 PS — €100/day
 - Triumph Speed Triple (2006) — Naked, 1050cc Triple, 129 PS — €100/day
 - Triumph Rocket 3R (2020) — Cruiser, 2458cc Triple, 165 PS — €220/day
-- Harley-Davidson FLH (2001) — Touring, 1449cc V-Twin, 63 PS — €150/day
+- Harley-Davidson Road King (2001) — Touring, 1449cc V-Twin, 63 PS — €150/day
 
 Discounts: 10% off for 3-day rentals, 20% off for 7+ day rentals.
 
