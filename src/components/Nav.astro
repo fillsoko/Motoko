@@ -4,7 +4,7 @@ const links = [
   { labelDe: 'Touren', labelEn: 'Tours', href: '/tours' },
   { labelDe: 'Preise', labelEn: 'Pricing', href: '/pricing' },
   { labelDe: 'Gästebuch', labelEn: 'Guestbook', href: '/testimonials' },
-  { labelDe: 'Kontakt', labelEn: 'Contact', href: '/#contact' },
+  { labelDe: 'Anfrage', labelEn: 'Request', href: '/anfrage' },
 ];
 ---
 
@@ -20,6 +20,8 @@ const links = [
           <li>
             <a
               href={link.href}
+              data-href-de={link.href}
+              data-href-en={link.href}
               class="text-sm font-body font-medium uppercase tracking-widest text-text-secondary hover:text-accent transition-colors duration-300"
               data-i18n-de={link.labelDe}
               data-i18n-en={link.labelEn}
@@ -67,6 +69,8 @@ const links = [
       {links.map((link) => (
         <a
           href={link.href}
+          data-href-de={link.href}
+          data-href-en={link.href}
           class="block text-sm font-body font-medium uppercase tracking-widest text-text-secondary hover:text-accent transition-colors duration-300"
           data-i18n-de={link.labelDe}
           data-i18n-en={link.labelEn}
@@ -88,6 +92,13 @@ const links = [
     document.querySelectorAll('[data-i18n-de]').forEach((el) => {
       const text = (el as HTMLElement).dataset[`i18n${lang === 'de' ? 'De' : 'En'}`];
       if (text) el.textContent = text;
+    });
+
+    document.querySelectorAll('[data-href-de]').forEach((el) => {
+      const href = (el as HTMLElement).dataset[lang === 'de' ? 'hrefDe' : 'hrefEn'];
+      if (href) {
+        (el as HTMLAnchorElement).href = href;
+      }
     });
 
     // Update button styles

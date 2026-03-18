@@ -21,8 +21,8 @@ import { gear } from '../data/gear';
 
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 reveal">
       {gear.map((item) => (
-        <div class="bg-bg-surface border border-border rounded-lg overflow-hidden hover:border-text-muted transition-colors duration-300">
-          <div class="aspect-[4/3] bg-bg-surface-alt flex items-center justify-center">
+        <div class="flex h-full flex-col bg-bg-surface border border-border rounded-lg overflow-hidden hover:border-text-muted transition-colors duration-300">
+          <div class="aspect-[4/3] shrink-0 bg-bg-surface-alt flex items-center justify-center">
             {item.icon === 'helmet' && (
               <svg class="w-12 h-12 text-text-muted" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M12 3C7.03 3 3 7.03 3 12c0 2.76 1.24 5.23 3.19 6.88L6 21h12l-.19-2.12A8.967 8.967 0 0021 12c0-4.97-4.03-9-9-9z" />
@@ -47,19 +47,19 @@ import { gear } from '../data/gear';
               </svg>
             )}
           </div>
-          <div class="p-5">
-            <div class="flex items-center justify-between mb-2">
-              <h3 class="font-display text-lg font-normal"
+          <div class="flex flex-1 flex-col p-5">
+            <div class="mb-3 min-h-[4.5rem]">
+              <h3 class="pr-2 font-display text-lg font-normal leading-snug"
                 data-i18n-de={item.nameDe}
                 data-i18n-en={item.nameEn}
               >{item.nameDe}</h3>
               {item.included ? (
-                <span class="text-xs font-mono uppercase tracking-wider text-accent"
+                <span class="mt-2 inline-flex text-xs font-mono uppercase tracking-wider text-accent"
                   data-i18n-de="Inklusive"
                   data-i18n-en="Included"
                 >Inklusive</span>
               ) : (
-                <span class="text-xs font-mono text-text-muted">+{item.price} € / Tag</span>
+                <span class="mt-2 inline-flex text-xs font-mono leading-relaxed text-text-muted">+{item.price} € / Tag</span>
               )}
             </div>
             <p class="font-body text-text-secondary text-sm leading-relaxed"

@@ -1,0 +1,28 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Nav from '../components/Nav.astro';
+import PageHero from '../components/PageHero.astro';
+import InquiryWizard from '../components/InquiryWizard.astro';
+import Footer from '../components/Footer.astro';
+import CookieBanner from '../components/CookieBanner.astro';
+import SectionDivider from '../components/SectionDivider.astro';
+import heroImage from '../assets/images/sections/contact-bg.webp';
+---
+
+<BaseLayout title="Anfrage — motoko" description="Sende deine Anfrage an motoko fuer Motorradmiete, Touren und Verfuegbarkeit.">
+  <Nav />
+  <main>
+    <PageHero
+      title="Anfrage"
+      titleEn="Request"
+      subtitle="Sag uns, welches Bike, welche Route oder welcher Zeitraum fuer dich passt. Wir melden uns mit Verfuegbarkeit und den naechsten Schritten."
+      subtitleEn="Tell us which bike, route, or rental window fits your plan. We will get back to you with availability and the next steps."
+      image={heroImage}
+      fullHeight={true}
+    />
+    <SectionDivider />
+    <InquiryWizard />
+  </main>
+  <Footer />
+  <CookieBanner />
+</BaseLayout>

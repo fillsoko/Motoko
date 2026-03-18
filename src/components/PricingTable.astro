@@ -2,6 +2,11 @@
 import { bikes } from '../data/bikes';
 import FadeIn from './motion/FadeIn';
 
+interface Props {
+  hideIntro?: boolean;
+}
+
+const { hideIntro = false } = Astro.props;
 const sortedBikes = [...bikes].sort((a, b) => a.pricePerDay - b.pricePerDay);
 
 function getBrandLogo(name: string) {
@@ -22,22 +27,24 @@ function getBrandLogo(name: string) {
 
 <section class="bg-[#080808] px-4 py-20 sm:px-6 md:py-24">
   <div class="max-w-6xl mx-auto">
-    <FadeIn client:visible direction="up">
-      <div class="mb-12">
-        <span class="text-xs font-mono uppercase tracking-widest text-accent"
-          data-i18n-de="Übersicht"
-          data-i18n-en="Overview"
-        >Übersicht</span>
-        <h2 class="font-display text-4xl md:text-5xl font-normal mb-4 mt-2"
-          data-i18n-de="Preise auf einen Blick"
-          data-i18n-en="Pricing at a Glance"
-        >Preise auf einen Blick</h2>
-        <p class="font-body text-text-secondary text-lg max-w-2xl"
-          data-i18n-de="Alle Preise pro Tag inklusive Vollkaskoversicherung. Ab 7 Tagen Mietdauer gelten reduzierte Tarife."
-          data-i18n-en="All prices per day including comprehensive insurance. Reduced rates apply for rentals of 7 days or more."
-        >Alle Preise pro Tag inklusive Vollkaskoversicherung. Ab 7 Tagen Mietdauer gelten reduzierte Tarife.</p>
-      </div>
-    </FadeIn>
+    {!hideIntro && (
+      <FadeIn client:visible direction="up">
+        <div class="mb-12">
+          <span class="text-xs font-mono uppercase tracking-widest text-accent"
+            data-i18n-de="Übersicht"
+            data-i18n-en="Overview"
+          >Übersicht</span>
+          <h2 class="font-display text-4xl md:text-5xl font-normal mb-4 mt-2"
+            data-i18n-de="Preise auf einen Blick"
+            data-i18n-en="Pricing at a Glance"
+          >Preise auf einen Blick</h2>
+          <p class="font-body text-text-secondary text-lg max-w-2xl"
+            data-i18n-de="Alle Preise pro Tag inklusive Vollkaskoversicherung. Ab 7 Tagen Mietdauer gelten reduzierte Tarife."
+            data-i18n-en="All prices per day including comprehensive insurance. Reduced rates apply for rentals of 7 days or more."
+          >Alle Preise pro Tag inklusive Vollkaskoversicherung. Ab 7 Tagen Mietdauer gelten reduzierte Tarife.</p>
+        </div>
+      </FadeIn>
+    )}
 
     <!-- Desktop table -->
     <FadeIn client:visible direction="up" delay={0.15}>
@@ -106,7 +113,7 @@ function getBrandLogo(name: string) {
                         class="inline-block px-3 py-2 text-xs font-body font-medium uppercase tracking-widest border border-border rounded hover:bg-accent hover:border-accent hover:text-text-primary transition-colors duration-300 whitespace-nowrap"
                       >Via RIBE</a>
                       <a
-                        href={`/#contact?bike=${encodeURIComponent(bike.name)}&brand=${encodeURIComponent(bike.name.split(' ')[0])}&booking=motoko&interest=bike&bikeSlug=${bike.slug}`}
+                        href={`/anfrage?bike=${encodeURIComponent(bike.name)}&brand=${encodeURIComponent(bike.name.split(' ')[0])}&booking=motoko&interest=bike&bikeSlug=${bike.slug}`}
                         class="inline-block px-3 py-2 text-xs font-body font-medium uppercase tracking-widest bg-accent text-text-primary border border-accent rounded hover:bg-accent-hover hover:border-accent-hover transition-colors duration-300 whitespace-nowrap"
                       >Direkt</a>
                     </div>
@@ -178,7 +185,7 @@ function getBrandLogo(name: string) {
                   class="block text-center px-4 py-2 text-xs font-body font-medium uppercase tracking-widest border border-border rounded hover:bg-accent hover:border-accent transition-colors duration-300"
                 >Via RIBE</a>
                 <a
-                  href={`/#contact?bike=${encodeURIComponent(bike.name)}&brand=${encodeURIComponent(bike.name.split(' ')[0])}&booking=motoko&interest=bike&bikeSlug=${bike.slug}`}
+                  href={`/anfrage?bike=${encodeURIComponent(bike.name)}&brand=${encodeURIComponent(bike.name.split(' ')[0])}&booking=motoko&interest=bike&bikeSlug=${bike.slug}`}
                   class="block text-center px-4 py-2 text-xs font-body font-medium uppercase tracking-widest bg-accent text-text-primary border border-accent rounded hover:bg-accent-hover hover:border-accent-hover transition-colors duration-300"
                 >Direkt</a>
               </div>

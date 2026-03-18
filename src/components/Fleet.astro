@@ -8,9 +8,10 @@ import bgImage from '../assets/images/sections/fleet-preview-bg.webp';
 
 interface Props {
   preview?: boolean;
+  hideIntro?: boolean;
 }
 
-const { preview = false } = Astro.props;
+const { preview = false, hideIntro = false } = Astro.props;
 const displayBikes = preview ? bikes.slice(0, 3) : bikes;
 
 function getBrandName(name: string) {
@@ -37,21 +38,23 @@ const categories = [...new Set(displayBikes.map((bike) => bike.category))].sort(
   )}
 
   <div class="relative z-10 max-w-6xl mx-auto">
-    <FadeIn client:visible direction="up">
-      <div class="mb-12">
-        <span class="text-xs font-mono uppercase tracking-widest text-accent">Motorräder</span>
-        <h2 class="font-display text-4xl md:text-5xl font-normal mb-4 mt-2"
-            data-i18n-de="Unser Fuhrpark"
-            data-i18n-en="Fleet"
-        >Unser Fuhrpark</h2>
-        <p class="font-body text-text-secondary text-lg max-w-2xl"
-           data-i18n-de="Zehn Motorräder, gewartet auf Touring-Standard. Jede Miete beinhaltet eine tägliche Vollkaskoversicherung."
-           data-i18n-en="Ten motorcycles, maintained to touring standard. Each rental includes daily comprehensive insurance — ride without worry."
-        >
-          Zehn Motorräder, gewartet auf Touring-Standard. Jede Miete beinhaltet eine tägliche Vollkaskoversicherung.
-        </p>
-      </div>
-    </FadeIn>
+    {!hideIntro && (
+      <FadeIn client:visible direction="up">
+        <div class="mb-12">
+          <span class="text-xs font-mono uppercase tracking-widest text-accent">Motorräder</span>
+          <h2 class="font-display text-4xl md:text-5xl font-normal mb-4 mt-2"
+              data-i18n-de="Unser Fuhrpark"
+              data-i18n-en="Fleet"
+          >Unser Fuhrpark</h2>
+          <p class="font-body text-text-secondary text-lg max-w-2xl"
+             data-i18n-de="Zehn Motorräder, gewartet auf Touring-Standard. Jede Miete beinhaltet eine tägliche Vollkaskoversicherung."
+             data-i18n-en="Ten motorcycles, maintained to touring standard. Each rental includes daily comprehensive insurance — ride without worry."
+          >
+            Zehn Motorräder, gewartet auf Touring-Standard. Jede Miete beinhaltet eine tägliche Vollkaskoversicherung.
+          </p>
+        </div>
+      </FadeIn>
+    )}
 
     {!preview && (
       <div class="mb-12 border-y border-border-subtle py-8">

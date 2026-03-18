@@ -40,7 +40,7 @@ const heroImage = bikeImages[0];
 const bikeBrand = bike.name.startsWith('Harley-Davidson')
   ? 'Harley-Davidson'
   : bike.name.split(' ')[0];
-const motokoBookingHref = `/#contact?interest=bike&brand=${encodeURIComponent(bikeBrand)}&booking=direct&bike=${encodeURIComponent(bike.name)}&bikeSlug=${encodeURIComponent(bike.slug)}`;
+const motokoBookingHref = `/anfrage?interest=bike&brand=${encodeURIComponent(bikeBrand)}&booking=direct&bike=${encodeURIComponent(bike.name)}&bikeSlug=${encodeURIComponent(bike.slug)}`;
 ---
 
 <BaseLayout title={`${bike.name} — motoko`} description={`${bike.name} mieten bei motoko. ${bike.engine}, ${bike.power}. Ab ${bike.pricePerDay} EUR pro Tag.`}>

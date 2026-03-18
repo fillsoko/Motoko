@@ -4,31 +4,38 @@ import FadeIn from './motion/FadeIn';
 import StaggerContainer from './motion/StaggerContainer';
 import StaggerItem from './motion/StaggerItem';
 
+interface Props {
+  hideIntro?: boolean;
+}
+
+const { hideIntro = false } = Astro.props;
 const featuredTestimonials = testimonials.slice(0, 5);
 ---
 
 <section id="testimonials" class="bg-[#050505] px-4 py-20 sm:px-6 md:py-24">
   <div class="max-w-6xl mx-auto">
-    <FadeIn client:visible direction="up">
-      <div class="text-center mb-16">
-        <span class="text-xs font-mono uppercase tracking-widest text-accent"
-          data-i18n-de="Gästebuch"
-          data-i18n-en="Guestbook"
-        >Gästebuch</span>
-        <h2 class="font-display text-3xl md:text-4xl font-light text-text-primary mt-2"
-          data-i18n-de="Stimmen unserer Fahrer"
-          data-i18n-en="What Our Riders Say"
-        >
-          Stimmen unserer Fahrer
-        </h2>
-        <p class="font-body text-text-secondary text-base mt-4 max-w-xl mx-auto"
-          data-i18n-de="Echte Bewertungen von Fahrern, die über RIBE bei motoko gemietet haben."
-          data-i18n-en="Real reviews from riders who rented from motoko via RIBE."
-        >
-          Echte Bewertungen von Fahrern, die über RIBE bei motoko gemietet haben.
-        </p>
-      </div>
-    </FadeIn>
+    {!hideIntro && (
+      <FadeIn client:visible direction="up">
+        <div class="text-center mb-16">
+          <span class="text-xs font-mono uppercase tracking-widest text-accent"
+            data-i18n-de="Gästebuch"
+            data-i18n-en="Guestbook"
+          >Gästebuch</span>
+          <h2 class="font-display text-3xl md:text-4xl font-light text-text-primary mt-2"
+            data-i18n-de="Stimmen unserer Fahrer"
+            data-i18n-en="What Our Riders Say"
+          >
+            Stimmen unserer Fahrer
+          </h2>
+          <p class="font-body text-text-secondary text-base mt-4 max-w-xl mx-auto"
+            data-i18n-de="Echte Bewertungen von Fahrern, die über RIBE bei motoko gemietet haben."
+            data-i18n-en="Real reviews from riders who rented from motoko via RIBE."
+          >
+            Echte Bewertungen von Fahrern, die über RIBE bei motoko gemietet haben.
+          </p>
+        </div>
+      </FadeIn>
+    )}
 
     <FadeIn client:visible direction="up" delay={0.15}>
       <section class="relative mb-20 min-h-[72vh] overflow-hidden rounded-[1.5rem] border border-border bg-[radial-gradient(circle_at_top_left,rgba(255,107,0,0.1),transparent_32%),linear-gradient(180deg,rgba(17,17,17,1),rgba(0,0,0,1))] md:mb-24 md:min-h-[82vh] md:rounded-[2rem]">

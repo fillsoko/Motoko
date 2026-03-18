@@ -27,7 +27,7 @@ const bikeShowcase = bikes.map((bike) => {
         .map(([, mod]) => mod.default);
 
   const brand = bike.name.startsWith('Harley-Davidson') ? 'Harley-Davidson' : bike.name.split(' ')[0];
-  const directHref = `/#contact?interest=bike&brand=${encodeURIComponent(brand)}&booking=direct&bike=${encodeURIComponent(bike.name)}&bikeSlug=${encodeURIComponent(bike.slug)}`;
+  const directHref = `/anfrage?interest=bike&brand=${encodeURIComponent(brand)}&booking=direct&bike=${encodeURIComponent(bike.name)}&bikeSlug=${encodeURIComponent(bike.slug)}`;
 
   return {
     ...bike,
