@@ -10,13 +10,15 @@
 @font-face {
   font-family: 'Crillee Wordmark';
   src:
-    url('/fonts/crillee-regular.ttf') format('truetype'),
+    url('/fonts/crillee-bold-regular.ttf') format('truetype'),
     local('Crillee'),
+    local('Crillee Bold'),
+    local('Crillee-Bold'),
     local('Crillee Regular'),
     local('Crillee Italic'),
     local('Crillee AT Italic Regular');
   font-style: normal;
-  font-weight: 400;
+  font-weight: 700;
   font-display: swap;
 }
 
@@ -61,7 +63,7 @@ h1, h2, h3, h4 {
 
 .wordmark {
   font-family: var(--font-wordmark);
-  font-weight: 400;
+  font-weight: 700;
   letter-spacing: 0.02em;
   text-transform: none;
 }
