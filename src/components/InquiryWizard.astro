@@ -369,7 +369,9 @@ const bikesForWizard = bikes.map((bike) => ({
     height: 18px;
     border-radius: 999px;
     opacity: 0.9;
-    animation: wizard-confetti-fall 1400ms ease-out forwards;
+    animation: wizard-confetti-fall 1400ms ease-out forwards !important;
+    animation-duration: 1400ms !important;
+    animation-iteration-count: 1 !important;
     will-change: transform, opacity;
   }
 

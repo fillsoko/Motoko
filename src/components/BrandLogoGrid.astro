@@ -49,7 +49,9 @@ import { brands } from '../data/brands';
     display: flex;
     width: max-content;
     will-change: transform;
-    animation: hero-logo-scroll 28s linear infinite;
+    animation: hero-logo-scroll 28s linear infinite !important;
+    animation-duration: 28s !important;
+    animation-iteration-count: infinite !important;
   }
 
   .hero-logo-marquee-group {
@@ -106,9 +108,4 @@ import { brands } from '../data/brands';
     }
   }
 
-  @media (prefers-reduced-motion: reduce) {
-    .hero-logo-marquee-track {
-      animation: none;
-    }
-  }
 </style>
