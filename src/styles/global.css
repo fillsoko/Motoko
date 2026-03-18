@@ -10,6 +10,7 @@
 @font-face {
   font-family: 'Crillee Wordmark';
   src:
+    url('/fonts/crillee-regular.ttf') format('truetype'),
     local('Crillee'),
     local('Crillee Regular'),
     local('Crillee Italic'),
