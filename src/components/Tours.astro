@@ -97,20 +97,22 @@ const difficultyColor = {
               </p>
 
               {/* Itinerary */}
-              <div class="mb-8">
-                <h4 class="font-mono text-text-muted text-xs uppercase tracking-wider mb-3"
-                  data-i18n-de="Route"
-                  data-i18n-en="Route"
-                >Route</h4>
-                <ol class="space-y-2">
-                  {tour.itinerary.map((step, stepIdx) => (
-                    <li class="flex items-start gap-3 text-sm font-body text-text-secondary">
-                      <span class="font-mono text-accent text-xs mt-0.5 shrink-0">{String(stepIdx + 1).padStart(2, '0')}</span>
-                      <span>{step}</span>
-                    </li>
-                  ))}
-                </ol>
-              </div>
+              {tour.itinerary && tour.itinerary.length > 0 && (
+                <div class="mb-8">
+                  <h4 class="font-mono text-text-muted text-xs uppercase tracking-wider mb-3"
+                    data-i18n-de="Route"
+                    data-i18n-en="Route"
+                  >Route</h4>
+                  <ol class="space-y-2">
+                    {tour.itinerary.map((step, stepIdx) => (
+                      <li class="flex items-start gap-3 text-sm font-body text-text-secondary">
+                        <span class="font-mono text-accent text-xs mt-0.5 shrink-0">{String(stepIdx + 1).padStart(2, '0')}</span>
+                        <span>{step}</span>
+                      </li>
+                    ))}
+                  </ol>
+                </div>
+              )}
 
               {/* Highlights */}
               {tour.highlights && tour.highlights.length > 0 && (

@@ -6,7 +6,7 @@ export interface Tour {
   difficulty: 'Easy' | 'Moderate' | 'Challenging';
   description: string;
   descriptionEn?: string;
-  itinerary: string[];
+  itinerary?: string[];
   highlights?: string[];
   komootUrl: string;
   komootTourId: string;
@@ -14,119 +14,48 @@ export interface Tour {
 
 export const tours: Tour[] = [
   {
-    name: 'Taunus Rundfahrt',
-    nameEn: 'Taunus Loop',
+    name: 'Tour links rum über den Feldberg dann zu Antonio ab zur A5',
+    nameEn: 'Feldberg Loop via Antonio to the A5',
     duration: '1 Tag',
-    distance: '180 km',
-    difficulty: 'Easy',
-    description:
-      'Entspannte Tagestour durch den Taunus mit Panoramastraßen, dem Großen Feldberg und einer Pause am Hessenpark.',
-    descriptionEn:
-      'Relaxed day tour through the Taunus with panoramic roads, the Großer Feldberg and a stop at Hessenpark.',
-    itinerary: [
-      'Frankfurt — Oberursel — Großer Feldberg',
-      'Feldberg — Schmitten — Hessenpark',
-      'Usingen — Bad Homburg — Frankfurt',
-    ],
-    highlights: ['Großer Feldberg', 'Hessenpark', 'Panoramastraßen'],
-    komootUrl: 'https://www.komoot.com/tour/46968192',
-    komootTourId: '46968192',
-  },
-  {
-    name: 'Odenwald Explorer',
-    nameEn: 'Odenwald Explorer',
-    duration: '1 Tag',
-    distance: '220 km',
+    distance: '71 km',
     difficulty: 'Moderate',
     description:
-      'Kurvenreiche Strecken durch den Odenwald, vorbei an der Veste Otzberg und dem Felsenmeer bei Reichenbach.',
+      'Kurze, fahraktive Runde über den Feldberg mit Fokus auf Höhenmeter, Rhythmus und einer kompakten Taunus-Schleife zurück Richtung A5.',
     descriptionEn:
-      'Winding roads through the Odenwald, past Veste Otzberg castle and the Felsenmeer boulder field near Reichenbach.',
-    itinerary: [
-      'Frankfurt — Darmstadt — Veste Otzberg',
-      'Otzberg — Reichenbach — Felsenmeer',
-      'Lindenfels — Bensheim — Frankfurt',
-    ],
-    highlights: ['Veste Otzberg', 'Felsenmeer', 'Lindenfels'],
-    komootUrl: 'https://www.komoot.com/tour/76033476',
-    komootTourId: '76033476',
+      'A compact, rider-focused loop over the Feldberg with plenty of elevation, fast rhythm, and a clean return toward the A5.',
+    highlights: ['71 km', '1.490 m elevation', 'Taunus / Feldberg'],
+    komootUrl:
+      'https://www.komoot.com/de-DE/tour/2488946310?ref=itd&share_token=a310VGXIIscRiiHh39MDYBqzoCrfo7wXzc4LjWQ4H4iLoHtsmT&ref=its-qr',
+    komootTourId: '2488946310',
   },
   {
-    name: 'Rhein & Mosel Weekend',
-    nameEn: 'Rhine & Moselle Weekend',
-    duration: '2 Tage',
-    distance: '420 km',
-    difficulty: 'Moderate',
-    description:
-      'Zwei Tage entlang des Rheins und der Mosel. Übernachtung in Koblenz, Burgen, Weinberge und die Loreley.',
-    descriptionEn:
-      'Two days along the Rhine and Moselle. Overnight in Koblenz, castles, vineyards and the Loreley.',
-    itinerary: [
-      'Tag 1: Frankfurt — Rüdesheim — Loreley — Koblenz (210 km)',
-      'Tag 2: Koblenz — Moseltal — Cochem — Nürburgring — Frankfurt (210 km)',
-    ],
-    highlights: ['Loreley', 'Koblenz', 'Moseltal'],
-    komootUrl: 'https://www.komoot.com/tour/1591569318',
-    komootTourId: '1591569318',
-  },
-  {
-    name: 'Eifel & Nürburgring',
-    nameEn: 'Eifel & Nürburgring',
-    duration: '2 Tage',
-    distance: '480 km',
+    name: 'Mopped Schwarzwald',
+    nameEn: 'Black Forest Ride',
+    duration: '1 Tag',
+    distance: '257 km',
     difficulty: 'Challenging',
     description:
-      'Sportliche Zweitagestour durch die Eifel mit einer Runde auf der Nordschleife und Vulkanlandschaften.',
+      'Lange Schwarzwald-Runde mit viel Strecke, markanten Anstiegen und dem typischen Mix aus schnellen Waldpassagen und aussichtsreichen Höhenstraßen.',
     descriptionEn:
-      'Sporty two-day tour through the Eifel with a lap on the Nordschleife and volcanic landscapes.',
-    itinerary: [
-      'Tag 1: Frankfurt — Bad Münstereifel — Nürburgring — Adenau (240 km)',
-      'Tag 2: Adenau — Maare — Gerolstein — Limburg — Frankfurt (240 km)',
-    ],
-    highlights: ['Nordschleife', 'Vulkaneifel', 'Maare'],
-    komootUrl: 'https://www.komoot.com/tour/356215467',
-    komootTourId: '356215467',
+      'A long Black Forest route with serious mileage, sustained climbing, and the classic mix of flowing forest sections and panoramic ridge roads.',
+    highlights: ['257 km', '5.420 m elevation', 'Schwarzwald'],
+    komootUrl:
+      'https://www.komoot.com/de-DE/tour/1213652569?ref=itd&share_token=atBraaP0zwSz5V6Si8emteujXfMfYI6aB1VOBm9sNDMcQr02t1&ref=its-qr',
+    komootTourId: '1213652569',
   },
   {
-    name: 'Schwarzwald Klassiker',
-    nameEn: 'Black Forest Classic',
-    duration: '3 Tage',
-    distance: '750 km',
-    difficulty: 'Moderate',
-    description:
-      'Drei Tage durch den Schwarzwald mit der Schwarzwaldhochstraße, dem Titisee und Freiburg als Wendepunkt.',
-    descriptionEn:
-      'Three days through the Black Forest with the Schwarzwaldhochstraße, Titisee and Freiburg as the turning point.',
-    itinerary: [
-      'Tag 1: Frankfurt — Heidelberg — Baden-Baden — Schwarzwaldhochstraße (250 km)',
-      'Tag 2: Schwarzwaldhochstraße — Titisee — Freiburg — Feldberg (200 km)',
-      'Tag 3: Feldberg — Triberg — Freudenstadt — Stuttgart — Frankfurt (300 km)',
-    ],
-    highlights: ['Schwarzwaldhochstraße', 'Titisee', 'Triberg'],
-    komootUrl: 'https://www.komoot.com/tour/79370465',
-    komootTourId: '79370465',
-  },
-  {
-    name: 'Alpine Grenzfahrt',
-    nameEn: 'Alpine Border Tour',
-    duration: '7 Tage',
-    distance: '2200 km',
+    name: 'Villa 1 Ring',
+    nameEn: 'Villa 1 Ring',
+    duration: '1 Tag',
+    distance: '261 km',
     difficulty: 'Challenging',
     description:
-      'Die große Tour: Von Frankfurt über die Alpen nach Österreich und Norditalien. Pässe, Seen und legendäre Bergstraßen.',
+      'Kräftige Tagestour mit viel Strecke und deutlichem Höhenprofil. Eine Route für Fahrer, die aus Frankfurt heraus direkt in einen langen, kurvenstarken Ride einsteigen wollen.',
     descriptionEn:
-      'The grand tour: From Frankfurt across the Alps to Austria and northern Italy. Passes, lakes and legendary mountain roads.',
-    itinerary: [
-      'Tag 1: Frankfurt — Stuttgart — Bodensee — Lindau (350 km)',
-      'Tag 2: Lindau — Arlbergpass — Innsbruck (200 km)',
-      'Tag 3: Innsbruck — Brennerpass — Dolomiten — Bozen (250 km)',
-      'Tag 4: Bozen — Stilfser Joch — Meran (180 km)',
-      'Tag 5: Meran — Timmelsjoch — Inntal — Garmisch (280 km)',
-      'Tag 6: Garmisch — Zugspitzregion — Allgäu — Ulm (300 km)',
-      'Tag 7: Ulm — Schwäbische Alb — Würzburg — Frankfurt (350 km)',
-    ],
-    highlights: ['Stilfser Joch', 'Dolomiten', 'Bodensee'],
-    komootUrl: 'https://www.komoot.com/tour/233167699',
-    komootTourId: '233167699',
+      'Demanding full-day route with serious distance and elevation. Built for riders who want to leave Frankfurt and settle straight into a long, committed road day.',
+    highlights: ['261 km', '3.010 m elevation', 'Long day ride'],
+    komootUrl:
+      'https://www.komoot.com/de-DE/tour/2270922983?ref=itd&share_token=aBSbmhpL1rO296MKkKmNiEgBFSuXxltJEPAwUzLIoxyOV8bNcA&ref=its-qr',
+    komootTourId: '2270922983',
   },
 ];

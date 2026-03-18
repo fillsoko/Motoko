@@ -2,6 +2,7 @@
 import { Image } from 'astro:assets';
 import BrandLogoGrid from './BrandLogoGrid.astro';
 import FadeIn from './motion/FadeIn';
+import ScrollCue from './ScrollCue.astro';
 import heroImage from '../assets/images/heroes/home.webp';
 ---
 
@@ -18,7 +19,7 @@ import heroImage from '../assets/images/heroes/home.webp';
     <div class="absolute inset-0 bg-gradient-to-t from-bg-primary via-bg-primary/40 to-transparent"></div>
   </div>
 
-  <div class="relative z-10 w-full max-w-7xl mx-auto px-6 pb-12 md:pb-16">
+  <div class="relative z-10 w-full max-w-7xl mx-auto px-6 pb-24 md:pb-28">
     <FadeIn client:load delay={0.3} direction="up" eager>
       <p class="font-body text-text-secondary text-base md:text-lg max-w-2xl mx-auto mb-8 leading-relaxed text-center"
          data-i18n-de="Motorradverleih, geführte Touren und Custom Parts — mit Sitz in Frankfurt am Main. Jede Miete beinhaltet eine tägliche Vollkaskoversicherung."
@@ -58,4 +59,6 @@ import heroImage from '../assets/images/heroes/home.webp';
       </div>
     </FadeIn>
   </div>
+
+  <ScrollCue />
 </section>

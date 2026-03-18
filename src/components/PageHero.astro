@@ -1,5 +1,6 @@
 ---
 import { Image } from 'astro:assets';
+import ScrollCue from './ScrollCue.astro';
 
 interface Props {
   title: string;
@@ -33,7 +34,7 @@ const { title, titleEn, subtitle, subtitleEn, image, fullHeight = false } = Astr
     <div class="absolute inset-0 bg-gradient-to-t from-bg-primary via-bg-primary/40 to-transparent"></div>
   </div>
 
-  <div class="relative z-10 w-full max-w-7xl mx-auto px-6 pb-12 md:pb-16">
+  <div class="relative z-10 w-full max-w-7xl mx-auto px-6 pb-24 md:pb-28">
     <div class="max-w-4xl">
       <h1
       class="font-display font-light text-[3.1rem] uppercase leading-[0.88] tracking-[0.06em] text-text-primary sm:text-[4.4rem] lg:text-[6.2rem]"
@@ -53,4 +54,6 @@ const { title, titleEn, subtitle, subtitleEn, image, fullHeight = false } = Astr
     )}
     </div>
   </div>
+
+  <ScrollCue />
 </section>
