@@ -27,11 +27,11 @@ const heroImages = [
 <section id="hero" class="relative min-h-screen flex items-end overflow-hidden">
   <div class="absolute inset-0" aria-hidden="true">
     {heroImages.map((image, index) => (
-      <div class="hero-rotator-slide absolute inset-0" style={`animation-delay:${index * 6}s;`}>
+      <div class:list={['hero-rotator-slide absolute inset-0', index === 0 && 'is-active']} data-hero-slide>
         <Image
           src={image}
           alt=""
-          class="w-full h-full object-cover grayscale"
+          class="w-full h-full object-cover"
           widths={[900, 1400, 2000]}
           sizes="100vw"
           loading={index === 0 ? 'eager' : 'lazy'}
@@ -85,32 +85,48 @@ const heroImages = [
   <ScrollCue />
 </section>
 
+<script>
+  const slides = Array.from(document.querySelectorAll('[data-hero-slide]'));
+  let activeIndex = 0;
+  let rotationTimer;
+
+  function showSlide(nextIndex) {
+    slides.forEach((slide, index) => {
+      slide.classList.toggle('is-active', index === nextIndex);
+    });
+    activeIndex = nextIndex;
+  }
+
+  function startRotation() {
+    if (slides.length <= 1) return;
+    window.clearInterval(rotationTimer);
+    rotationTimer = window.setInterval(() => {
+      showSlide((activeIndex + 1) % slides.length);
+    }, 5200);
+  }
+
+  if (slides.length > 0) {
+    showSlide(0);
+    startRotation();
+
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden) {
+        window.clearInterval(rotationTimer);
+      } else {
+        startRotation();
+      }
+    });
+  }
+</script>
+
 <style>
   .hero-rotator-slide {
     opacity: 0;
     will-change: opacity;
-    animation: hero-rotator-fade 48s linear infinite;
+    transition: opacity 1.2s ease;
   }
 
-  @keyframes hero-rotator-fade {
-    0% {
-      opacity: 0;
-    }
-
-    2% {
-      opacity: 1;
-    }
-
-    12.5% {
-      opacity: 1;
-    }
-
-    14.5% {
-      opacity: 0;
-    }
-
-    100% {
-      opacity: 0;
-    }
+  .hero-rotator-slide.is-active {
+    opacity: 1;
   }
 </style>
