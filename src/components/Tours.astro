@@ -12,6 +12,17 @@ const difficultyColor = {
   Moderate: 'border-[#8a6510] bg-[#2e2107] text-[#ffd36b]',
   Challenging: 'border-[#b13a12] bg-[#351208] text-[#ff8d62]',
 };
+
+function getKomootEmbedUrl(url: string, fallbackTourId: string) {
+  try {
+    const parsed = new URL(url);
+    parsed.pathname = parsed.pathname.replace(/\/$/, '') + '/embed';
+    parsed.searchParams.set('profile', '0');
+    return parsed.toString();
+  } catch {
+    return `https://www.komoot.com/tour/${fallbackTourId}/embed?profile=0`;
+  }
+}
 ---
 
 <section id="tours" class="bg-[#060606] px-4 py-20 sm:px-6 md:py-24">
@@ -54,7 +65,7 @@ const difficultyColor = {
             <div class={`${i % 2 === 1 ? 'lg:order-2' : 'lg:order-1'}`}>
               <div class="komoot-map-wrapper relative aspect-[4/3] rounded-lg overflow-hidden border border-border bg-bg-surface-alt">
                 <iframe
-                  src={`https://www.komoot.com/tour/${tour.komootTourId}/embed?profile=0`}
+                  src={getKomootEmbedUrl(tour.komootUrl, tour.komootTourId)}
                   loading="eager"
                   scrolling="no"
                   class="h-full w-full"
