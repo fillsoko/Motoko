@@ -41,7 +41,13 @@ const categories = [...new Set(displayBikes.map((bike) => bike.category))].sort(
     {!hideIntro && (
       <FadeIn client:visible direction="up">
         <div class="mb-12">
-          <span class="text-xs font-mono uppercase tracking-widest text-accent">Motorräder</span>
+          <span
+            class="text-xs font-mono uppercase tracking-widest text-accent"
+            data-i18n-de="Motorräder"
+            data-i18n-en="Motorcycles"
+          >
+            Motorräder
+          </span>
           <h2 class="font-display text-4xl md:text-5xl font-normal mb-4 mt-2"
               data-i18n-de="Unser Fuhrpark"
               data-i18n-en="Fleet"
@@ -71,9 +77,9 @@ const categories = [...new Set(displayBikes.map((bike) => bike.category))].sort(
         <div class="mb-10 rounded-2xl border border-border bg-bg-surface p-5 sm:p-6">
           <div class="grid gap-6 lg:grid-cols-2">
             <div>
-              <p class="mb-3 font-mono text-xs uppercase tracking-[0.22em] text-accent">Marke</p>
+              <p class="mb-3 font-mono text-xs uppercase tracking-[0.22em] text-accent" data-i18n-de="Marke" data-i18n-en="Brand">Marke</p>
               <div class="flex flex-wrap gap-2">
-                <button type="button" class="fleet-filter-btn is-active" data-filter-group="brand" data-filter-value="all">
+                <button type="button" class="fleet-filter-btn is-active" data-filter-group="brand" data-filter-value="all" data-i18n-de="Alle Marken" data-i18n-en="All brands">
                   Alle Marken
                 </button>
                 {brands.map((brand) => (
@@ -85,9 +91,9 @@ const categories = [...new Set(displayBikes.map((bike) => bike.category))].sort(
             </div>
 
             <div>
-              <p class="mb-3 font-mono text-xs uppercase tracking-[0.22em] text-accent">Bike Type</p>
+              <p class="mb-3 font-mono text-xs uppercase tracking-[0.22em] text-accent" data-i18n-de="Bike-Typ" data-i18n-en="Bike type">Bike-Typ</p>
               <div class="flex flex-wrap gap-2">
-                <button type="button" class="fleet-filter-btn is-active" data-filter-group="category" data-filter-value="all">
+                <button type="button" class="fleet-filter-btn is-active" data-filter-group="category" data-filter-value="all" data-i18n-de="Alle Typen" data-i18n-en="All types">
                   Alle Typen
                 </button>
                 {categories.map((category) => (
@@ -115,7 +121,12 @@ const categories = [...new Set(displayBikes.map((bike) => bike.category))].sort(
         ))}
       </div>
       {!preview && (
-        <p id="fleet-empty-state" class="mt-8 hidden rounded-2xl border border-border bg-bg-surface px-6 py-5 text-center font-body text-text-secondary">
+        <p
+          id="fleet-empty-state"
+          class="mt-8 hidden rounded-2xl border border-border bg-bg-surface px-6 py-5 text-center font-body text-text-secondary"
+          data-i18n-de="Keine Motorräder für diese Kombination gefunden. Bitte Filter anpassen."
+          data-i18n-en="No motorcycles found for this combination. Please adjust the filters."
+        >
           Keine Motorräder für diese Kombination gefunden. Bitte Filter anpassen.
         </p>
       )}

@@ -3,19 +3,41 @@ import { Image } from 'astro:assets';
 import BrandLogoGrid from './BrandLogoGrid.astro';
 import FadeIn from './motion/FadeIn';
 import ScrollCue from './ScrollCue.astro';
-import heroImage from '../assets/images/heroes/home.webp';
+import heroBuell from '../../Graphics/Website/Hero_Buell XB12 SCG_v01.png';
+import heroBmw from '../../Graphics/Website/Hero_BMW R 1200 GS.png';
+import heroDucati from '../../Graphics/Website/Hero_Ducati 900 SS.png';
+import heroHonda from '../../Graphics/Website/Hero_Honda F6C Gold Wing Valkyrie.png';
+import heroHusqvarna from '../../Graphics/Website/Hero_Husqvarna Vitpilen 701.png';
+import heroKawasaki from '../../Graphics/Website/Hero_Kawasaki Zephyr 1100.png';
+import heroRocket from '../../Graphics/Website/Hero_Triumph Rocket 3R.png';
+import heroSpeedTriple from '../../Graphics/Website/Hero_Triumph Speed Triple.png';
+
+const heroImages = [
+  heroBuell,
+  heroBmw,
+  heroDucati,
+  heroHonda,
+  heroHusqvarna,
+  heroKawasaki,
+  heroRocket,
+  heroSpeedTriple,
+];
 ---
 
 <section id="hero" class="relative min-h-screen flex items-end overflow-hidden">
   <div class="absolute inset-0" aria-hidden="true">
-    <Image
-      src={heroImage}
-      alt=""
-      class="w-full h-full object-cover grayscale"
-      widths={[800, 1200, 1920]}
-      sizes="100vw"
-      loading="eager"
-    />
+    {heroImages.map((image, index) => (
+      <div class="hero-rotator-slide absolute inset-0" style={`animation-delay:${index * 6}s;`}>
+        <Image
+          src={image}
+          alt=""
+          class="w-full h-full object-cover grayscale"
+          widths={[900, 1400, 2000]}
+          sizes="100vw"
+          loading={index === 0 ? 'eager' : 'lazy'}
+        />
+      </div>
+    ))}
     <div class="absolute inset-0 bg-gradient-to-t from-bg-primary via-bg-primary/40 to-transparent"></div>
   </div>
 
@@ -62,3 +84,33 @@ import heroImage from '../assets/images/heroes/home.webp';
 
   <ScrollCue />
 </section>
+
+<style>
+  .hero-rotator-slide {
+    opacity: 0;
+    will-change: opacity;
+    animation: hero-rotator-fade 48s linear infinite;
+  }
+
+  @keyframes hero-rotator-fade {
+    0% {
+      opacity: 0;
+    }
+
+    2% {
+      opacity: 1;
+    }
+
+    12.5% {
+      opacity: 1;
+    }
+
+    14.5% {
+      opacity: 0;
+    }
+
+    100% {
+      opacity: 0;
+    }
+  }
+</style>

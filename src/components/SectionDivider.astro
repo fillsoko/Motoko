@@ -1,15 +1,20 @@
 ---
 interface Props {
   label?: string;
+  labelEn?: string;
 }
-const { label } = Astro.props;
+const { label, labelEn } = Astro.props;
 ---
 
 <div class="relative z-20 border-t border-border-subtle">
   {label && (
     <div class="pointer-events-none absolute inset-x-0 top-0 -translate-y-1/2">
       <div class="mx-auto flex max-w-6xl justify-center px-4 sm:px-6">
-        <span class="rounded-full border border-accent/35 bg-[#0b0b0b] px-4 py-1 text-xs font-mono uppercase tracking-widest text-accent">
+        <span
+          class="rounded-full border border-accent/35 bg-[#0b0b0b] px-4 py-1 text-xs font-mono uppercase tracking-widest text-accent"
+          data-i18n-de={label}
+          data-i18n-en={labelEn || label}
+        >
           {label}
         </span>
       </div>
