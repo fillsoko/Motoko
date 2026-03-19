@@ -1,89 +1,208 @@
 ---
 import { Image } from 'astro:assets';
 import FadeIn from './motion/FadeIn';
-import SmoothAccordion from './motion/SmoothAccordion';
 import bgImage from '../assets/images/sections/faq-bg.webp';
 
 const faqs = [
   {
     questionDe: 'Brauche ich einen bestimmten Führerschein?',
     questionEn: 'Do I need a specific license?',
-    answerDe: 'Ja, du benötigst einen gültigen Motorradführerschein der Klasse A (oder gleichwertig für EU-Bürger). Für einige Bikes reicht auch A2. Bitte bring deinen Führerschein zur Übergabe mit.',
-    answerEn: 'Yes, you need a valid Class A motorcycle license (or equivalent for EU citizens). Some bikes are also available with an A2 license. Please bring your license to the pickup.',
+    answerDe:
+      'Ja, du benötigst einen gültigen Motorradführerschein der Klasse A oder einen gleichwertigen EU-Führerschein. Für einzelne Bikes kann auch A2 ausreichen. Bring deinen Führerschein bitte zur Übergabe mit.',
+    answerEn:
+      'Yes. You need a valid Class A motorcycle license or an equivalent EU license. Some bikes may also be available with A2. Please bring your license to pickup.',
   },
   {
     questionDe: 'Was ist in der Versicherung enthalten?',
     questionEn: 'What does the insurance cover?',
-    answerDe: 'Jede Buchung über RIBE beinhaltet eine europaweite Vollkaskoversicherung mit täglicher Deckung. Die Selbstbeteiligung variiert je nach Motorrad — Details findest du auf der jeweiligen Bike-Seite.',
-    answerEn: 'Every booking via RIBE includes Europe-wide comprehensive insurance with daily coverage. The deductible varies by motorcycle — details can be found on each bike page.',
+    answerDe:
+      'Jede Buchung beinhaltet eine tägliche Vollkaskoversicherung. Die Selbstbeteiligung hängt vom jeweiligen Motorrad ab. Die genauen Konditionen findest du in der Bike-Übersicht oder direkt bei der Anfrage.',
+    answerEn:
+      'Every booking includes daily comprehensive insurance. The deductible depends on the motorcycle. You can find the exact terms in the bike overview or directly in your request flow.',
   },
   {
     questionDe: 'Kann ich das Motorrad ins Ausland fahren?',
     questionEn: 'Can I ride abroad?',
-    answerDe: 'Ja, mit der europaweiten Vollkasko bist du in allen EU-Ländern sowie der Schweiz versichert. Bitte informiere uns vorab über dein Reiseziel.',
-    answerEn: 'Yes, with the Europe-wide comprehensive insurance you are covered in all EU countries and Switzerland. Please inform us about your destination in advance.',
+    answerDe:
+      'Ja. Fahrten innerhalb der EU sowie in die Schweiz sind grundsätzlich möglich. Sag uns dein Ziel vorab, damit wir die Route und den Versicherungsschutz sauber abstimmen können.',
+    answerEn:
+      'Yes. Trips within the EU and Switzerland are generally possible. Let us know your destination in advance so we can confirm route suitability and insurance coverage.',
   },
   {
     questionDe: 'Wie funktioniert die Übergabe?',
-    questionEn: 'How does pickup/dropoff work?',
-    answerDe: 'Die Übergabe erfolgt persönlich in Frankfurt am Main. Wir nehmen uns Zeit, dir das Motorrad zu erklären und individuelle Routentipps zu geben. Rückgabe am vereinbarten Tag zur abgesprochenen Uhrzeit.',
-    answerEn: 'Pickup and dropoff happen in person in Frankfurt am Main. We take time to explain the motorcycle and give you personal route tips. Return on the agreed day at the arranged time.',
+    questionEn: 'How does pickup and return work?',
+    answerDe:
+      'Die Übergabe erfolgt persönlich in Frankfurt am Main. Du bekommst eine Einweisung zum Motorrad, Hinweise zur Route und die wichtigsten Punkte zur Rückgabe. Die Rückgabe findet zum vereinbarten Zeitpunkt statt.',
+    answerEn:
+      'Pickup happens in person in Frankfurt am Main. You will receive a short bike briefing, route advice, and all key return details. The return takes place at the agreed time.',
   },
   {
     questionDe: 'Welche Zahlungsmethoden akzeptiert ihr?',
     questionEn: 'What payment methods do you accept?',
-    answerDe: 'Über RIBE kannst du per Kreditkarte, PayPal oder Banküberweisung zahlen. Bei Direktbuchungen akzeptieren wir Banküberweisung und Barzahlung bei Übergabe.',
-    answerEn: 'Via RIBE you can pay by credit card, PayPal, or bank transfer. For direct bookings we accept bank transfer and cash payment at pickup.',
+    answerDe:
+      'Über RIBE kannst du die dort angebotenen Zahlungsmethoden nutzen. Bei Direktbuchungen über motoko stimmen wir die Zahlungsart individuell mit dir ab.',
+    answerEn:
+      'Via RIBE you can use the payment methods offered there. For direct bookings through motoko, we coordinate the payment method with you individually.',
   },
   {
     questionDe: 'Gibt es Langzeitrabatte?',
     questionEn: 'Are there long-term discounts?',
-    answerDe: 'Ja, ab einer Mietdauer von 7 Tagen bieten wir reduzierte Tagespreise an. Kontaktiere uns direkt für ein individuelles Angebot.',
-    answerEn: 'Yes, for rental periods of 7 days or more we offer reduced daily rates. Contact us directly for a custom quote.',
+    answerDe:
+      'Ja. Ab längeren Mietzeiträumen können reduzierte Tagespreise möglich sein. Am besten schickst du uns direkt deine Wunschdaten über die Anfrage-Seite.',
+    answerEn:
+      'Yes. Reduced daily rates may be available for longer rental periods. The best way is to send us your preferred dates through the request page.',
   },
   {
     questionDe: 'Was passiert bei einer Panne?',
-    questionEn: 'What if I break down?',
-    answerDe: 'Du erreichst uns jederzeit telefonisch. Wir organisieren Pannenhilfe und bei Bedarf ein Ersatzfahrzeug. Die Vollkasko deckt auch Abschleppkosten.',
-    answerEn: 'You can reach us by phone at any time. We organize roadside assistance and a replacement vehicle if needed. The comprehensive insurance also covers towing costs.',
+    questionEn: 'What happens in case of a breakdown?',
+    answerDe:
+      'Du erreichst uns jederzeit telefonisch. Wir helfen bei der Organisation der nächsten Schritte und koordinieren bei Bedarf Pannenhilfe oder eine alternative Lösung.',
+    answerEn:
+      'You can reach us by phone at any time. We will help coordinate the next steps and arrange roadside support or an alternative solution if needed.',
   },
 ];
 ---
 
-<section class="relative py-24 px-6 overflow-hidden bg-[#242424]">
+<section class="relative overflow-hidden bg-[#161616] px-6 py-24">
   <div class="absolute inset-0" aria-hidden="true">
     <Image
       src={bgImage}
       alt=""
-      class="w-full h-full object-cover grayscale opacity-10"
+      class="h-full w-full object-cover grayscale opacity-[0.08]"
       widths={[800, 1200, 1920]}
       sizes="100vw"
       loading="lazy"
     />
-    <div class="absolute inset-0 bg-gradient-to-b from-[#323232] via-[#242424]/58 to-[#161616]"></div>
+    <div class="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(255,107,0,0.18),transparent_32%),linear-gradient(180deg,rgba(32,32,32,0.92),rgba(12,12,12,0.98))]"></div>
   </div>
 
-  <div class="relative z-10 max-w-6xl mx-auto">
+  <div class="relative z-10 mx-auto grid max-w-6xl gap-10 lg:grid-cols-[0.88fr_1.12fr] lg:gap-14">
     <FadeIn client:visible direction="up">
-      <div>
-        <span class="text-xs font-mono uppercase tracking-widest text-accent">Häufige Fragen</span>
-        <h2 class="font-display text-4xl md:text-5xl font-normal mb-4 mt-2"
-            data-i18n-de="Häufige Fragen"
-            data-i18n-en="FAQ"
+      <div class="lg:sticky lg:top-28">
+        <span class="text-xs font-mono uppercase tracking-[0.32em] text-accent">Häufige Fragen</span>
+        <h2
+          class="mt-3 max-w-xl font-display text-4xl font-normal leading-tight text-white md:text-5xl"
+          data-i18n-de="Antworten vor dem ersten Kilometer"
+          data-i18n-en="Answers before the first kilometer"
         >
-          Häufige Fragen
+          Antworten vor dem ersten Kilometer
         </h2>
+        <p
+          class="mt-5 max-w-lg font-body text-base leading-relaxed text-text-secondary md:text-lg"
+          data-i18n-de="Die wichtigsten Punkte zu Führerschein, Versicherung, Übergabe und Ablauf. Klar, direkt und ohne unnötiges Kleingedrucktes."
+          data-i18n-en="The essential details on license, insurance, pickup, and process. Clear, direct, and without unnecessary small print."
+        >
+          Die wichtigsten Punkte zu Führerschein, Versicherung, Übergabe und Ablauf. Klar, direkt und ohne unnötiges Kleingedrucktes.
+        </p>
+
+        <div class="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2">
+          <div class="rounded-[1.5rem] border border-white/10 bg-white/[0.04] p-5 backdrop-blur-sm">
+            <p class="text-[11px] font-mono uppercase tracking-[0.24em] text-accent">Direktkontakt</p>
+            <p class="mt-3 font-display text-2xl text-white">hallo@motoko.de</p>
+            <p
+              class="mt-2 font-body text-sm leading-relaxed text-text-secondary"
+              data-i18n-de="Wenn deine Frage nicht dabei ist, antworte direkt per Mail oder über die Anfrage."
+              data-i18n-en="If your question is not listed, reply directly by email or through the request flow."
+            >
+              Wenn deine Frage nicht dabei ist, antworte direkt per Mail oder über die Anfrage.
+            </p>
+          </div>
+
+          <div class="rounded-[1.5rem] border border-white/10 bg-[#0d0d0d] p-5 shadow-[0_22px_48px_rgba(0,0,0,0.22)]">
+            <p class="text-[11px] font-mono uppercase tracking-[0.24em] text-accent">Schnellüberblick</p>
+            <ul class="mt-3 space-y-2 font-body text-sm leading-relaxed text-text-secondary">
+              <li data-i18n-de="Persönliche Übergabe in Frankfurt" data-i18n-en="Personal pickup in Frankfurt">
+                Persönliche Übergabe in Frankfurt
+              </li>
+              <li data-i18n-de="Vollkasko inklusive" data-i18n-en="Comprehensive insurance included">
+                Vollkasko inklusive
+              </li>
+              <li data-i18n-de="Direkt oder via RIBE buchbar" data-i18n-en="Bookable direct or via RIBE">
+                Direkt oder via RIBE buchbar
+              </li>
+            </ul>
+          </div>
+        </div>
       </div>
-      <p class="font-body text-text-secondary text-lg mb-12"
-         data-i18n-de="Alles was du vor deiner ersten Miete wissen musst."
-         data-i18n-en="Everything you need to know before your first rental."
-      >
-        Alles was du vor deiner ersten Miete wissen musst.
-      </p>
     </FadeIn>
 
-    <FadeIn client:visible direction="up" delay={0.2}>
-      <SmoothAccordion client:visible items={faqs} />
+    <FadeIn client:visible direction="up" delay={0.15}>
+      <div class="space-y-4">
+        {faqs.map((faq, index) => (
+          <details
+            class="faq-card group rounded-[1.65rem] border border-white/10 bg-white/[0.035] p-0 shadow-[0_18px_50px_rgba(0,0,0,0.18)] backdrop-blur-sm transition-[border-color,background-color,transform] duration-300"
+            open={index === 0}
+          >
+            <summary class="list-none cursor-pointer px-6 py-5 sm:px-7 sm:py-6">
+              <div class="flex items-start gap-4">
+                <div class="mt-0.5 flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl border border-accent/35 bg-accent/10 text-[11px] font-mono uppercase tracking-[0.24em] text-accent">
+                  {(index + 1).toString().padStart(2, '0')}
+                </div>
+
+                <div class="min-w-0 flex-1">
+                  <div class="flex items-start justify-between gap-4">
+                    <h3
+                      class="max-w-xl font-display text-xl font-normal leading-snug text-white sm:text-[1.55rem]"
+                      data-i18n-de={faq.questionDe}
+                      data-i18n-en={faq.questionEn}
+                    >
+                      {faq.questionDe}
+                    </h3>
+
+                    <span class="faq-plus mt-1 flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-white/12 bg-white/[0.04] text-text-secondary transition-all duration-300">
+                      <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.7" d="M12 5v14M5 12h14" />
+                      </svg>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </summary>
+
+            <div class="px-6 pb-6 sm:px-7 sm:pb-7">
+              <div class="ml-0 border-t border-white/8 pt-5 sm:ml-[3.75rem]">
+                <p
+                  class="max-w-2xl font-body text-sm leading-relaxed text-text-secondary sm:text-[0.98rem]"
+                  data-i18n-de={faq.answerDe}
+                  data-i18n-en={faq.answerEn}
+                >
+                  {faq.answerDe}
+                </p>
+              </div>
+            </div>
+          </details>
+        ))}
+      </div>
     </FadeIn>
   </div>
 </section>
+
+<style>
+  .faq-card::details-content {
+    block-size: 0;
+    overflow: hidden;
+    transition: block-size 0.35s ease, content-visibility 0.35s ease;
+    transition-behavior: allow-discrete;
+  }
+
+  .faq-card[open] {
+    border-color: rgba(255, 107, 0, 0.26);
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.055), rgba(255, 255, 255, 0.03));
+    transform: translateY(-1px);
+  }
+
+  .faq-card[open]::details-content {
+    block-size: auto;
+  }
+
+  .faq-card summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .faq-card[open] .faq-plus {
+    border-color: rgba(255, 107, 0, 0.45);
+    background: rgba(255, 107, 0, 0.12);
+    color: var(--color-accent);
+    transform: rotate(45deg);
+  }
+</style>

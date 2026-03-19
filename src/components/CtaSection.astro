@@ -26,11 +26,21 @@ import bgImage from '../assets/images/sections/cta-bg.webp';
       className="font-display text-4xl md:text-6xl lg:text-7xl font-light mb-6 uppercase tracking-[0.08em]"
     />
     <FadeIn client:visible delay={0.3} direction="up">
-      <p class="font-body text-text-secondary text-lg md:text-xl max-w-2xl mx-auto mb-12 leading-relaxed"
-         data-i18n-de="Zehn handverlesene Motorräder. Vollkasko inklusive. Ab Frankfurt am Main."
-         data-i18n-en="Ten handpicked motorcycles. Full insurance included. From Frankfurt, Germany."
-      >
-        Zehn handverlesene Motorräder. Vollkasko inklusive. Ab Frankfurt am Main.
+      <p class="font-body text-text-secondary text-lg md:text-xl max-w-2xl mx-auto mb-12 leading-relaxed">
+        <span
+          class="block"
+          data-i18n-de="Zehn handverlesene Motorräder. Vollkasko inklusive."
+          data-i18n-en="Ten handpicked motorcycles. Full insurance included."
+        >
+          Zehn handverlesene Motorräder. Vollkasko inklusive.
+        </span>
+        <span
+          class="mt-1 block"
+          data-i18n-de="Ab Frankfurt am Main."
+          data-i18n-en="From Frankfurt, Germany."
+        >
+          Ab Frankfurt am Main.
+        </span>
       </p>
     </FadeIn>
     <FadeIn client:visible delay={0.5} direction="up">

@@ -23,6 +23,11 @@ function getBrandLogo(name: string) {
 
   return null;
 }
+
+function preserveBrandLogoColor(name: string) {
+  const normalized = name.toLowerCase();
+  return normalized.startsWith('bmw') || normalized.startsWith('ducati');
+}
 ---
 
 <section class="bg-[#080808] px-4 py-20 sm:px-6 md:py-24">
@@ -78,16 +83,20 @@ function getBrandLogo(name: string) {
               const threeDay = Math.round(bike.pricePerDay * 3 * 0.9);
               const sevenDay = Math.round(bike.pricePerDay * 7 * 0.8);
               const brandLogo = getBrandLogo(bike.name);
+              const preserveColor = preserveBrandLogoColor(bike.name);
               return (
                 <tr class="hover:bg-bg-surface transition-colors duration-200">
                   <td class="py-4 pr-4">
                     <a href={`/bikes/${bike.slug}`} class="flex items-center gap-3 font-body text-text-primary hover:text-accent transition-colors duration-300">
                       {brandLogo && (
-                        <span class="flex h-11 w-11 shrink-0 items-center justify-center rounded border border-border-subtle bg-bg-surface-alt">
+                        <span class="flex h-16 w-16 shrink-0 items-center justify-center rounded border border-border-subtle bg-bg-surface-alt">
                           <img
                             src={brandLogo}
                             alt=""
-                            class="h-7 w-7 object-contain brightness-0 invert opacity-80"
+                            class:list={[
+                              'h-12 w-12 object-contain opacity-85',
+                              !preserveColor && 'brightness-0 invert',
+                            ]}
                             loading="lazy"
                           />
                         </span>
@@ -133,16 +142,20 @@ function getBrandLogo(name: string) {
           const threeDay = Math.round(bike.pricePerDay * 3 * 0.9);
           const sevenDay = Math.round(bike.pricePerDay * 7 * 0.8);
           const brandLogo = getBrandLogo(bike.name);
+          const preserveColor = preserveBrandLogoColor(bike.name);
           return (
             <div class="bg-bg-surface border border-border rounded-lg p-4 sm:p-5">
               <div class="mb-3 flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
                 <a href={`/bikes/${bike.slug}`} class="flex items-start gap-3 font-body text-text-primary font-medium hover:text-accent transition-colors duration-300">
                   {brandLogo && (
-                    <span class="mt-0.5 flex h-11 w-11 shrink-0 items-center justify-center rounded border border-border-subtle bg-bg-surface-alt">
+                    <span class="mt-0.5 flex h-16 w-16 shrink-0 items-center justify-center rounded border border-border-subtle bg-bg-surface-alt">
                       <img
                         src={brandLogo}
                         alt=""
-                        class="h-7 w-7 object-contain brightness-0 invert opacity-80"
+                        class:list={[
+                          'h-12 w-12 object-contain opacity-85',
+                          !preserveColor && 'brightness-0 invert',
+                        ]}
                         loading="lazy"
                       />
                     </span>

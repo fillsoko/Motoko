@@ -39,12 +39,12 @@ const motokoBookingHref = `/anfrage?interest=bike&brand=${encodeURIComponent(bik
 ---
 
 <article class="group flex flex-col h-full bg-bg-surface border border-border rounded-lg overflow-hidden hover:border-text-muted transition-colors duration-300">
-  <a href={`/bikes/${bike.slug}`} class="block">
+  <a href={`/bikes/${bike.slug}`} class="block overflow-hidden">
     {heroImage ? (
       <Image
         src={heroImage}
         alt={bike.name}
-        class="aspect-[3/2] w-full object-cover grayscale transition duration-500 ease-out group-hover:scale-[1.02] group-hover:grayscale-0"
+        class="aspect-[3/2] w-full object-cover grayscale saturate-0 transition duration-500 ease-out group-hover:scale-[1.02] group-hover:grayscale-0 group-hover:saturate-100"
         widths={[400, 600]}
         sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
         loading="lazy"

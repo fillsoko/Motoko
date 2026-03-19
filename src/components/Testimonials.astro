@@ -1,172 +1,129 @@
 ---
 import { testimonials } from '../data/testimonials';
 import FadeIn from './motion/FadeIn';
-import StaggerContainer from './motion/StaggerContainer';
-import StaggerItem from './motion/StaggerItem';
 
 interface Props {
   hideIntro?: boolean;
 }
 
 const { hideIntro = false } = Astro.props;
-const featuredTestimonials = testimonials.slice(0, 5);
+
+function buildRow(offset: number) {
+  return testimonials.map((_, index) => testimonials[(index + offset) % testimonials.length]);
+}
+
+const rows = [buildRow(0), buildRow(3), buildRow(6), buildRow(1)];
 ---
 
-<section id="testimonials" class="bg-[#050505] px-4 py-20 sm:px-6 md:py-24">
-  <div class="max-w-6xl mx-auto">
+<section id="testimonials" class="overflow-hidden bg-[#050505] px-4 py-20 sm:px-6 md:py-24">
+  <div class="mx-auto max-w-7xl">
     {!hideIntro && (
       <FadeIn client:visible direction="up">
-        <div class="text-center mb-16">
-          <span class="text-xs font-mono uppercase tracking-widest text-accent"
+        <div class="mb-16 text-center md:mb-20">
+          <span
+            class="text-xs font-mono uppercase tracking-[0.32em] text-accent"
             data-i18n-de="Gästebuch"
             data-i18n-en="Guestbook"
-          >Gästebuch</span>
-          <h2 class="font-display text-3xl md:text-4xl font-light text-text-primary mt-2"
+          >
+            Gästebuch
+          </span>
+          <h2
+            class="mt-4 font-display text-4xl font-light tracking-[0.06em] text-text-primary sm:text-5xl md:text-6xl"
             data-i18n-de="Stimmen unserer Fahrer"
             data-i18n-en="What Our Riders Say"
           >
             Stimmen unserer Fahrer
           </h2>
-          <p class="font-body text-text-secondary text-base mt-4 max-w-xl mx-auto"
-            data-i18n-de="Echte Bewertungen von Fahrern, die über RIBE bei motoko gemietet haben."
-            data-i18n-en="Real reviews from riders who rented from motoko via RIBE."
+          <p
+            class="mx-auto mt-5 max-w-2xl font-body text-base leading-relaxed text-text-secondary sm:text-lg"
+            data-i18n-de="Echte Stimmen aus der motoko Community. Keine statische Wand, sondern ein laufender Strom aus Erfahrungen, Empfehlungen und Ride-Momenten."
+            data-i18n-en="Real voices from the motoko community. Not a static wall, but a moving stream of experiences, recommendations, and ride moments."
           >
-            Echte Bewertungen von Fahrern, die über RIBE bei motoko gemietet haben.
+            Echte Stimmen aus der motoko Community. Keine statische Wand, sondern ein laufender Strom aus Erfahrungen, Empfehlungen und Ride-Momenten.
           </p>
         </div>
       </FadeIn>
     )}
 
-    <FadeIn client:visible direction="up" delay={0.15}>
-      <section class="relative mb-20 min-h-[72vh] overflow-hidden rounded-[1.5rem] border border-border bg-[radial-gradient(circle_at_top_left,rgba(255,107,0,0.1),transparent_32%),linear-gradient(180deg,rgba(17,17,17,1),rgba(0,0,0,1))] md:mb-24 md:min-h-[82vh] md:rounded-[2rem]">
-        <div class="absolute inset-0 bg-[linear-gradient(135deg,transparent,rgba(255,255,255,0.03),transparent)] opacity-60"></div>
-        <div class="relative flex min-h-[72vh] flex-col justify-between p-5 sm:p-6 md:min-h-[82vh] md:p-10 lg:p-14">
-          <div class="flex flex-col gap-6 lg:flex-row lg:items-start lg:justify-between">
-            <div>
-              <span class="text-xs font-mono uppercase tracking-[0.3em] text-accent">Selected Voices</span>
-              <h3 class="mt-4 max-w-3xl font-display text-3xl font-light leading-tight text-text-primary sm:text-4xl md:text-6xl">
-                Zwischen Frankfurt, Feldberg und Feierabendrunde zaehlt das Gefuehl nach dem Ride.
-              </h3>
-            </div>
-            <div class="flex items-center gap-3 self-start lg:self-auto">
-              <button
-                type="button"
-                id="testimonial-prev"
-                class="flex h-11 w-11 items-center justify-center rounded-full border border-border text-text-secondary transition-colors duration-300 hover:border-accent hover:text-accent md:h-12 md:w-12"
-                aria-label="Vorheriges Testimonial"
-              >
-                <span class="text-xl leading-none">&larr;</span>
-              </button>
-              <button
-                type="button"
-                id="testimonial-next"
-                class="flex h-11 w-11 items-center justify-center rounded-full border border-border text-text-secondary transition-colors duration-300 hover:border-accent hover:text-accent md:h-12 md:w-12"
-                aria-label="Naechstes Testimonial"
-              >
-                <span class="text-xl leading-none">&rarr;</span>
-              </button>
-            </div>
-          </div>
+    <FadeIn client:visible direction="up" delay={0.12}>
+      <div class="relative overflow-hidden rounded-[2rem] border border-border bg-[radial-gradient(circle_at_top_left,rgba(255,107,0,0.12),transparent_28%),radial-gradient(circle_at_bottom_right,rgba(255,255,255,0.05),transparent_24%),linear-gradient(180deg,#111111_0%,#050505_100%)] px-3 py-4 sm:px-4 sm:py-5 md:px-6 md:py-6">
+        <div class="pointer-events-none absolute inset-y-0 left-0 z-10 w-10 bg-gradient-to-r from-[#050505] to-transparent sm:w-16 md:w-24"></div>
+        <div class="pointer-events-none absolute inset-y-0 right-0 z-10 w-10 bg-gradient-to-l from-[#050505] to-transparent sm:w-16 md:w-24"></div>
 
-          <div class="relative mt-8 grow overflow-hidden md:mt-10">
-            {featuredTestimonials.map((t, index) => (
-              <article
-                class={`testimonial-slide absolute inset-0 flex h-full flex-col justify-between gap-10 transition-all duration-500 ${index === 0 ? 'opacity-100 translate-x-0' : 'pointer-events-none translate-x-12 opacity-0'}`}
-                data-slide-index={index}
-              >
-                <div class="max-w-5xl">
-                  <p class="font-display text-[1.9rem] leading-tight text-text-primary sm:text-[2.4rem] md:text-5xl lg:text-7xl">
-                    &ldquo;{t.text}&rdquo;
-                  </p>
-                </div>
+        <div class="space-y-3 sm:space-y-4 md:space-y-5">
+          {rows.map((row, rowIndex) => (
+            <div class="testimonial-marquee-row">
+              <div class:list={[
+                'testimonial-marquee-track flex w-max gap-3 sm:gap-4 md:gap-5',
+                rowIndex % 2 === 0 ? 'testimonial-marquee-track-left' : 'testimonial-marquee-track-right',
+              ]}>
+                {[0, 1].map(() => (
+                  <div class="flex w-max gap-3 sm:gap-4 md:gap-5">
+                    {row.map((testimonial) => (
+                      <article class="testimonial-tile flex min-h-[15rem] w-[18rem] shrink-0 flex-col justify-between rounded-[1.4rem] border border-white/8 bg-white/[0.04] p-5 shadow-[0_12px_34px_rgba(0,0,0,0.18)] backdrop-blur-sm transition-colors duration-300 hover:border-accent/40 hover:bg-white/[0.06] sm:w-[21rem] sm:p-6 md:min-h-[16rem] md:w-[24rem]">
+                        <div>
+                          <div class="mb-4 flex items-center justify-between gap-4">
+                            <div class="flex items-center gap-3">
+                              <div class="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-accent/30 bg-accent/12">
+                                <span class="font-body text-sm font-medium text-accent">{testimonial.name.charAt(0)}</span>
+                              </div>
+                              <div>
+                                <p class="font-body text-sm font-medium text-text-primary sm:text-base">{testimonial.name}</p>
+                                <p class="font-mono text-[10px] uppercase tracking-[0.24em] text-text-muted">via RIBE</p>
+                              </div>
+                            </div>
+                            <div class="flex gap-0.5 text-accent">
+                              {[1, 2, 3, 4, 5].map(() => (
+                                <svg class="h-3.5 w-3.5" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
+                                  <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                                </svg>
+                              ))}
+                            </div>
+                          </div>
 
-                <div class="grid gap-6 border-t border-border/70 pt-6 md:grid-cols-[1.2fr_0.8fr] md:gap-8 md:pt-8">
-                  <div class="flex items-center gap-4">
-                    <div class="flex h-14 w-14 items-center justify-center rounded-full border border-accent/40 bg-accent/10">
-                      <span class="font-body text-lg font-medium text-accent">{t.name.charAt(0)}</span>
-                    </div>
-                    <div>
-                      <p class="font-body text-lg font-medium text-text-primary">{t.name}</p>
-                      <p class="font-mono text-xs uppercase tracking-[0.24em] text-text-muted">via RIBE</p>
-                    </div>
+                          <p
+                            class="font-body text-sm leading-relaxed text-text-secondary sm:text-[0.95rem] md:text-base"
+                            data-i18n-de={testimonial.text}
+                            data-i18n-en={testimonial.textEn || testimonial.text}
+                          >
+                            &ldquo;{testimonial.text}&rdquo;
+                          </p>
+                        </div>
+
+                        <div class="mt-6 border-t border-white/8 pt-4">
+                          <p
+                            class="font-mono text-[10px] uppercase tracking-[0.22em] text-text-muted"
+                            data-i18n-de="Verifizierte motoko Miete"
+                            data-i18n-en="Verified motoko rental"
+                          >
+                            Verifizierte motoko Miete
+                          </p>
+                        </div>
+                      </article>
+                    ))}
                   </div>
-                  <div class="flex items-end justify-between gap-6">
-                    <div class="flex gap-1">
-                      {[1, 2, 3, 4, 5].map(() => (
-                        <svg class="h-4 w-4 text-accent" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
-                          <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                        </svg>
-                      ))}
-                    </div>
-                    <p class="font-mono text-sm text-text-muted">
-                      <span id="testimonial-current">01</span> / {String(featuredTestimonials.length).padStart(2, '0')}
-                    </p>
-                  </div>
-                </div>
-              </article>
-            ))}
-          </div>
-
-          <div class="mt-8 grid gap-3 sm:grid-cols-2 lg:flex lg:flex-wrap">
-            {featuredTestimonials.map((t, index) => (
-              <button
-                type="button"
-                class={`testimonial-jump w-full rounded-2xl border px-4 py-3 text-left transition-colors duration-300 lg:w-auto lg:rounded-full lg:py-2 ${index === 0 ? 'border-accent text-text-primary' : 'border-border text-text-muted hover:border-text-muted hover:text-text-secondary'}`}
-                data-target-index={index}
-              >
-                <span class="block font-mono text-[10px] uppercase tracking-[0.24em]">Review {String(index + 1).padStart(2, '0')}</span>
-                <span class="mt-1 block font-body text-sm">{t.name}</span>
-              </button>
-            ))}
-          </div>
-        </div>
-      </section>
-    </FadeIn>
-
-    <!-- Masonry-style grid -->
-    <StaggerContainer client:visible className="columns-1 md:columns-2 lg:columns-3 gap-4 space-y-4" staggerDelay={0.08}>
-      {testimonials.map((t) => (
-        <StaggerItem client:visible>
-          <article class="break-inside-avoid bg-bg-surface border border-border rounded-lg p-6 hover:border-text-muted transition-colors duration-300">
-            <div class="flex items-center gap-3 mb-4">
-              <div class="w-9 h-9 rounded-full bg-accent-muted flex items-center justify-center shrink-0">
-                <span class="font-body text-sm font-medium text-accent">{t.name.charAt(0)}</span>
-              </div>
-              <div>
-                <span class="font-body text-sm text-text-primary font-medium block">{t.name}</span>
-                <span class="font-mono text-xs text-text-muted">via RIBE</span>
-              </div>
-              <div class="ml-auto flex gap-0.5">
-                {[1,2,3,4,5].map(() => (
-                  <svg class="w-3.5 h-3.5 text-accent" fill="currentColor" viewBox="0 0 20 20">
-                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                  </svg>
                 ))}
               </div>
             </div>
-            <p class="font-body text-sm text-text-secondary leading-relaxed"
-              data-i18n-de={t.text}
-              data-i18n-en={t.textEn || t.text}
-            >
-              &ldquo;{t.text}&rdquo;
-            </p>
-          </article>
-        </StaggerItem>
-      ))}
-    </StaggerContainer>
+          ))}
+        </div>
+      </div>
+    </FadeIn>
 
-    <FadeIn client:visible direction="up" delay={0.3}>
-      <div class="text-center mt-12">
+    <FadeIn client:visible direction="up" delay={0.22}>
+      <div class="mt-10 text-center md:mt-12">
         <a
           href="https://www.ribeme.com"
           target="_blank"
           rel="noopener noreferrer"
-          class="inline-flex items-center gap-2 text-sm font-body text-text-muted hover:text-accent transition-colors duration-300"
+          class="inline-flex items-center gap-2 text-sm font-body text-text-muted transition-colors duration-300 hover:text-accent"
           data-i18n-de="Alle Bewertungen auf RIBE lesen"
           data-i18n-en="Read all reviews on RIBE"
         >
-          <span>Alle Bewertungen auf RIBE lesen</span>
-          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <span data-i18n-de="Alle Bewertungen auf RIBE lesen" data-i18n-en="Read all reviews on RIBE">
+            Alle Bewertungen auf RIBE lesen
+          </span>
+          <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
           </svg>
         </a>
@@ -175,61 +132,84 @@ const featuredTestimonials = testimonials.slice(0, 5);
   </div>
 </section>
 
-<script>
-  const slides = Array.from(document.querySelectorAll('.testimonial-slide'));
-  const jumpButtons = Array.from(document.querySelectorAll('.testimonial-jump'));
-  const currentLabel = document.getElementById('testimonial-current');
-  const prevButton = document.getElementById('testimonial-prev');
-  const nextButton = document.getElementById('testimonial-next');
-
-  if (slides.length > 0) {
-    let activeIndex = 0;
-
-    const renderSlides = () => {
-      slides.forEach((slide, index) => {
-        const isActive = index === activeIndex;
-        slide.classList.toggle('opacity-100', isActive);
-        slide.classList.toggle('translate-x-0', isActive);
-        slide.classList.toggle('pointer-events-none', !isActive);
-        slide.classList.toggle('opacity-0', !isActive);
-        slide.classList.toggle('translate-x-12', !isActive);
-      });
-
-      jumpButtons.forEach((button, index) => {
-        const isActive = index === activeIndex;
-        button.classList.toggle('border-accent', isActive);
-        button.classList.toggle('text-text-primary', isActive);
-        button.classList.toggle('border-border', !isActive);
-        button.classList.toggle('text-text-muted', !isActive);
-      });
-
-      if (currentLabel) {
-        currentLabel.textContent = String(activeIndex + 1).padStart(2, '0');
-      }
-    };
-
-    prevButton?.addEventListener('click', () => {
-      activeIndex = (activeIndex - 1 + slides.length) % slides.length;
-      renderSlides();
-    });
-
-    nextButton?.addEventListener('click', () => {
-      activeIndex = (activeIndex + 1) % slides.length;
-      renderSlides();
-    });
-
-    jumpButtons.forEach((button, index) => {
-      button.addEventListener('click', () => {
-        activeIndex = index;
-        renderSlides();
-      });
-    });
-
-    window.setInterval(() => {
-      activeIndex = (activeIndex + 1) % slides.length;
-      renderSlides();
-    }, 7000);
-
-    renderSlides();
+<style>
+  .testimonial-marquee-row {
+    overflow: hidden;
   }
-</script>
+
+  .testimonial-marquee-track {
+    will-change: transform;
+  }
+
+  .testimonial-marquee-track-left {
+    animation: testimonial-marquee-left 58s linear infinite;
+  }
+
+  .testimonial-marquee-track-right {
+    animation: testimonial-marquee-right 62s linear infinite;
+  }
+
+  @keyframes testimonial-marquee-left {
+    from {
+      transform: translateX(0);
+    }
+
+    to {
+      transform: translateX(calc(-50% - 0.625rem));
+    }
+  }
+
+  @keyframes testimonial-marquee-right {
+    from {
+      transform: translateX(calc(-50% - 0.625rem));
+    }
+
+    to {
+      transform: translateX(0);
+    }
+  }
+
+  @media (min-width: 640px) {
+    @keyframes testimonial-marquee-left {
+      from {
+        transform: translateX(0);
+      }
+
+      to {
+        transform: translateX(calc(-50% - 0.75rem));
+      }
+    }
+
+    @keyframes testimonial-marquee-right {
+      from {
+        transform: translateX(calc(-50% - 0.75rem));
+      }
+
+      to {
+        transform: translateX(0);
+      }
+    }
+  }
+
+  @media (min-width: 768px) {
+    @keyframes testimonial-marquee-left {
+      from {
+        transform: translateX(0);
+      }
+
+      to {
+        transform: translateX(calc(-50% - 0.875rem));
+      }
+    }
+
+    @keyframes testimonial-marquee-right {
+      from {
+        transform: translateX(calc(-50% - 0.875rem));
+      }
+
+      to {
+        transform: translateX(0);
+      }
+    }
+  }
+</style>

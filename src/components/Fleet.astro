@@ -58,7 +58,7 @@ const categories = [...new Set(displayBikes.map((bike) => bike.category))].sort(
 
     {!preview && (
       <div class="mb-12 border-y border-border-subtle py-8">
-        <p class="text-center text-xs font-mono text-text-muted uppercase tracking-widest mb-6"
+        <p class="text-center text-xs font-mono text-accent uppercase tracking-widest mb-6"
            data-i18n-de="Marken in unserem Fuhrpark"
            data-i18n-en="Brands in our fleet"
         >Marken in unserem Fuhrpark</p>
@@ -71,7 +71,7 @@ const categories = [...new Set(displayBikes.map((bike) => bike.category))].sort(
         <div class="mb-10 rounded-2xl border border-border bg-bg-surface p-5 sm:p-6">
           <div class="grid gap-6 lg:grid-cols-2">
             <div>
-              <p class="mb-3 font-mono text-xs uppercase tracking-[0.22em] text-text-muted">Marke</p>
+              <p class="mb-3 font-mono text-xs uppercase tracking-[0.22em] text-accent">Marke</p>
               <div class="flex flex-wrap gap-2">
                 <button type="button" class="fleet-filter-btn is-active" data-filter-group="brand" data-filter-value="all">
                   Alle Marken
@@ -85,7 +85,7 @@ const categories = [...new Set(displayBikes.map((bike) => bike.category))].sort(
             </div>
 
             <div>
-              <p class="mb-3 font-mono text-xs uppercase tracking-[0.22em] text-text-muted">Bike Type</p>
+              <p class="mb-3 font-mono text-xs uppercase tracking-[0.22em] text-accent">Bike Type</p>
               <div class="flex flex-wrap gap-2">
                 <button type="button" class="fleet-filter-btn is-active" data-filter-group="category" data-filter-value="all">
                   Alle Typen
@@ -110,7 +110,7 @@ const categories = [...new Set(displayBikes.map((bike) => bike.category))].sort(
             data-brand={getBrandName(bike.name)}
             data-category={bike.category}
           >
-            <BikeCard bike={bike} showRibeButton={!preview} showMotokoButton={true} />
+            <BikeCard bike={bike} showRibeButton={!preview} showMotokoButton={!preview} />
           </div>
         ))}
       </div>
