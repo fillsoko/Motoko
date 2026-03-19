@@ -147,7 +147,7 @@ const footerGroups = [
         ))}
       </div>
 
-      <div class="footer-bike-divider pointer-events-none absolute inset-x-0 bottom-0 h-0" aria-hidden="true">
+      <div class="footer-bike-divider pointer-events-none absolute inset-x-0 bottom-0 h-14" aria-hidden="true">
         <div class="footer-bike-runner">
           <div class="footer-bike">
             <div class="footer-bike__wheel footer-bike__wheel--rear"></div>
@@ -191,11 +191,12 @@ const footerGroups = [
 <style>
   .footer-bike-divider {
     overflow: hidden;
+    z-index: 2;
   }
 
   .footer-bike-runner {
     position: absolute;
-    bottom: -0.6875rem;
+    bottom: 0.15rem;
     left: 0;
     width: 7rem;
     height: 2.5rem;
