@@ -9,6 +9,9 @@ export default defineConfig({
   output: 'static',
   adapter: vercel(),
   integrations: [react()],
+  image: {
+    quality: 90,
+  },
   vite: {
     plugins: [tailwindcss()],
   },
