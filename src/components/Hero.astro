@@ -13,25 +13,26 @@ import heroRocket from '../../Graphics/Website/Hero_Triumph Rocket 3R.png';
 import heroSpeedTriple from '../../Graphics/Website/Hero_Triumph Speed Triple.png';
 
 const heroImages = [
-  heroBuell,
-  heroBmw,
-  heroDucati,
-  heroHonda,
-  heroHusqvarna,
-  heroKawasaki,
-  heroRocket,
-  heroSpeedTriple,
+  { src: heroBuell, focus: '35% 50%' },
+  { src: heroBmw, focus: '60% 50%' },
+  { src: heroDucati, focus: '45% 50%' },
+  { src: heroHonda, focus: '30% 50%' },
+  { src: heroHusqvarna, focus: '45% 50%' },
+  { src: heroKawasaki, focus: '30% 50%' },
+  { src: heroRocket, focus: '40% 50%' },
+  { src: heroSpeedTriple, focus: '45% 50%' },
 ];
 ---
 
 <section id="hero" class="relative min-h-screen flex items-end overflow-hidden">
   <div class="absolute inset-0" aria-hidden="true">
-    {heroImages.map((image, index) => (
+    {heroImages.map((item, index) => (
       <div class:list={['hero-rotator-slide absolute inset-0', index === 0 && 'is-active']} data-hero-slide>
         <Image
-          src={image}
+          src={item.src}
           alt=""
-          class="w-full h-full object-cover"
+          class="w-full h-full object-cover md:!object-center"
+          style={`object-position: ${item.focus}`}
           widths={[900, 1400, 2000]}
           sizes="100vw"
           loading={index === 0 ? 'eager' : 'lazy'}
@@ -43,7 +44,7 @@ const heroImages = [
 
   <div class="relative z-10 w-full max-w-7xl mx-auto px-6 pb-24 md:pb-28">
     <FadeIn client:load delay={0.3} direction="up" eager>
-      <p class="font-body text-text-secondary text-base md:text-lg max-w-2xl mx-auto mb-8 leading-relaxed text-center"
+      <p class="font-body text-white text-base md:text-lg max-w-2xl mx-auto mb-8 leading-relaxed text-center"
          data-i18n-de="Motorradverleih, geführte Touren und Custom Parts — mit Sitz in Frankfurt am Main. Jede Miete beinhaltet eine tägliche Vollkaskoversicherung."
          data-i18n-en="Motorcycle rental, guided tours, and custom parts — based in Frankfurt, Germany. Every rental includes daily comprehensive insurance."
       >
