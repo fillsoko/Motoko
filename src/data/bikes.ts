@@ -8,7 +8,7 @@ export interface Bike {
   seat: string;
   year: number;
   pricePerDay: number;
-  ripeUrl: string;
+  ripeUrl?: string;
   slug: string;
   images?: string[];
   overview: string;
@@ -180,6 +180,42 @@ export const bikes: Bike[] = [
     rideNote:
       'Dieses Bike fährt man nicht wegen Zahlen allein, sondern wegen des Erlebnisses. Der Schub aus dem Stand und aus dem mittleren Bereich ist monumental, bleibt aber kontrollierbar und erstaunlich kultiviert.',
     highlights: ['2458 cc Dreizylinder mit überragendem Drehmoment', 'Showa/Brembo-Setup auf sehr hohem Niveau', 'Muscle-Roadster mit Wellenantrieb und echter Langstrecken-Souveränität'],
+  },
+  {
+    name: 'KTM 1290 Super Duke R EVO',
+    nickname: 'The Beast',
+    category: 'Naked',
+    engine: '1301 cc V-Twin',
+    power: '180 PS',
+    weight: '191 kg',
+    seat: '170 cm+',
+    year: 2023,
+    pricePerDay: 180,
+    slug: 'ktm-1290-super-duke-r-evo',
+    images: ['hero.webp', 'gallery-1.webp', 'gallery-2.webp', 'gallery-3.webp', 'gallery-4.webp', 'gallery-5.webp'],
+    overview:
+      'Die KTM 1290 Super Duke R EVO ist das kompromisslose Hyper-Naked-Bike aus Mattighofen: 1.301 Kubik V-Twin mit 180 PS, Semi-aktives WP-Fahrwerk, TFT-Display mit Schraeglagenanzeige und ein ganzes Arsenal an Fahrhilfen. Sie ist gebaut, um auf der Strasse zu dominieren.',
+    rideNote:
+      'Der V-Twin schiebt brutal aus jeder Drehzahl, das Chassis ist messerscharf und das semi-aktive Fahrwerk passt sich in Echtzeit an. Sie verlangt Respekt, belohnt aber mit einem Fahrerlebnis, das seinesgleichen sucht.',
+    highlights: ['1301 cc V-Twin mit 180 PS und 140 Nm', 'Semi-aktives WP-Fahrwerk mit automatischer Daempfungsanpassung', 'Kurven-ABS, Traktionskontrolle und Launch Control serienmässig'],
+  },
+  {
+    name: 'Moto Guzzi Le Mans 1000',
+    nickname: 'La Rossa',
+    category: 'Supersport',
+    engine: '949 cc V-Twin',
+    power: '81 PS',
+    weight: '215 kg',
+    seat: '160 cm+',
+    year: 1987,
+    pricePerDay: 130,
+    slug: 'moto-guzzi-le-mans-1000',
+    images: ['hero.webp', 'gallery-1.webp', 'gallery-2.webp'],
+    overview:
+      'Die Le Mans 1000 ist das letzte Kapitel der legendaeren Moto-Guzzi-Le-Mans-Baureihe: laengs eingebauter 949-Kubik-V-Twin, Kardanantrieb, Tonti-Rohrrahmen und eine kompromisslose Sportler-Ergonomie mit Halbschale. Sie steht fuer eine Epoche, in der italienische Sportmotorraeder noch mechanisch, eigensinnig und unverwechselbar waren.',
+    rideNote:
+      'Auf der Strasse spuert man den Kardanmoment beim Gasgeben, hoert den markanten Klang des laengs liegenden V2 und bekommt ein Fahrgefuehl, das sich grundlegend von allem Japanischen unterscheidet. Sie belohnt einen bewussten, fliessenden Fahrstil.',
+    highlights: ['949 cc luftgekuehlter V-Twin mit Kardanantrieb', 'Tonti-Doppelschleifen-Stahlrahmen mit Halbschalenverkleidung', 'Letzte Evolution der klassischen Le-Mans-Linie (1976–1993)'],
   },
   {
     name: 'Harley-Davidson Road King',

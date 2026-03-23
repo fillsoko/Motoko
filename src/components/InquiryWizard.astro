@@ -14,7 +14,7 @@ const bikesForWizard = bikes.map((bike) => ({
   name: bike.name,
   slug: bike.slug,
   category: bike.category,
-  brand: bike.name.split(' ')[0].toLowerCase() === 'harley-davidson' ? 'harley' : bike.name.split(' ')[0].toLowerCase(),
+  brand: bike.name.startsWith('Harley-Davidson') ? 'harley' : bike.name.startsWith('Moto Guzzi') ? 'moto-guzzi' : bike.name.split(' ')[0].toLowerCase(),
   pricePerDay: bike.pricePerDay,
   year: bike.year,
 }));
@@ -138,6 +138,14 @@ const bikesForWizard = bikes.map((bike) => ({
               <button data-choice="brand" data-value="honda" class="wizard-option flex items-center gap-5 rounded-2xl border border-border px-5 py-5 text-left transition-colors duration-300 hover:border-text-muted">
                 <img src="/images/logos/honda.svg" alt="Honda" class="h-16 w-16 object-contain brightness-0 invert sm:h-20 sm:w-20" />
                 <span class="font-body text-base font-medium text-text-primary">Honda</span>
+              </button>
+              <button data-choice="brand" data-value="ktm" class="wizard-option flex items-center gap-5 rounded-2xl border border-border px-5 py-5 text-left transition-colors duration-300 hover:border-text-muted">
+                <img src="/images/logos/ktm.svg" alt="KTM" class="h-16 w-16 object-contain brightness-0 invert sm:h-20 sm:w-20" />
+                <span class="font-body text-base font-medium text-text-primary">KTM</span>
+              </button>
+              <button data-choice="brand" data-value="moto-guzzi" class="wizard-option flex items-center gap-5 rounded-2xl border border-border px-5 py-5 text-left transition-colors duration-300 hover:border-text-muted">
+                <img src="/images/logos/moto-guzzi.svg" alt="Moto Guzzi" class="h-16 w-16 object-contain brightness-0 invert sm:h-20 sm:w-20" />
+                <span class="font-body text-base font-medium text-text-primary">Moto Guzzi</span>
               </button>
               <button data-choice="brand" data-value="other" class="wizard-option flex items-center gap-5 rounded-2xl border border-border px-5 py-5 text-left transition-colors duration-300 hover:border-text-muted">
                 <svg class="h-16 w-16 shrink-0 text-text-muted sm:h-20 sm:w-20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -423,6 +431,8 @@ const bikesForWizard = bikes.map((bike) => ({
         ducati: 'Ducati',
         harley: 'Harley-Davidson',
         honda: 'Honda',
+        ktm: 'KTM',
+        'moto-guzzi': 'Moto Guzzi',
         other: 'Andere',
         'no-preference': 'Keine Praeferenz',
       },
@@ -432,6 +442,8 @@ const bikesForWizard = bikes.map((bike) => ({
         ducati: 'Ducati',
         harley: 'Harley-Davidson',
         honda: 'Honda',
+        ktm: 'KTM',
+        'moto-guzzi': 'Moto Guzzi',
         other: 'Other',
         'no-preference': 'No preference',
       },

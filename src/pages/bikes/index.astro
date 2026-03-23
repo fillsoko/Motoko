@@ -141,10 +141,13 @@ const initialBike = bikeShowcase[0];
                   </a>
                   <a
                     id="bike-ripe-link"
-                    href={initialBike.ripeUrl}
+                    href={initialBike.ripeUrl || '#'}
                     target="_blank"
                     rel="noopener noreferrer"
-                    class="inline-flex items-center justify-center rounded-full border border-white/15 bg-white/5 px-7 py-4 text-sm font-body font-medium uppercase tracking-[0.24em] text-text-primary transition-all duration-300 hover:border-accent hover:text-accent"
+                    class:list={[
+                      "inline-flex items-center justify-center rounded-full border border-white/15 bg-white/5 px-7 py-4 text-sm font-body font-medium uppercase tracking-[0.24em] text-text-primary transition-all duration-300 hover:border-accent hover:text-accent",
+                      !initialBike.ripeUrl && "hidden",
+                    ]}
                     data-i18n-de="Via RIBE buchen"
                     data-i18n-en="Book via RIBE"
                   >
@@ -577,7 +580,12 @@ const initialBike = bikeShowcase[0];
     bikeSummary.textContent = bike.rideNote;
     bikeGhost.textContent = bike.ghostWord;
     bikeDirectLink.href = bike.directHref;
-    bikeRipeLink.href = bike.ripeUrl;
+    if (bike.ripeUrl) {
+      bikeRipeLink.href = bike.ripeUrl;
+      bikeRipeLink.classList.remove('hidden');
+    } else {
+      bikeRipeLink.classList.add('hidden');
+    }
 
     if (bikeImage) {
       bikeImage.src = bike.heroImage.src;

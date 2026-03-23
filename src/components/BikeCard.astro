@@ -106,7 +106,7 @@ const motokoBookingHref = `/anfrage?interest=bike&brand=${encodeURIComponent(bik
           Buchen via motoko
         </a>
       )}
-      {showRibeButton && (
+      {showRibeButton && bike.ripeUrl && (
         <a
           href={bike.ripeUrl}
           target="_blank"

@@ -7,7 +7,20 @@ interface Props {
 }
 
 const { hideIntro = false } = Astro.props;
-const sortedBikes = [...bikes].sort((a, b) => a.pricePerDay - b.pricePerDay);
+function getBrand(name: string): string {
+  const n = name.toLowerCase();
+  if (n.startsWith('harley-davidson')) return 'Harley-Davidson';
+  if (n.startsWith('moto guzzi')) return 'Moto Guzzi';
+  return name.split(' ')[0];
+}
+
+const sortedBikes = [...bikes].sort((a, b) => {
+  const brandA = getBrand(a.name);
+  const brandB = getBrand(b.name);
+  const brandCmp = brandA.localeCompare(brandB);
+  if (brandCmp !== 0) return brandCmp;
+  return a.name.localeCompare(b.name);
+});
 
 function getBrandLogo(name: string) {
   const normalized = name.toLowerCase();
@@ -19,6 +32,8 @@ function getBrandLogo(name: string) {
   if (normalized.startsWith('honda')) return '/images/logos/honda.svg';
   if (normalized.startsWith('husqvarna')) return '/images/logos/husqvarna.svg';
   if (normalized.startsWith('kawasaki')) return '/images/logos/kawasaki.svg';
+  if (normalized.startsWith('ktm')) return '/images/logos/ktm.svg';
+  if (normalized.startsWith('moto guzzi')) return '/images/logos/moto-guzzi.svg';
   if (normalized.startsWith('triumph')) return '/images/logos/triumph.svg';
 
   return null;
@@ -115,14 +130,16 @@ function preserveBrandLogoColor(name: string) {
                   <td class="py-4 px-4 font-mono text-text-secondary text-right">{sevenDay} €</td>
                   <td class="py-4 pl-4 text-right">
                     <div class="flex items-center justify-end gap-2">
+                      {bike.ripeUrl && (
+                        <a
+                          href={bike.ripeUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          class="inline-block px-3 py-2 text-xs font-body font-medium uppercase tracking-widest border border-border rounded hover:bg-accent hover:border-accent hover:text-text-primary transition-colors duration-300 whitespace-nowrap"
+                        >Via RIBE</a>
+                      )}
                       <a
-                        href={bike.ripeUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        class="inline-block px-3 py-2 text-xs font-body font-medium uppercase tracking-widest border border-border rounded hover:bg-accent hover:border-accent hover:text-text-primary transition-colors duration-300 whitespace-nowrap"
-                      >Via RIBE</a>
-                      <a
-                        href={`/anfrage?bike=${encodeURIComponent(bike.name)}&brand=${encodeURIComponent(bike.name.split(' ')[0])}&booking=motoko&interest=bike&bikeSlug=${bike.slug}`}
+                        href={`/anfrage?bike=${encodeURIComponent(bike.name)}&brand=${encodeURIComponent(getBrand(bike.name))}&booking=motoko&interest=bike&bikeSlug=${bike.slug}`}
                         class="inline-block px-3 py-2 text-xs font-body font-medium uppercase tracking-widest bg-accent text-text-primary border border-accent rounded hover:bg-accent-hover hover:border-accent-hover transition-colors duration-300 whitespace-nowrap"
                       >Direkt</a>
                     </div>
@@ -190,15 +207,17 @@ function preserveBrandLogoColor(name: string) {
                   <span class="font-mono text-text-secondary">{sevenDay} €</span>
                 </div>
               </div>
-              <div class="grid grid-cols-2 gap-2">
+              <div class={`grid gap-2 ${bike.ripeUrl ? 'grid-cols-2' : 'grid-cols-1'}`}>
+                {bike.ripeUrl && (
+                  <a
+                    href={bike.ripeUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="block text-center px-4 py-2 text-xs font-body font-medium uppercase tracking-widest border border-border rounded hover:bg-accent hover:border-accent transition-colors duration-300"
+                  >Via RIBE</a>
+                )}
                 <a
-                  href={bike.ripeUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="block text-center px-4 py-2 text-xs font-body font-medium uppercase tracking-widest border border-border rounded hover:bg-accent hover:border-accent transition-colors duration-300"
-                >Via RIBE</a>
-                <a
-                  href={`/anfrage?bike=${encodeURIComponent(bike.name)}&brand=${encodeURIComponent(bike.name.split(' ')[0])}&booking=motoko&interest=bike&bikeSlug=${bike.slug}`}
+                  href={`/anfrage?bike=${encodeURIComponent(bike.name)}&brand=${encodeURIComponent(getBrand(bike.name))}&booking=motoko&interest=bike&bikeSlug=${bike.slug}`}
                   class="block text-center px-4 py-2 text-xs font-body font-medium uppercase tracking-widest bg-accent text-text-primary border border-accent rounded hover:bg-accent-hover hover:border-accent-hover transition-colors duration-300"
                 >Direkt</a>
               </div>

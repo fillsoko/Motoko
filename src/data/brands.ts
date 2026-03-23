@@ -12,5 +12,7 @@ export const brands: Brand[] = [
   { name: 'Honda', logo: '/images/logos/honda.svg', preserveColor: false },
   { name: 'Husqvarna', logo: '/images/logos/husqvarna.svg', preserveColor: false },
   { name: 'Kawasaki', logo: '/images/logos/kawasaki.svg', preserveColor: false },
+  { name: 'KTM', logo: '/images/logos/ktm.svg', preserveColor: false },
+  { name: 'Moto Guzzi', logo: '/images/logos/moto-guzzi.svg', preserveColor: false },
   { name: 'Triumph', logo: '/images/logos/triumph.svg', preserveColor: false },
 ].sort((a, b) => a.name.localeCompare(b.name));
